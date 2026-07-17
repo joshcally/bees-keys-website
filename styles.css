@@ -1,0 +1,956 @@
+/* ============================================================
+   Bees Keys — beeskeysapp.com
+   Nunito throughout — headings separate by weight, not typeface.
+   Palette follows the App Store creatives: sky → sunrise → meadow,
+   black headlines with a forest-green accent, gold honeycomb.
+   ============================================================ */
+
+:root {
+  /* Following the App Store creatives: sky → sunrise → meadow,
+     black headlines with a forest-green accent, gold honeycomb. */
+  --sky-top:      #3f9ae6;
+  --sky:          #79c4ee;
+  --sky-light:    #b7e2f7;
+  --sky-pale:     #eaf7fe;
+  --sun:          #fbe38e;
+  --sun-warm:     #f7d067;
+  --meadow:       #7cb342;
+  --meadow-deep:  #4f8a2a;
+  --leaf:         #2f6b23;
+  --leaf-dark:    #24521a;
+
+  --honey:        #f6b93b;
+  --honey-deep:   #e58e26;
+  --honey-dark:   #b8651a;
+
+  --ink:          #232323;
+  --ink-soft:     #55565a;
+  --cream:        #fffdf7;
+  --white:        #ffffff;
+  --shadow:       rgba(31, 33, 28, 0.14);
+
+  --ui: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Display and UI are both Nunito now — headings separate by weight and
+     tracking rather than by typeface. */
+  --display: var(--ui);
+
+  /* Brand gold, straight from the app's honeycomb.colorset / paywall gradient. */
+  --comb:         #f5c842;
+  --comb-mid:     #f0b429;
+  --comb-light:   #fff299;
+  --comb-deep:    #b87b1a;
+
+  /* The Live section: the same meadow sky after dark, so the honeycomb glows. */
+  --dusk:         #1b2b52;
+  --dusk-deep:    #0d1630;
+
+  /* The app's Hexagon shape, as a clip path. */
+  --hex: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+
+  /* The app's card language (First Lesson / mission cards): warm cream panel,
+     generously rounded, amber eyebrow, gold pill button. */
+  --card:         #faf5e2;
+  --card-line:    #ece2c0;
+  --amber:        #e8a33d;
+
+  --wrap: 1120px;
+  --radius: 24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--ui);
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { margin: 0 0 0.4em; line-height: 1.15; }
+
+/* Every display heading: heavy Nunito, tightened tracking. */
+.logo-text, .hero-copy h1, .proof-num, .teachers h2, .apps h2,
+.android h2, .pro h2, .share-box h3, .legal h1, .pro-badge-word,
+.footer-brand p {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+p { margin: 0 0 1em; }
+img { max-width: 100%; display: block; }
+a { color: var(--leaf); }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  z-index: 200;
+}
+.skip-link:focus { left: 0; }
+
+:focus-visible {
+  outline: 3px solid var(--leaf);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ===================== HEADER ===================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 253, 247, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(43, 33, 24, 0.08);
+}
+
+.header-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0.7rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.logo-icon { width: 32px; height: auto; }
+
+.logo-text {
+  font-family: var(--display);
+  font-size: 1.32rem;
+  line-height: 1;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.35rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.main-nav a:hover {
+  color: var(--leaf);
+  border-bottom-color: var(--comb);
+}
+
+.nav-toggle, .nav-hamburger { display: none; }
+
+/* ===================== HERO ===================== */
+
+/* Sky fading to a sunrise, with the sun glowing just above the meadow line. */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 42% at 30% 84%, rgba(255, 255, 255, 0.85) 0%, rgba(251, 227, 142, 0.75) 26%, rgba(251, 227, 142, 0) 68%),
+    linear-gradient(180deg,
+      var(--sky-top) 0%,
+      var(--sky) 34%,
+      var(--sky-light) 56%,
+      var(--sun) 78%,
+      var(--sun-warm) 88%);
+  padding: 4.5rem 1.5rem 0;
+}
+
+/* The meadow the whole brand sits on. The hill bands are gaussian-blurred so
+   they melt into one another instead of reading as four hard stripes. It
+   overhangs left/right/bottom so the blur only softens the hill lines —
+   .hero's overflow:hidden clips the overhang. */
+.meadow {
+  position: absolute;
+  left: -30px;
+  right: -30px;
+  bottom: -30px;
+  height: 210px;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(9px);
+}
+
+.meadow svg { width: 100%; height: 100%; display: block; }
+
+.sky { position: absolute; inset: 0; pointer-events: none; }
+
+.cloud {
+  position: absolute;
+  opacity: 0.85;
+  will-change: transform;
+}
+
+/* Clouds stay up in the blue — down in the sunrise band they'd tint yellow. */
+.cloud-a { width: 170px; top: 6%;  animation: drift 58s linear infinite; }
+.cloud-b { width: 110px; top: 20%; animation: drift 44s linear infinite; animation-delay: -16s; opacity: 0.75; }
+.cloud-c { width: 210px; top: 33%; animation: drift 76s linear infinite; animation-delay: -40s; opacity: 0.5; }
+
+@keyframes drift {
+  from { transform: translateX(-30vw); }
+  to   { transform: translateX(120vw); }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding-bottom: 5.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-copy h1 {
+  font-family: var(--display);
+  font-size: clamp(2.3rem, 4.4vw, 3.35rem);
+  line-height: 1.08;
+  font-weight: 900;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.hero-copy h1 em {
+  font-style: normal;
+  color: var(--leaf);
+}
+
+.lede {
+  font-size: 1.12rem;
+  color: #3c4a44;
+  max-width: 34ch;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin: 1.75rem 0 1rem;
+}
+
+/* Gold pill, like the app's "Let's go!" button. */
+.btn-store {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  background: linear-gradient(180deg, #fde08a 0%, var(--comb) 46%, #eda92a 100%);
+  color: #2a2208;
+  padding: 0.6rem 1.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(180, 120, 20, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7),
+              0 6px 14px rgba(160, 110, 20, 0.28);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-store:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7),
+              0 10px 20px rgba(160, 110, 20, 0.34);
+}
+
+.btn-store-sub { font-size: 0.7rem; opacity: 0.72; line-height: 1.2; }
+.btn-store-main { font-size: 1.15rem; font-weight: 800; line-height: 1.2; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.85rem 1.6rem;
+  border: 1px solid rgba(31, 33, 28, 0.14);
+  border-radius: 999px;
+  box-shadow: 0 3px 8px rgba(31, 33, 28, 0.1);
+  transition: background 0.15s, transform 0.15s;
+}
+
+.btn-ghost:hover { background: var(--white); transform: translateY(-2px); }
+
+.hero-note { font-size: 0.85rem; color: var(--ink-soft); margin: 0; }
+
+/* --- the bee --- */
+
+.hero-stage { position: relative; display: grid; place-items: center; }
+
+/* The bee is three same-size layers stacked in one box — the wing art is
+   already placed inside its own viewBox, exactly as AnimatedBee stacks them.
+   Don't resize or offset the wings; they'd detach from the body. */
+
+.bee-rig {
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+  animation: hover-bee 3.4s ease-in-out infinite;
+}
+
+@keyframes hover-bee {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-14px) rotate(2deg); }
+}
+
+.bee { position: relative; }
+
+.bee-layer { width: 100%; display: block; }
+
+.bee-layer.wing {
+  position: absolute;
+  inset: 0;
+  /* AnimatedBee's pivot: UnitPoint(x: 0.516, y: 0.556) */
+  transform-origin: 51.6% 55.6%;
+  animation: flap 0.1s linear infinite alternate;
+}
+
+@keyframes flap {
+  from { transform: rotate(-15deg); }
+  to   { transform: rotate(15deg); }
+}
+
+/* The note hexagon the bee carries — white fill, black outline, like NoteHexagon.
+   Sits ahead of the bee, carried by the front legs rather than over its face. */
+.note-hex {
+  position: absolute;
+  z-index: 5;
+  width: 35%;
+  left: 8%;
+  bottom: -15%;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 3px 6px rgba(43, 33, 24, 0.25));
+}
+
+.note-hex svg { width: 100%; display: block; grid-area: 1 / 1; }
+
+.note-hex-text {
+  grid-area: 1 / 1;
+  font-family: -apple-system, BlinkMacSystemFont, var(--ui);
+  font-weight: 900;
+  font-size: 3.1rem;
+  color: #000;
+  line-height: 1;
+}
+
+/* ===================== PROOF ===================== */
+
+/* Starts on the meadow's own final green so the hills flow straight into it. */
+.proof {
+  background: linear-gradient(180deg, #7cc142 0%, var(--meadow-deep) 62%, #40701f 100%);
+  color: var(--white);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.proof-list {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.proof-list li { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.proof-num {
+  font-family: var(--display);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--comb);
+  font-weight: 900;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.12);
+}
+
+.proof-label { font-size: 0.9rem; opacity: 0.92; }
+
+
+.proof-stars { color: var(--comb); letter-spacing: 0.1em; font-size: 1.5rem; line-height: 1; }
+
+/* ===================== SHARED SECTION ===================== */
+
+.teachers, .apps, .android {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+}
+
+/* Sections that paint a full-bleed background hold their content to --wrap
+   themselves, so every row on the page lines up on the same edges. */
+.apps > *, .android > * {
+  max-width: var(--wrap);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.apps, .android { max-width: none; }
+
+.teachers h2, .apps h2, .android h2, .pro h2 {
+  font-family: var(--display);
+  font-size: clamp(1.85rem, 3.2vw, 2.4rem);
+}
+
+.apps h2, .android h2 { text-align: center; }
+
+.section-lede {
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+  max-width: 60ch;
+}
+
+.apps .section-lede, .android .section-lede {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+
+
+/* ===================== REVIEWS ===================== */
+
+/* Three hexagons on the open sky — no outer panel. */
+.reviews {
+  background: linear-gradient(180deg, #d3ebfb 0%, var(--sky-pale) 55%, var(--cream) 100%);
+  padding: 4.5rem 1.5rem 5rem;
+  text-align: center;
+}
+
+.reviews > * { max-width: var(--wrap); margin-left: auto; margin-right: auto; }
+
+/* Note: these need explicit `auto` side margins. `.reviews > *` centres the
+   children, but any rule here setting `margin: 0` has equal specificity and
+   comes later, so it silently wins and knocks the element off-centre. */
+.review-bee { margin: 0 auto 0.75rem; display: flex; justify-content: center; }
+.review-bee img { width: 46px; opacity: 0.9; }
+
+.reviews h2 {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.15em;
+}
+
+.reviews h2 em { font-style: normal; display: block; }
+
+.review-sub {
+  color: var(--leaf);
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+/* Three little hexagons, side by side. Each is a gold rim clipped to a hexagon
+   with a paler hexagon inside — the same rim/inner trick as the outer panel.
+   The generous vertical padding keeps the quotes clear of the points. */
+.review-list {
+  list-style: none;
+  margin: 0 auto 1.75rem;
+  padding: 0;
+  max-width: 960px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.review {
+  --review-hex: polygon(50% 0, 100% 13%, 100% 87%, 50% 100%, 0 87%, 0 13%);
+  clip-path: var(--review-hex);
+  background: linear-gradient(170deg, #fbe9a8 0%, var(--comb-mid) 100%);
+  padding: 3px;
+  display: flex;
+  /* clip-path drops box-shadow, so the lift has to be a filter. */
+  filter: drop-shadow(0 6px 12px rgba(31, 33, 28, 0.16));
+}
+
+.review-in {
+  clip-path: var(--review-hex);
+  background: linear-gradient(175deg, #fffef8 0%, #fdf6e0 100%);
+  padding: 2.4rem 1.4rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.review-stars {
+  color: var(--comb-mid);
+  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.review blockquote { margin: 0; }
+
+.review blockquote p {
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.87rem;
+  color: #33302a;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+.review cite {
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #8a7c52;
+}
+
+.review-foot { margin: 0 auto; }
+
+.review-foot a {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--leaf);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(47, 107, 35, 0.35);
+}
+
+.review-foot a:hover { border-bottom-color: var(--leaf); }
+
+/* ===================== PRO ===================== */
+
+.pro {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 42%, rgba(245, 168, 33, 0.16) 0%, transparent 48%),
+    linear-gradient(160deg, var(--dusk) 0%, var(--dusk-deep) 100%);
+  color: var(--cream);
+  padding: 5rem 1.5rem;
+}
+
+.pro-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.eyebrow {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--comb);
+  margin-bottom: 0.5rem;
+}
+
+.pro h2 em { font-style: normal; color: var(--comb); }
+.pro .section-lede { color: rgba(255, 253, 247, 0.75); }
+
+.pro-features {
+  list-style: none;
+  margin: 2rem 0;
+  padding: 0;
+  display: grid;
+  gap: 1.1rem;
+}
+
+/* Gold honeycomb bullets, as on the "Built for Beginners" creative. */
+.pro-features li {
+  position: relative;
+  padding-left: 2.2rem;
+  font-size: 0.95rem;
+  color: rgba(255, 253, 247, 0.72);
+}
+
+.pro-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  width: 20px;
+  height: 21px;
+  clip-path: var(--hex);
+  background: linear-gradient(180deg, var(--comb-light) 0%, var(--comb-mid) 100%);
+}
+
+.pro-features strong {
+  display: block;
+  color: var(--cream);
+  font-weight: 800;
+  font-size: 1.02rem;
+  margin-bottom: 0.1rem;
+}
+
+.pro-note {
+  font-size: 0.9rem;
+  color: rgba(255, 253, 247, 0.55);
+  border-top: 1px solid rgba(255, 253, 247, 0.15);
+  padding-top: 1rem;
+}
+
+/* On the dark Live panel the ghost button inverts: gold outline, no white fill. */
+.pro .btn-ghost {
+  background: transparent;
+  border: 2px solid var(--comb);
+  color: var(--comb);
+  box-shadow: none;
+}
+.pro .btn-ghost:hover { background: var(--comb); color: #2a2208; }
+
+.pro-visual { display: grid; place-items: center; }
+
+/* Honeycomb badge: a gold hexagon on two dimmer hexagons, echoing the
+   paywall's gold-gradient hex tiles. */
+.pro-badge-stack {
+  position: relative;
+  width: 250px;
+  height: 264px;
+  display: grid;
+  place-items: center;
+}
+
+.pro-badge-stack::before,
+.pro-badge-stack::after {
+  content: "";
+  position: absolute;
+  clip-path: var(--hex);
+  background: var(--comb);
+}
+
+.pro-badge-stack::before {
+  width: 100%; height: 100%;
+  opacity: 0.1;
+  animation: comb-pulse 3.2s ease-in-out infinite;
+}
+
+.pro-badge-stack::after {
+  width: 86%; height: 86%;
+  opacity: 0.16;
+  animation: comb-pulse 3.2s ease-in-out infinite 0.4s;
+}
+
+@keyframes comb-pulse {
+  0%, 100% { transform: scale(1);    opacity: 0.1; }
+  50%      { transform: scale(1.05); opacity: 0.2; }
+}
+
+.pro-badge {
+  position: relative;
+  z-index: 2;
+  width: 72%;
+  height: 72%;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.3rem;
+  clip-path: var(--hex);
+  background: linear-gradient(180deg, var(--comb-light) 0%, var(--comb) 100%);
+}
+
+.pro-badge-word {
+  font-family: var(--display);
+  font-size: 2.3rem;
+  line-height: 1;
+  color: #38290a;
+  letter-spacing: 0.02em;
+}
+
+.pro-badge-wave {
+  width: 46%;
+  color: #38290a;
+  opacity: 0.85;
+}
+
+.pro-badge-sub {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: rgba(56, 41, 10, 0.75);
+}
+
+/* ===================== TEACHERS ===================== */
+
+.teachers { background: var(--sky-pale); max-width: none; }
+.teachers > * { max-width: var(--wrap); margin-left: auto; margin-right: auto; }
+
+.teacher-grid {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.teacher-card {
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: 0 6px 18px rgba(31, 33, 28, 0.1);
+}
+
+.teacher-card h3 { font-size: 1.08rem; font-weight: 800; }
+.teacher-card p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
+
+.share-box {
+  margin-top: 2.5rem;
+  background: var(--card);
+  border: 2px dashed var(--comb-mid);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+}
+
+.share-box h3 { font-family: var(--display); font-size: 1.35rem; }
+.share-box p { color: var(--ink-soft); }
+
+.share-link code {
+  display: inline-block;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 1.05rem;
+  background: var(--sky-pale);
+  color: var(--ink);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+}
+
+.share-tiny { font-size: 0.88rem; margin: 1rem 0 0; opacity: 0.75; }
+
+/* ===================== APPS ===================== */
+
+.app-grid {
+  margin: 3rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.app-card {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: 0 6px 18px rgba(31, 33, 28, 0.1);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.app-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(43, 33, 24, 0.1);
+}
+
+.app-icon {
+  width: 88px;
+  height: 88px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px var(--shadow);
+}
+
+.app-card-body h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.15em; }
+
+.app-tag {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.6rem;
+}
+
+.app-card-body p { color: var(--ink-soft); font-size: 0.95rem; }
+
+.app-link { font-weight: 700; text-decoration: none; font-size: 0.95rem; }
+.app-link:hover { text-decoration: underline; }
+
+/* ===================== ANDROID ===================== */
+
+.android { text-align: center; }
+.android-cta { display: flex; justify-content: center; margin: 2rem auto 1rem; }
+.android-tiny { font-size: 0.85rem; color: var(--ink-soft); opacity: 0.8; }
+
+/* ===================== FOOTER ===================== */
+
+.site-footer {
+  background: linear-gradient(180deg, var(--leaf) 0%, var(--leaf-dark) 100%);
+  color: rgba(255, 253, 247, 0.75);
+  padding: 3rem 1.5rem 2rem;
+}
+
+.footer-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer-brand { display: flex; align-items: center; gap: 0.9rem; }
+.footer-bee { width: 42px; }
+
+.footer-brand p { margin: 0; font-family: var(--display); font-size: 1.3rem; line-height: 1.3; color: var(--cream); }
+.footer-brand span { font-weight: 400; letter-spacing: normal; font-size: 0.85rem; opacity: 0.65; }
+
+.footer-nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.footer-nav a { color: rgba(255, 253, 247, 0.75); text-decoration: none; font-size: 0.92rem; }
+.footer-nav a:hover { color: var(--comb); }
+
+/* Privacy and Terms sit together, quieter than the rest. */
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+.footer-legal a { font-size: 0.78rem; opacity: 0.6; }
+.footer-legal a:hover { opacity: 1; }
+.footer-legal span { font-size: 0.7rem; opacity: 0.35; }
+
+.legal-switch {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(43, 33, 24, 0.1);
+  font-weight: 700;
+}
+.legal-switch a { text-decoration: none; }
+.legal-switch a:hover { text-decoration: underline; }
+
+.copyright {
+  max-width: var(--wrap);
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 253, 247, 0.12);
+  font-size: 0.82rem;
+  opacity: 0.5;
+  text-align: center;
+}
+
+/* ===================== LEGAL PAGE ===================== */
+
+.legal {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 5rem;
+}
+
+.legal h1 {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 2.6rem);
+}
+
+.legal-date {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+.legal-summary {
+  background: var(--sky-pale);
+  border-left: 4px solid var(--comb);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.legal-summary p { margin: 0; }
+
+.legal h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-top: 2.5rem;
+}
+
+.legal p, .legal li { color: var(--ink-soft); }
+.legal ul { padding-left: 1.25rem; }
+.legal li { margin-bottom: 0.5rem; }
+.legal strong { color: var(--ink); }
+
+/* ===================== RESPONSIVE ===================== */
+
+@media (max-width: 880px) {
+  .hero-inner, .pro-inner { grid-template-columns: 1fr; }
+  .hero { padding-top: 3rem; }
+  .hero-copy { text-align: center; }
+  .lede { margin-left: auto; margin-right: auto; }
+  .cta-row { justify-content: center; }
+  .pro-visual { order: -1; }
+  .teacher-grid, .app-grid { grid-template-columns: 1fr; }
+  .proof-list { grid-template-columns: 1fr; gap: 1.5rem; }
+
+  /* hamburger */
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 19px;
+    cursor: pointer;
+  }
+  .nav-hamburger span {
+    display: block;
+    height: 3px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(43, 33, 24, 0.1);
+    box-shadow: 0 8px 18px var(--shadow);
+  }
+  .nav-toggle:checked ~ .main-nav { display: block; }
+  .main-nav ul { flex-direction: column; gap: 0; padding: 0.5rem 1.5rem 1rem; }
+  .main-nav a { display: block; padding: 0.75rem 0; }
+}
+
+@media (max-width: 520px) {
+  .app-card { flex-direction: column; }
+  .footer-inner { flex-direction: column; }
+}
+
+/* ===================== MOTION ===================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cloud, .bee-rig, .bee-layer.wing, .pro-badge {
+    animation: none !important;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

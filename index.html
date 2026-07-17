@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bees Keys: The first piano lesson, as a game</title>
+  <meta name="description" content="A bee flies across the screen carrying a note name. Tap the matching piano key before it escapes. Trusted by piano teachers, with 25,000+ downloads. Free on the App Store." />
+
+  <link rel="icon" href="images/favicon.png" />
+  <link rel="apple-touch-icon" href="images/favicon.png" />
+
+  <meta property="og:title" content="Bees Keys: The first piano lesson, as a game" />
+  <meta property="og:description" content="A bee carries a note name across the screen. Tap the key before it escapes. Now plays with your real piano." />
+  <meta property="og:image" content="https://beeskeysapp.com/images/appicon.png" />
+  <meta property="og:url" content="https://beeskeysapp.com/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#hero" class="logo" aria-label="Bees Keys home">
+        <img src="images/bee_icon.png" alt="" aria-hidden="true" class="logo-icon" />
+        <span class="logo-text">Bees Keys</span>
+      </a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+      <label for="nav-toggle" class="nav-hamburger" aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#pro">Bees Keys Pro</a></li>
+          <li><a href="#teachers">For teachers</a></li>
+          <li><a href="#apps">Our apps</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="hero">
+      <div class="sky" aria-hidden="true">
+        <img src="images/cloud1.svg" alt="" class="cloud cloud-a" />
+        <img src="images/cloud2.svg" alt="" class="cloud cloud-b" />
+        <img src="images/cloud1.svg" alt="" class="cloud cloud-c" />
+      </div>
+
+      <!-- Soft receding hills, as in the app's own background. -->
+      <div class="meadow" aria-hidden="true">
+        <!-- The bands sit in the top half so that everything below y≈100 is solid
+             #7cc142 — the exact green .proof opens on, so the blurred meadow runs
+             straight into the stats band with no seam. -->
+        <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+          <path d="M0,44 C260,22 460,54 720,40 C980,26 1200,50 1440,32 L1440,150 L0,150 Z"
+                fill="#d3ecb2" />
+          <path d="M0,64 C300,46 520,74 780,60 C1040,46 1240,68 1440,56 L1440,150 L0,150 Z"
+                fill="#b3de8b" />
+          <path d="M0,84 C320,72 560,94 820,82 C1080,70 1260,88 1440,78 L1440,150 L0,150 Z"
+                fill="#93cf63" />
+          <path d="M0,102 C360,94 620,110 900,100 C1140,92 1300,104 1440,98 L1440,150 L0,150 Z"
+                fill="#7cc142" />
+        </svg>
+      </div>
+
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1>The first piano lesson,<br /><em>as a game.</em></h1>
+          <p class="lede">
+            A bee flies across the screen carrying a note name. Tap the matching
+            key before it escapes. That's the whole idea, and it's how thousands
+            of kids have met the keyboard for the first time.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn-store" href="https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053">
+              <span class="btn-store-sub">Free on the</span>
+              <span class="btn-store-main">App Store</span>
+            </a>
+            <a class="btn-ghost" href="#reviews">Reviews</a>
+          </div>
+
+          <p class="hero-note">iPhone &amp; iPad · Free to play · No ads</p>
+        </div>
+
+        <div class="hero-stage" aria-hidden="true">
+          <div class="bee-rig">
+            <div class="bee">
+              <img src="images/bee-body.svg" alt="" class="bee-layer" />
+              <img src="images/back-wing.svg" alt="" class="bee-layer wing" />
+              <img src="images/front-wing.svg" alt="" class="bee-layer wing" />
+            </div>
+
+            <!-- The note rides as its own hexagon, the way the bee carries it in-game. -->
+            <div class="note-hex">
+              <svg viewBox="0 0 130 110" aria-hidden="true">
+                <polygon points="65,0 121.29,27.5 121.29,82.5 65,110 8.71,82.5 8.71,27.5"
+                         fill="#ffffff" stroke="#000000" stroke-width="9"
+                         stroke-linejoin="round" />
+              </svg>
+              <span class="note-hex-text">C</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROOF BAR ===================== -->
+    <section class="proof" aria-label="By the numbers">
+      <ul class="proof-list">
+        <li>
+          <span class="proof-num">25,000+</span>
+          <span class="proof-label">downloads since 2022</span>
+        </li>
+        <li>
+          <span class="proof-stars" aria-hidden="true">★★★★★</span>
+          <span class="proof-num">4.6</span>
+          <span class="proof-label">from 500+ ratings</span>
+        </li>
+        <li>
+          <span class="proof-num">16</span>
+          <span class="proof-label">languages supported</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===================== REVIEWS ===================== -->
+    <!-- Quotes are verbatim from the App Store creatives, attribution and all.
+         Don't paraphrase them and don't invent new ones. -->
+    <section class="reviews" id="reviews">
+      <p class="review-bee" aria-hidden="true">
+        <img src="images/bee_icon.png" alt="" />
+      </p>
+
+      <h2>Loved by <em>piano learners</em></h2>
+      <p class="review-sub">of all ages</p>
+
+      <ul class="review-list">
+        <li class="review">
+          <div class="review-in">
+            <span class="review-stars" aria-hidden="true">★★★★★</span>
+            <blockquote>
+              <p>This game is the BEST! My family loves it as much as I do. It is SO easy to play. FIVE STARS</p>
+            </blockquote>
+            <cite>Verified User</cite>
+          </div>
+        </li>
+        <li class="review">
+          <div class="review-in">
+            <span class="review-stars" aria-hidden="true">★★★★★</span>
+            <blockquote>
+              <p>Great for learning the notes on the piano.</p>
+            </blockquote>
+            <cite>Verified User</cite>
+          </div>
+        </li>
+        <li class="review">
+          <div class="review-in">
+            <span class="review-stars" aria-hidden="true">★★★★★</span>
+            <blockquote>
+              <p>Beautiful graphics, easy to use, my students love it! I can't believe it's free :)</p>
+            </blockquote>
+            <cite>Verified Teacher</cite>
+          </div>
+        </li>
+      </ul>
+
+      <p class="review-foot">
+        <a href="https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053">
+          Read them all on the App Store →
+        </a>
+      </p>
+    </section>
+
+    <!-- ===================== PRO / LIVE ====================== -->
+    <section class="pro" id="pro">
+      <div class="pro-inner">
+        <div class="pro-copy">
+          <p class="eyebrow">Coming soon · Bees Keys Pro</p>
+          <h2>Now play it on your <em>real</em> piano.</h2>
+          <p class="section-lede">
+            Bees Keys listens. Put the iPad on the music desk, and the bee's note
+            is answered on the actual instrument, not a picture of one. The
+            moment a student connects the screen to the keys under their hands is
+            the moment the lesson lands.
+          </p>
+
+          <ul class="pro-features">
+            <li>
+              <strong>Any piano</strong>
+              Acoustic, upright, or grand. It hears you through the microphone.
+            </li>
+            <li>
+              <strong>Or plug in</strong>
+              Connect a digital piano over MIDI or Bluetooth for exact, instant answers.
+            </li>
+            <li>
+              <strong>It tunes to you</strong>
+              A quick calibration snaps Bees Keys to your piano's own tuning.
+            </li>
+            <li>
+              <strong>One purchase, yours forever</strong>
+              No subscription. Everything that's free today stays free.
+            </li>
+          </ul>
+
+          <p class="pro-note">
+            Play your first Live game free. Bees Keys Pro unlocks unlimited Live play.
+          </p>
+
+          <a class="btn-ghost" href="#android">Get told when it lands</a>
+        </div>
+
+        <div class="pro-visual" aria-hidden="true">
+          <div class="pro-badge-stack">
+            <div class="pro-badge">
+              <span class="pro-badge-word">LIVE</span>
+
+              <!-- The waveform the Live tile carries (LiveGame.classicHoneycomb),
+                   redrawn here — SF Symbols can't ship off Apple platforms. -->
+              <svg class="pro-badge-wave" viewBox="0 0 84 32" aria-hidden="true">
+                <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+                  <path d="M4 16v0" />
+                  <path d="M14 10v12" />
+                  <path d="M24 4v24" />
+                  <path d="M34 11v10" />
+                  <path d="M44 2v28" />
+                  <path d="M54 8v16" />
+                  <path d="M64 5v22" />
+                  <path d="M74 12v8" />
+                  <path d="M80 15v2" />
+                </g>
+              </svg>
+
+              <span class="pro-badge-sub">Mic · MIDI · Bluetooth</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FOR TEACHERS ===================== -->
+    <section class="teachers" id="teachers">
+      <h2>Built for the studio</h2>
+      <p class="section-lede">
+        Bees Keys grew almost entirely by word of mouth: piano teachers finding
+        it, using it, and telling other teachers. If that's you: thank you. Here's
+        what's yours to use.
+      </p>
+
+      <div class="teacher-grid">
+        <div class="teacher-card">
+          <h3>Free, and staying free</h3>
+          <p>
+            No ads, no account, no login screen. Just open it and play. The game
+            your students use today stays free forever. Bees Keys Pro is an
+            optional one-time purchase that adds real-piano play; nothing is
+            taken away.
+          </p>
+        </div>
+        <div class="teacher-card">
+          <h3>Any pedagogical method</h3>
+          <p>
+            Solfège or letter names, naturals only or full chromatic, slow or
+            fast. Set it to the method you already teach rather than the other
+            way round.
+          </p>
+        </div>
+        <div class="teacher-card">
+          <h3>The first five minutes</h3>
+          <p>
+            A guided First Lesson walks a brand-new student through keyboard
+            geography: black-key groups, then C-D-E, then F-G-A-B.
+          </p>
+        </div>
+      </div>
+
+      <div class="share-box">
+        <h3>Sharing it with your studio?</h3>
+        <p>One link that explains the app and sends families to the App Store:</p>
+        <p class="share-link"><code>beeskeysapp.com</code></p>
+        <p class="share-tiny">
+          Every big day this app has ever had started with a teacher posting about
+          it. We notice, and we're grateful.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== OUR APPS ===================== -->
+    <section class="apps" id="apps">
+      <h2>From the same studio</h2>
+      <p class="section-lede">
+        Our mission is to deliver simple game apps that are universally applicable
+        to music lessons, primarily covering the first year fundamentals. These apps
+        can be used with any pedagogical method.
+      </p>
+
+      <div class="app-grid">
+        <article class="app-card">
+          <img src="images/appicon.png" alt="Bees Keys app icon" class="app-icon" />
+          <div class="app-card-body">
+            <h3>Bees Keys</h3>
+            <p class="app-tag">Name the keys</p>
+            <p>
+              The bee game. Piano key identification for first-time students,
+              built to be understood in seconds.
+            </p>
+            <a class="app-link" href="https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053">View on the App Store →</a>
+          </div>
+        </article>
+
+        <article class="app-card">
+          <img src="images/intervaljump-icon.png" alt="Interval Jump app icon" class="app-icon" />
+          <div class="app-card-body">
+            <h3>Interval Jump</h3>
+            <p class="app-tag">Read music fast</p>
+            <p>
+              A frog crosses the river by leaping between notes on the staff.
+              Turn the dial to pick the interval, and land the jump.
+            </p>
+            <a class="app-link" href="https://apps.apple.com/us/app/interval-jump-read-music-fast/id6736377103">View on the App Store →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== ANDROID ===================== -->
+    <section class="android" id="android">
+      <h2>Bees Keys is coming to Android</h2>
+      <p class="section-lede">
+        It's in the works. If you'd like a note the day it's out, or the day Pro
+        lands on iOS, just say so.
+      </p>
+      <p class="android-cta">
+        <a class="btn-store" href="mailto:beeskeysapp@gmail.com?subject=Tell%20me%20when%20Bees%20Keys%20lands&amp;body=Send%20me%20a%20note%20when%20there's%20news.%20%0A%0A(Let%20us%20know%20which%20you're%20waiting%20for%3A%20Android%2C%20Bees%20Keys%20Pro%2C%20or%20both.)">
+          <span class="btn-store-sub">Email us</span>
+          <span class="btn-store-main">Keep me posted</span>
+        </a>
+      </p>
+      <p class="android-tiny">Opens your mail app. No list, no marketing. Just a reply when there's news.</p>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="images/bee_icon.png" alt="" aria-hidden="true" class="footer-bee" />
+        <p>Bees Keys<br /><span>Music apps that teach one thing properly.</span></p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <ul>
+          <li><a href="https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053">Bees Keys on the App Store</a></li>
+          <li><a href="https://apps.apple.com/us/app/interval-jump-read-music-fast/id6736377103">Interval Jump on the App Store</a></li>
+          <li><a href="https://www.instagram.com/beeskeysapp/">Instagram: @beeskeysapp</a></li>
+          <li><a href="mailto:beeskeysapp@gmail.com">Support</a></li>
+          <li class="footer-legal">
+            <a href="privacy.html">Privacy Policy</a>
+            <span aria-hidden="true">·</span>
+            <a href="terms.html">Terms of Use</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <p class="copyright">© 2026 Bees Keys. Made for piano students and the people who teach them.</p>
+  </footer>
+
+</body>
+</html>
