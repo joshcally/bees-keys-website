@@ -6,13 +6,33 @@ straight from the default branch — the same setup as `krissy-website`.
 ## Files
 
 ```
-index.html    the whole page
-styles.css    all styles
-privacy.html  privacy policy (linked from the App Store listing)
-terms.html    terms of use
-CNAME         custom domain — beeskeysapp.com
-images/       art copied from the app asset catalogs
+index.html        the whole page
+styles.css        all styles
+privacy.html      privacy policy (linked from the App Store listing)
+terms.html        terms of use
+CNAME             custom domain, beeskeysapp.com
+images/           art copied from the app asset catalogs
+tools/og-card.html  source for the link-preview image
 ```
+
+## The link-preview image
+
+`images/og-card.png` is what shows up when the site is shared in iMessage,
+Discord, Facebook, or Slack. It is rendered from `tools/og-card.html`, not drawn
+by hand:
+
+```sh
+python3 -m http.server 8000
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --headless=new --disable-gpu --hide-scrollbars --window-size=1200,630 \
+  --virtual-time-budget=5000 --screenshot=images/og-card.png \
+  http://localhost:8000/tools/og-card.html
+```
+
+It has to stay **1200x630**. The cards are `summary_large_image`, which
+centre-crops anything squarer, and `og:image` has to be an absolute
+`https://beeskeysapp.com/...` URL or the scrapers won't fetch it. If you change
+the hero, re-render this so the two don't drift apart.
 
 ## Design language
 

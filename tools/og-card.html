@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>OG card source</title>
+<!--
+  Source for images/og-card.png (the 1200x630 link-preview image).
+  Render it with:
+
+    python3 -m http.server 8000
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1200,630 \
+      --virtual-time-budget=5000 --screenshot=images/og-card.png \
+      http://localhost:8000/tools/og-card.html
+
+  Keep the card's look in step with the hero if the hero ever changes.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    color: #232323;
+    background:
+      radial-gradient(ellipse 60% 42% at 30% 84%, rgba(255,255,255,.85) 0%, rgba(251,227,142,.75) 26%, rgba(251,227,142,0) 68%),
+      linear-gradient(180deg, #3f9ae6 0%, #79c4ee 34%, #b7e2f7 56%, #fbe38e 78%, #f7d067 88%);
+  }
+
+  .meadow {
+    position: absolute;
+    left: -30px; right: -30px; bottom: -30px;
+    height: 210px;
+    filter: blur(9px);
+  }
+  .meadow svg { width: 100%; height: 100%; display: block; }
+
+  .cloud { position: absolute; opacity: .8; }
+  /* Kept clear of the wordmark and headline on the left. */
+  .cloud-a { width: 175px; top: 5%; left: 45%; }
+  .cloud-b { width: 120px; top: 30%; left: 88%; opacity: .5; }
+
+  .inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    align-items: center;
+    gap: 24px;
+    padding: 0 64px;
+  }
+
+  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .brand img { width: 44px; }
+  .brand span { font-weight: 800; font-size: 30px; letter-spacing: -.02em; }
+
+  h1 {
+    font-size: 62px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -.025em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.35);
+  }
+  h1 em { font-style: normal; color: #2f6b23; display: block; }
+
+  .meta {
+    margin-top: 26px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 800;
+    font-size: 20px;
+    color: #33413a;
+  }
+  .stars { color: #f0b429; letter-spacing: .08em; font-size: 22px; }
+  .dot { opacity: .45; }
+
+  .pill {
+    margin-top: 26px;
+    display: inline-block;
+    background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
+    color: #2a2208;
+    font-weight: 800;
+    font-size: 21px;
+    padding: 13px 30px;
+    border-radius: 999px;
+    border: 1px solid rgba(180,120,20,.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 14px rgba(160,110,20,.28);
+  }
+
+  /* The bee, stacked and posed exactly like the hero's. */
+  .stage { display: grid; place-items: center; }
+  .bee-rig { position: relative; width: 330px; transform: rotate(-2deg); }
+  .bee { position: relative; }
+  .bee-layer { width: 100%; display: block; }
+  .wing { position: absolute; inset: 0; transform-origin: 51.6% 55.6%; transform: rotate(-13deg); }
+
+  .note-hex {
+    position: absolute;
+    z-index: 5;
+    width: 35%;
+    left: 8%;
+    bottom: -15%;
+    display: grid;
+    place-items: center;
+    filter: drop-shadow(0 3px 6px rgba(43,33,24,.25));
+  }
+  .note-hex svg { width: 100%; display: block; grid-area: 1/1; }
+  .note-hex span {
+    grid-area: 1/1;
+    font-family: -apple-system, 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 58px;
+    line-height: 1;
+    color: #000;
+  }
+</style>
+</head>
+<body>
+
+  <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
+  <img src="../images/cloud2.svg" alt="" class="cloud cloud-b" />
+
+  <div class="meadow">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,44 C260,22 460,54 720,40 C980,26 1200,50 1440,32 L1440,150 L0,150 Z" fill="#d3ecb2" />
+      <path d="M0,64 C300,46 520,74 780,60 C1040,46 1240,68 1440,56 L1440,150 L0,150 Z" fill="#b3de8b" />
+      <path d="M0,84 C320,72 560,94 820,82 C1080,70 1260,88 1440,78 L1440,150 L0,150 Z" fill="#93cf63" />
+      <path d="M0,102 C360,94 620,110 900,100 C1140,92 1300,104 1440,98 L1440,150 L0,150 Z" fill="#7cc142" />
+    </svg>
+  </div>
+
+  <div class="inner">
+    <div>
+      <div class="brand">
+        <img src="../images/bee_icon.png" alt="" />
+        <span>Bees Keys</span>
+      </div>
+
+      <h1>The first piano lesson,<em>as a game.</em></h1>
+
+      <div class="meta">
+        <span class="stars">★★★★★</span>
+        <span>4.6</span>
+        <span class="dot">·</span>
+        <span>25,000+ downloads</span>
+      </div>
+
+      <div class="pill">Free on the App Store</div>
+    </div>
+
+    <div class="stage">
+      <div class="bee-rig">
+        <div class="bee">
+          <img src="../images/bee-body.svg" alt="" class="bee-layer" />
+          <img src="../images/back-wing.svg" alt="" class="bee-layer wing" />
+          <img src="../images/front-wing.svg" alt="" class="bee-layer wing" />
+        </div>
+        <div class="note-hex">
+          <svg viewBox="0 0 130 110">
+            <polygon points="65,0 121.29,27.5 121.29,82.5 65,110 8.71,82.5 8.71,27.5"
+                     fill="#ffffff" stroke="#000000" stroke-width="9" stroke-linejoin="round" />
+          </svg>
+          <span>C</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
