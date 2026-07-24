@@ -572,7 +572,10 @@ a { color: var(--leaf); }
 .pro h2 em { font-style: normal; color: var(--comb); }
 .pro .section-lede { color: rgba(255, 253, 247, 0.75); }
 
-.pro-features {
+/* Gold honeycomb bullets, as on the "Built for Beginners" creative. The layout
+   and the bullet itself are shared with the teachers list; only the colours
+   differ, so those stay on the .pro-features rules below. */
+.pro-features, .teacher-features {
   list-style: none;
   margin: 2rem 0;
   padding: 0;
@@ -580,15 +583,13 @@ a { color: var(--leaf); }
   gap: 1.1rem;
 }
 
-/* Gold honeycomb bullets, as on the "Built for Beginners" creative. */
-.pro-features li {
+.pro-features li, .teacher-features li {
   position: relative;
   padding-left: 2.2rem;
   font-size: 0.95rem;
-  color: rgba(255, 253, 247, 0.72);
 }
 
-.pro-features li::before {
+.pro-features li::before, .teacher-features li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -599,13 +600,15 @@ a { color: var(--leaf); }
   background: linear-gradient(180deg, var(--comb-light) 0%, var(--comb-mid) 100%);
 }
 
-.pro-features strong {
+.pro-features strong, .teacher-features strong {
   display: block;
-  color: var(--cream);
   font-weight: 800;
   font-size: 1.02rem;
   margin-bottom: 0.1rem;
 }
+
+.pro-features li { color: rgba(255, 253, 247, 0.72); }
+.pro-features strong { color: var(--cream); }
 
 .pro-note {
   font-size: 0.9rem;
@@ -699,45 +702,51 @@ a { color: var(--leaf); }
 .teachers { background: var(--sky-pale); max-width: none; }
 .teachers > * { max-width: var(--wrap); margin-left: auto; margin-right: auto; }
 
-.teacher-grid {
-  margin-top: 2.5rem;
+/* Copy on the left, honeycomb list on the right — the same column split as the
+   Live panel, so the two rows line up on the same edges. */
+.teacher-inner {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 3.5rem;
+  align-items: center;
 }
 
-.teacher-card {
-  background: var(--card);
+/* These items run longer than the Live ones, so they need more air between. */
+.teacher-features { margin: 0; gap: 1.6rem; }
+.teacher-features li { color: var(--ink-soft); }
+.teacher-features strong { color: var(--ink); }
+
+.share-band {
+  margin-top: 3.5rem;
+  background: linear-gradient(170deg, #fdf4d9 0%, var(--card) 100%);
   border: 1px solid var(--card-line);
   border-radius: var(--radius);
-  padding: 1.75rem;
-  box-shadow: 0 6px 18px rgba(31, 33, 28, 0.1);
-}
-
-.teacher-card h3 { font-size: 1.08rem; font-weight: 800; }
-.teacher-card p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
-
-.share-box {
-  margin-top: 2.5rem;
-  background: var(--card);
-  border: 2px dashed var(--comb-mid);
-  border-radius: var(--radius);
-  padding: 2rem;
+  padding: 2.25rem 2rem;
   text-align: center;
+  box-shadow: 0 6px 18px rgba(31, 33, 28, 0.08);
 }
 
-.share-box h3 { font-family: var(--display); font-size: 1.35rem; }
-.share-box p { color: var(--ink-soft); }
+/* Images are display:block globally, so text-align can't centre the bee. */
+.share-bee { width: 40px; margin: 0 auto 0.5rem; opacity: 0.9; }
 
-.share-link code {
+.share-band h3 { font-family: var(--display); font-size: 1.35rem; }
+.share-band p { color: var(--ink-soft); }
+
+.share-link {
   display: inline-block;
+  margin-top: 0.35rem;
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
   font-size: 1.05rem;
-  background: var(--sky-pale);
   color: var(--ink);
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+  text-decoration: none;
+  background: var(--cream);
+  border: 2px solid var(--comb-mid);
+  padding: 0.6rem 1.3rem;
+  border-radius: 999px;
+  transition: background 0.15s, transform 0.15s;
 }
+
+.share-link:hover { background: var(--comb); transform: translateY(-1px); }
 
 .share-tiny { font-size: 0.88rem; margin: 1rem 0 0; opacity: 0.75; }
 
@@ -905,7 +914,8 @@ a { color: var(--leaf); }
   .lede { margin-left: auto; margin-right: auto; }
   .cta-row { justify-content: center; }
   .pro-visual { order: -1; }
-  .teacher-grid, .app-grid { grid-template-columns: 1fr; }
+  .teacher-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .app-grid { grid-template-columns: 1fr; }
   .proof-list { grid-template-columns: 1fr; gap: 1.5rem; }
 
   /* hamburger */
