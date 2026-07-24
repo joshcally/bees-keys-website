@@ -416,7 +416,7 @@ a { color: var(--leaf); }
   font-size: clamp(1.85rem, 3.2vw, 2.4rem);
 }
 
-.apps h2, .android h2 { text-align: center; }
+.teachers h2, .apps h2, .android h2 { text-align: center; }
 
 .section-lede {
   font-size: 1.08rem;
@@ -424,7 +424,7 @@ a { color: var(--leaf); }
   max-width: 60ch;
 }
 
-.apps .section-lede, .android .section-lede {
+.teachers .section-lede, .apps .section-lede, .android .section-lede {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -572,10 +572,7 @@ a { color: var(--leaf); }
 .pro h2 em { font-style: normal; color: var(--comb); }
 .pro .section-lede { color: rgba(255, 253, 247, 0.75); }
 
-/* Gold honeycomb bullets, as on the "Built for Beginners" creative. The layout
-   and the bullet itself are shared with the teachers list; only the colours
-   differ, so those stay on the .pro-features rules below. */
-.pro-features, .teacher-features {
+.pro-features {
   list-style: none;
   margin: 2rem 0;
   padding: 0;
@@ -583,13 +580,17 @@ a { color: var(--leaf); }
   gap: 1.1rem;
 }
 
-.pro-features li, .teacher-features li {
+/* Gold honeycomb bullets, as on the "Built for Beginners" creative. Kept to
+   this section — the teachers block below deliberately avoids them so the two
+   don't read as the same list twice. */
+.pro-features li {
   position: relative;
   padding-left: 2.2rem;
   font-size: 0.95rem;
+  color: rgba(255, 253, 247, 0.72);
 }
 
-.pro-features li::before, .teacher-features li::before {
+.pro-features li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -600,15 +601,13 @@ a { color: var(--leaf); }
   background: linear-gradient(180deg, var(--comb-light) 0%, var(--comb-mid) 100%);
 }
 
-.pro-features strong, .teacher-features strong {
+.pro-features strong {
   display: block;
+  color: var(--cream);
   font-weight: 800;
   font-size: 1.02rem;
   margin-bottom: 0.1rem;
 }
-
-.pro-features li { color: rgba(255, 253, 247, 0.72); }
-.pro-features strong { color: var(--cream); }
 
 .pro-note {
   font-size: 0.9rem;
@@ -702,19 +701,26 @@ a { color: var(--leaf); }
 .teachers { background: var(--sky-pale); max-width: none; }
 .teachers > * { max-width: var(--wrap); margin-left: auto; margin-right: auto; }
 
-/* Copy on the left, honeycomb list on the right — the same column split as the
-   Live panel, so the two rows line up on the same edges. */
-.teacher-inner {
+/* Three plain columns divided by hairlines — no panels, no bullets. The rules
+   do the separating that card edges used to, which keeps this section distinct
+   from the honeycomb list above and the app cards below. */
+.teacher-cols {
+  margin-top: 3rem;
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: 3.5rem;
-  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-/* These items run longer than the Live ones, so they need more air between. */
-.teacher-features { margin: 0; gap: 1.6rem; }
-.teacher-features li { color: var(--ink-soft); }
-.teacher-features strong { color: var(--ink); }
+.teacher-col { padding: 0 2rem; }
+.teacher-col:first-child { padding-left: 0; }
+.teacher-col:last-child { padding-right: 0; }
+.teacher-col + .teacher-col { border-left: 1px solid rgba(35, 35, 35, 0.13); }
+
+.teacher-col h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.3rem; }
+.teacher-col p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
+
+/* The eyebrow is a <p> too, so the rule above outranks .teacher-tag's amber
+   and has to be put back explicitly. */
+.teacher-col .teacher-tag { color: var(--amber); }
 
 .share-band {
   margin-top: 3.5rem;
@@ -786,7 +792,7 @@ a { color: var(--leaf); }
 
 .app-card-body h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.15em; }
 
-.app-tag {
+.app-tag, .teacher-tag {
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.09em;
@@ -914,8 +920,17 @@ a { color: var(--leaf); }
   .lede { margin-left: auto; margin-right: auto; }
   .cta-row { justify-content: center; }
   .pro-visual { order: -1; }
-  .teacher-inner { grid-template-columns: 1fr; gap: 2rem; }
   .app-grid { grid-template-columns: 1fr; }
+
+  /* Stacked, the dividing rules turn from vertical to horizontal. */
+  .teacher-cols { grid-template-columns: 1fr; }
+  .teacher-col { padding: 0; }
+  .teacher-col + .teacher-col {
+    border-left: 0;
+    border-top: 1px solid rgba(35, 35, 35, 0.13);
+    margin-top: 1.75rem;
+    padding-top: 1.75rem;
+  }
   .proof-list { grid-template-columns: 1fr; gap: 1.5rem; }
 
   /* hamburger */
