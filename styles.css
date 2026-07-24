@@ -938,6 +938,25 @@ a { color: var(--leaf); }
   .main-nav a { display: block; padding: 0.75rem 0; }
 }
 
+/* Narrow screens can't fit three hexagons side by side, so they stack. Each one
+   turns short and wide, which means the points have to take a bigger share of
+   the height to still read as a hexagon rather than a nicked rectangle. */
+@media (max-width: 720px) {
+  .review-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 26rem;
+  }
+
+  .review { --review-hex: polygon(50% 0, 100% 24%, 100% 76%, 50% 100%, 0 76%, 0 24%); }
+
+  .review-in { padding: 1.9rem 2.25rem; }
+
+  .review blockquote p { font-size: 0.98rem; }
+
+  .review cite { font-size: 0.78rem; }
+}
+
 @media (max-width: 520px) {
   .app-card { flex-direction: column; }
   .footer-inner { flex-direction: column; }
