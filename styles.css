@@ -938,9 +938,10 @@ a { color: var(--leaf); }
   .main-nav a { display: block; padding: 0.75rem 0; }
 }
 
-/* Narrow screens can't fit three hexagons side by side, so they stack. Each one
-   turns short and wide, which means the points have to take a bigger share of
-   the height to still read as a hexagon rather than a nicked rectangle. */
+/* Narrow screens can't fit three hexagons side by side, so they stack. A wide,
+   squat hexagon reads as a dented rectangle, so they drop the clip-path here
+   and become plain rounded cards — the gold rim and pale fill carry the look.
+   With no clip-path the lift can go back to a real box-shadow. */
 @media (max-width: 720px) {
   .review-list {
     grid-template-columns: 1fr;
@@ -948,9 +949,19 @@ a { color: var(--leaf); }
     max-width: 26rem;
   }
 
-  .review { --review-hex: polygon(50% 0, 100% 24%, 100% 76%, 50% 100%, 0 76%, 0 24%); }
+  .review {
+    clip-path: none;
+    border-radius: 16px;
+    filter: none;
+    box-shadow: 0 4px 12px rgba(31, 33, 28, 0.14);
+  }
 
-  .review-in { padding: 1.9rem 2.25rem; }
+  .review-in {
+    clip-path: none;
+    border-radius: 13px;
+    padding: 1.35rem 1.5rem;
+    gap: 0.5rem;
+  }
 
   .review blockquote p { font-size: 0.98rem; }
 
