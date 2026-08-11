@@ -75,8 +75,9 @@ h1, h2, h3 { margin: 0 0 0.4em; line-height: 1.15; }
 
 /* Every display heading: heavy Nunito, tightened tracking. */
 .logo-text, .hero-copy h1, .proof-num, .teachers h2, .apps h2,
-.android h2, .pro h2, .share-box h3, .legal h1, .pro-badge-word, .freebies > h2,
-.footer-brand p, .res-head h1, .res-card h2, .post h1, .post h2 {
+.android h2, .pro h2, .share-box h3, .legal h1, .pro-badge-word,
+.footer-brand p, .res-head h1, .res-card h2, .post h1, .post h2,
+.freebies h3, .res-card h4 {
   font-weight: 800;
   letter-spacing: -0.02em;
 }
@@ -395,7 +396,7 @@ a { color: var(--leaf); }
 
 /* ===================== SHARED SECTION ===================== */
 
-.teachers, .apps, .android, .freebies {
+.teachers, .apps, .android {
   max-width: var(--wrap);
   margin: 0 auto;
   padding: 5rem 1.5rem;
@@ -403,20 +404,20 @@ a { color: var(--leaf); }
 
 /* Sections that paint a full-bleed background hold their content to --wrap
    themselves, so every row on the page lines up on the same edges. */
-.apps > *, .android > *, .freebies > * {
+.apps > *, .android > * {
   max-width: var(--wrap);
   margin-left: auto;
   margin-right: auto;
 }
 
-.apps, .android, .freebies { max-width: none; }
+.apps, .android { max-width: none; }
 
-.teachers h2, .apps h2, .android h2, .pro h2, .freebies > h2 {
+.teachers h2, .apps h2, .android h2, .pro h2 {
   font-family: var(--display);
   font-size: clamp(1.85rem, 3.2vw, 2.4rem);
 }
 
-.teachers h2, .apps h2, .android h2, .freebies > h2 { text-align: center; }
+.teachers h2, .apps h2, .android h2 { text-align: center; }
 
 .section-lede {
   font-size: 1.08rem;
@@ -424,8 +425,7 @@ a { color: var(--leaf); }
   max-width: 60ch;
 }
 
-.teachers .section-lede, .apps .section-lede, .android .section-lede,
-.freebies .section-lede {
+.teachers .section-lede, .apps .section-lede, .android .section-lede {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -1075,7 +1075,7 @@ a { color: var(--leaf); }
    page previews. Same everywhere a preview is scaled: .post-hero, .version. */
 .res-shot img { width: 100%; height: auto; }
 
-.res-card h2 { font-size: 1.45rem; margin-bottom: 0.3rem; }
+.res-card h2, .res-card h4 { font-size: 1.45rem; margin-bottom: 0.3rem; }
 .res-card p { color: var(--ink-soft); font-size: 0.95rem; }
 
 /* Facts a teacher checks before committing to a download. */
@@ -1219,10 +1219,29 @@ a { color: var(--leaf); }
   .version-grid { grid-template-columns: 1fr; }
 }
 
-/* The homepage's own printables section. It borrows .res-card wholesale from
-   the resources index so the same printable looks the same in both places; the
-   section supplies the vertical rhythm, so the list inside drops its own. */
-.freebies .res-list { padding: 2.5rem 0 0; }
+/* The printables block, nested inside the studio section rather than standing
+   as its own — the columns argue for the app, this hands over something to use
+   tomorrow, and the share band asks for the link back. The hairline is the one
+   already dividing the studio columns, so the beats read as one section. */
+.freebies {
+  margin-top: 3.5rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(35, 35, 35, 0.13);
+}
+
+.freebies h3 {
+  text-align: center;
+  font-size: clamp(1.5rem, 2.6vw, 1.85rem);
+}
+
+.freebies-note {
+  max-width: 60ch;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.freebies .res-list { padding: 2.25rem 0 0; }
 
 /* auto side margins, not 0 — .freebies > * centres its children that way, and a
    `margin: 2rem 0 0` shorthand here would quietly override it and shove this
@@ -1246,7 +1265,7 @@ a { color: var(--leaf); }
   padding: 2rem;
 }
 
-.freebies .res-card h2 { font-size: 1.9rem; }
+.freebies .res-card h4 { font-size: 1.9rem; }
 .freebies .res-card-body > p { font-size: 1.02rem; }
 .freebies .res-meta { font-size: 0.85rem; margin-bottom: 1.1rem; }
 .freebies .res-go { font-size: 1.05rem; }
@@ -1255,5 +1274,5 @@ a { color: var(--leaf); }
    720px rule and would otherwise keep the two columns on a phone. */
 @media (max-width: 720px) {
   .freebies .res-card { grid-template-columns: 1fr; padding: 1.5rem; }
-  .freebies .res-card h2 { font-size: 1.5rem; }
+  .freebies .res-card h4 { font-size: 1.5rem; }
 }
