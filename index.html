@@ -283,22 +283,26 @@
       <h2>Built for the studio</h2>
       <p class="section-lede">
         Bees Keys grew almost entirely by word of mouth: piano teachers finding
-        it, using it, and telling other teachers. If that's you: thank you. Here's
-        what's yours to use.
+        it, using it, and telling other teachers. No ads, no account, no login
+        screen — just open it and play. Here's what's yours to use.
       </p>
 
       <!-- Plain columns split by hairlines: no boxes, and no honeycomb bullets,
            which the Live section right above this one already owns. -->
       <div class="teacher-cols">
-        <div class="teacher-col">
-          <p class="teacher-tag">Free forever</p>
-          <h3>Free, and staying free</h3>
-          <p>
-            No ads, no account, no login screen. Just open it and play. The game
-            your students use today stays free forever. Bees Keys Pro is an
-            optional one-time purchase that adds real-piano play; nothing is
-            taken away.
-          </p>
+        <!-- The printable rides in a column rather than a block of its own. The
+             full-size card still runs on resources.html; here it only needs to
+             be recognisable enough to click. -->
+        <div class="teacher-col" id="freebies">
+          <p class="teacher-tag">Free resources</p>
+          <h3>Printables for your studio</h3>
+          <a class="res-mini" href="resources/meet-the-piano-keys.html">
+            <img src="images/resources/meet-the-piano-keys-cover.jpg"
+                 alt="Cover of the Meet the Piano Keys printable: three worksheets fanned out, each with a large letter to trace, a honeycomb, and a piano keyboard."
+                 width="1056" height="816" loading="lazy" />
+            <span class="res-mini-name">Meet the Piano Keys</span>
+            <span class="res-mini-meta">7 worksheets · free PDF</span>
+          </a>
         </div>
         <div class="teacher-col">
           <p class="teacher-tag">Your method</p>
@@ -319,57 +323,9 @@
         </div>
       </div>
 
-      <!-- Free resources, inside the studio section on purpose: the columns
-           above make the case for the app, this hands over something usable in
-           tomorrow's lesson, and the share band below asks for the link back.
-           One argument in three beats, rather than two teacher sections in a
-           row. The card is the same .res-card the resources index uses. -->
-      <div class="freebies" id="freebies">
-        <h3>Free resources for your studio</h3>
-        <p class="freebies-note">
-          Worksheets made in a real studio, for real beginners. Free to
-          download, free to print, and free to use with your students — no
-          sign-up, no email, no watermark.
-        </p>
-
-        <ul class="res-list">
-          <li>
-            <article class="res-card">
-              <div class="res-shot">
-                <img src="images/resources/meet-the-piano-keys-cover.jpg"
-                     alt="Cover of the Meet the Piano Keys printable: three worksheets fanned out, each with a large letter to trace, a honeycomb, and a piano keyboard."
-                     width="1056" height="816" loading="lazy" />
-              </div>
-
-              <div class="res-card-body">
-                <p class="app-tag">Free printable</p>
-                <h4>Meet the Piano Keys</h4>
-
-                <ul class="res-meta">
-                  <li>7 worksheets</li>
-                  <li>16-page PDF</li>
-                  <li>US Letter</li>
-                </ul>
-
-                <p>
-                  Trace, write, find, and color your way through the white keys
-                  A to G. Two versions in one download: printer-friendly pages
-                  for crayons and pencils, and colorful pages to laminate and
-                  reuse with a dry-erase marker.
-                </p>
-
-                <a class="res-go" href="resources/meet-the-piano-keys.html">
-                  Get the free printable →
-                </a>
-              </div>
-            </article>
-          </li>
-        </ul>
-
-        <p class="freebies-more">
-          <a href="resources.html">See all free resources →</a>
-        </p>
-      </div>
+      <p class="teacher-more">
+        <a href="resources.html">See all free resources →</a>
+      </p>
 
       <div class="share-band">
         <img src="images/bee_icon.png" alt="" aria-hidden="true" class="share-bee" />

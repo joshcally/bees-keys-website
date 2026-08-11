@@ -76,8 +76,7 @@ h1, h2, h3 { margin: 0 0 0.4em; line-height: 1.15; }
 /* Every display heading: heavy Nunito, tightened tracking. */
 .logo-text, .hero-copy h1, .proof-num, .teachers h2, .apps h2,
 .android h2, .pro h2, .share-box h3, .legal h1, .pro-badge-word,
-.footer-brand p, .res-head h1, .res-card h2, .post h1, .post h2,
-.freebies h3, .res-card h4 {
+.footer-brand p, .res-head h1, .res-card h2, .post h1, .post h2 {
   font-weight: 800;
   letter-spacing: -0.02em;
 }
@@ -1075,7 +1074,7 @@ a { color: var(--leaf); }
    page previews. Same everywhere a preview is scaled: .post-hero, .version. */
 .res-shot img { width: 100%; height: auto; }
 
-.res-card h2, .res-card h4 { font-size: 1.45rem; margin-bottom: 0.3rem; }
+.res-card h2 { font-size: 1.45rem; margin-bottom: 0.3rem; }
 .res-card p { color: var(--ink-soft); font-size: 0.95rem; }
 
 /* Facts a teacher checks before committing to a download. */
@@ -1219,60 +1218,51 @@ a { color: var(--leaf); }
   .version-grid { grid-template-columns: 1fr; }
 }
 
-/* The printables block, nested inside the studio section rather than standing
-   as its own — the columns argue for the app, this hands over something to use
-   tomorrow, and the share band asks for the link back. The hairline is the one
-   already dividing the studio columns, so the beats read as one section. */
-.freebies {
-  margin-top: 3.5rem;
-  padding-top: 3rem;
-  border-top: 1px solid rgba(35, 35, 35, 0.13);
+/* The printable, sized to live in a studio column. It only has to be
+   recognisable enough to click; the full-size card runs on resources.html. */
+.res-mini {
+  display: block;
+  margin-top: 1rem;
+  text-decoration: none;
+  color: inherit;
 }
 
-.freebies h3 {
-  text-align: center;
-  font-size: clamp(1.5rem, 2.6vw, 1.85rem);
+.res-mini img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--card-line);
+  background: var(--white);
+  box-shadow: 0 3px 10px var(--shadow);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
-.freebies-note {
-  max-width: 60ch;
-  margin: 0 auto;
-  text-align: center;
+.res-mini:hover img {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(43, 33, 24, 0.16);
+}
+
+.res-mini-name {
+  display: block;
+  margin-top: 0.7rem;
+  font-weight: 800;
+  color: var(--leaf);
+}
+
+.res-mini:hover .res-mini-name { text-decoration: underline; }
+
+.res-mini-meta {
+  display: block;
+  font-size: 0.85rem;
   color: var(--ink-soft);
 }
 
-.freebies .res-list { padding: 2.25rem 0 0; }
-
-/* auto side margins, not 0 — .freebies > * centres its children that way, and a
-   `margin: 2rem 0 0` shorthand here would quietly override it and shove this
-   line to the left of the section. */
-.freebies-more {
-  margin: 2rem auto 0;
+/* The one line out to the full list, under the studio columns. */
+.teacher-more {
+  margin: 2.5rem auto 0;
   text-align: center;
   font-weight: 700;
 }
 
-.freebies-more a { text-decoration: none; }
-.freebies-more a:hover { text-decoration: underline; }
-
-/* On the homepage there is only ever one printable on show, so its card runs
-   larger than the same card in the resources list — the worksheet takes most
-   of the row and the type steps up with it. The list on resources.html stays
-   compact deliberately: a dozen of these at showcase size would be a scroll. */
-.freebies .res-card {
-  grid-template-columns: 56% 1fr;
-  gap: 2.25rem;
-  padding: 2rem;
-}
-
-.freebies .res-card h4 { font-size: 1.9rem; }
-.freebies .res-card-body > p { font-size: 1.02rem; }
-.freebies .res-meta { font-size: 0.85rem; margin-bottom: 1.1rem; }
-.freebies .res-go { font-size: 1.05rem; }
-
-/* Re-stated after the block above, which is more specific than the shared
-   720px rule and would otherwise keep the two columns on a phone. */
-@media (max-width: 720px) {
-  .freebies .res-card { grid-template-columns: 1fr; padding: 1.5rem; }
-  .freebies .res-card h4 { font-size: 1.5rem; }
-}
+.teacher-more a { text-decoration: none; }
+.teacher-more a:hover { text-decoration: underline; }
