@@ -72,9 +72,10 @@ It re-encodes the page artwork as high-quality JPEG, which takes the current set
 from ~10 MB to ~3 MB with no difference visible at print scale. `--lossless`
 skips that.
 
-> **Known issue:** the worksheet pages in the current set are 72 dpi — screen
-> resolution, not print resolution — so they print noticeably soft. The cover is
-> a proper 300 dpi. Re-export the worksheets at 300 dpi and re-run the script.
+> **Note:** the worksheet pages in the current set are 72 dpi and the cover is
+> 300. Checked on paper and judged fine, so it is not something to fix. If the
+> set is ever redrawn, 11x8.5in at 300 dpi is 3300x2550 px per page — set the
+> DPI when creating the canvas, since it cannot be added afterwards.
 
 ## Design language
 
