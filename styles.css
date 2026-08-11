@@ -75,8 +75,8 @@ h1, h2, h3 { margin: 0 0 0.4em; line-height: 1.15; }
 
 /* Every display heading: heavy Nunito, tightened tracking. */
 .logo-text, .hero-copy h1, .proof-num, .teachers h2, .apps h2,
-.android h2, .pro h2, .share-box h3, .legal h1, .pro-badge-word,
-.footer-brand p {
+.android h2, .pro h2, .share-box h3, .legal h1, .pro-badge-word, .freebies > h2,
+.footer-brand p, .res-head h1, .res-card h2, .post h1, .post h2 {
   font-weight: 800;
   letter-spacing: -0.02em;
 }
@@ -395,7 +395,7 @@ a { color: var(--leaf); }
 
 /* ===================== SHARED SECTION ===================== */
 
-.teachers, .apps, .android {
+.teachers, .apps, .android, .freebies {
   max-width: var(--wrap);
   margin: 0 auto;
   padding: 5rem 1.5rem;
@@ -403,20 +403,20 @@ a { color: var(--leaf); }
 
 /* Sections that paint a full-bleed background hold their content to --wrap
    themselves, so every row on the page lines up on the same edges. */
-.apps > *, .android > * {
+.apps > *, .android > *, .freebies > * {
   max-width: var(--wrap);
   margin-left: auto;
   margin-right: auto;
 }
 
-.apps, .android { max-width: none; }
+.apps, .android, .freebies { max-width: none; }
 
-.teachers h2, .apps h2, .android h2, .pro h2 {
+.teachers h2, .apps h2, .android h2, .pro h2, .freebies > h2 {
   font-family: var(--display);
   font-size: clamp(1.85rem, 3.2vw, 2.4rem);
 }
 
-.teachers h2, .apps h2, .android h2 { text-align: center; }
+.teachers h2, .apps h2, .android h2, .freebies > h2 { text-align: center; }
 
 .section-lede {
   font-size: 1.08rem;
@@ -424,7 +424,8 @@ a { color: var(--leaf); }
   max-width: 60ch;
 }
 
-.teachers .section-lede, .apps .section-lede, .android .section-lede {
+.teachers .section-lede, .apps .section-lede, .android .section-lede,
+.freebies .section-lede {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -1008,4 +1009,251 @@ a { color: var(--leaf); }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ===================== RESOURCES ===================== */
+
+/* Free printables: an index at /resources.html and one page per resource under
+   /resources/. The index lists them as wide rows — preview left, copy right,
+   the same shape as .app-card — so a single resource still looks deliberate
+   and a dozen still read as a list rather than a wall of tiles. */
+
+/* Fades out into the cream body rather than stopping on a hard line — every
+   other band on the site transitions (sky into meadow, meadow into the stats),
+   and a flat slab with a seam was the one thing that didn't. */
+.res-head {
+  background: linear-gradient(180deg, var(--sky-pale) 0%, #f2fafe 58%, var(--cream) 100%);
+  padding: 4rem 1.5rem 3.25rem;
+  text-align: center;
+}
+
+.res-head > * { max-width: 62ch; margin-left: auto; margin-right: auto; }
+.res-head h1 { font-size: clamp(2rem, 4.5vw, 2.75rem); }
+.res-head h1 em { font-style: normal; color: var(--leaf); }
+.res-head p { color: var(--ink-soft); margin-bottom: 0; }
+
+.res-list {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 0;
+  display: grid;
+  gap: 1.75rem;
+  list-style: none;
+}
+
+.res-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42% 1fr;
+  gap: 1.75rem;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 6px 18px rgba(31, 33, 28, 0.1);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.res-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(43, 33, 24, 0.1);
+}
+
+/* The printer-friendly pages are white to the very edge, so a preview needs its
+   own rim or it dissolves into the cream card behind it. */
+.res-shot {
+  border-radius: 14px;
+  border: 1px solid var(--card-line);
+  background: var(--white);
+  overflow: hidden;
+  box-shadow: 0 3px 10px var(--shadow);
+}
+
+/* height:auto is load-bearing — the <img> carries width/height attributes for
+   layout stability, and without it the height attribute wins and stretches the
+   page previews. Same everywhere a preview is scaled: .post-hero, .version. */
+.res-shot img { width: 100%; height: auto; }
+
+.res-card h2 { font-size: 1.45rem; margin-bottom: 0.3rem; }
+.res-card p { color: var(--ink-soft); font-size: 0.95rem; }
+
+/* Facts a teacher checks before committing to a download. */
+.res-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.9rem;
+}
+
+.res-meta li { list-style: none; }
+.res-meta li + li::before { content: '·'; margin-right: 0.45rem; opacity: 0.5; }
+
+.res-go { font-weight: 700; text-decoration: none; font-size: 0.95rem; }
+
+/* Stretched link — the whole card is clickable, but only one link lands in the
+   accessibility tree and the copy stays selectable. */
+.res-go::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+
+.res-card:hover .res-go { text-decoration: underline; }
+
+.res-soon {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4.5rem;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+/* ---------- a single resource page ---------- */
+
+.post {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.post h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); }
+
+.post-date {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+.post-hero {
+  border-radius: var(--radius);
+  border: 1px solid var(--card-line);
+  background: var(--white);
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(31, 33, 28, 0.12);
+  margin-bottom: 2.5rem;
+}
+
+.post-hero img { width: 100%; height: auto; }
+
+.post-body p { color: var(--ink-soft); }
+.post-body strong { color: var(--ink); }
+.post-body h2 { font-size: 1.35rem; margin-top: 2.75rem; }
+
+/* The opening line carries the whole post — give it a little more presence. */
+.post-body .post-lede { font-size: 1.1rem; color: var(--ink); }
+
+/* The download itself, treated as the destination it is. */
+.dl-band {
+  margin: 2rem 0 2.5rem;
+  background: linear-gradient(170deg, #fdf4d9 0%, var(--card) 100%);
+  border: 1px solid var(--card-line);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(31, 33, 28, 0.08);
+}
+
+.dl-band h2 { margin-top: 0; }
+.dl-cta { display: flex; justify-content: center; margin: 1.25rem 0 0.9rem; }
+
+.dl-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.dl-meta li { list-style: none; }
+.dl-meta li + li::before { content: '·'; margin-right: 0.45rem; opacity: 0.5; }
+
+/* The two printed versions, shown rather than described. */
+.version-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.version figure { margin: 0; }
+
+.version img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--card-line);
+  background: var(--white);
+  box-shadow: 0 3px 10px var(--shadow);
+}
+
+.version figcaption {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+}
+
+.version figcaption strong { display: block; color: var(--ink); }
+
+.post-foot {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(43, 33, 24, 0.1);
+}
+
+.post-back { font-weight: 700; text-decoration: none; }
+.post-back:hover { text-decoration: underline; }
+
+@media (max-width: 720px) {
+  .res-card { grid-template-columns: 1fr; }
+  .version-grid { grid-template-columns: 1fr; }
+}
+
+/* The homepage's own printables section. It borrows .res-card wholesale from
+   the resources index so the same printable looks the same in both places; the
+   section supplies the vertical rhythm, so the list inside drops its own. */
+.freebies .res-list { padding: 2.5rem 0 0; }
+
+/* auto side margins, not 0 — .freebies > * centres its children that way, and a
+   `margin: 2rem 0 0` shorthand here would quietly override it and shove this
+   line to the left of the section. */
+.freebies-more {
+  margin: 2rem auto 0;
+  text-align: center;
+  font-weight: 700;
+}
+
+.freebies-more a { text-decoration: none; }
+.freebies-more a:hover { text-decoration: underline; }
+
+/* On the homepage there is only ever one printable on show, so its card runs
+   larger than the same card in the resources list — the worksheet takes most
+   of the row and the type steps up with it. The list on resources.html stays
+   compact deliberately: a dozen of these at showcase size would be a scroll. */
+.freebies .res-card {
+  grid-template-columns: 56% 1fr;
+  gap: 2.25rem;
+  padding: 2rem;
+}
+
+.freebies .res-card h2 { font-size: 1.9rem; }
+.freebies .res-card-body > p { font-size: 1.02rem; }
+.freebies .res-meta { font-size: 0.85rem; margin-bottom: 1.1rem; }
+.freebies .res-go { font-size: 1.05rem; }
+
+/* Re-stated after the block above, which is more specific than the shared
+   720px rule and would otherwise keep the two columns on a phone. */
+@media (max-width: 720px) {
+  .freebies .res-card { grid-template-columns: 1fr; padding: 1.5rem; }
+  .freebies .res-card h2 { font-size: 1.5rem; }
 }

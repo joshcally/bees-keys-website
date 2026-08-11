@@ -10,9 +10,13 @@ index.html        the whole page
 styles.css        all styles
 privacy.html      privacy policy (linked from the App Store listing)
 terms.html        terms of use
+resources.html    index of the free printables
+resources/        one page per printable, plus resources/files/*.pdf
 CNAME             custom domain, beeskeysapp.com
 images/           art copied from the app asset catalogs
-tools/og-card.html  source for the link-preview image
+tools/og-card.html           source for the link-preview image
+tools/og-card-resource.html  same, for the printable's page
+tools/combine-printable.py   joins a printable's cover onto its worksheets
 ```
 
 ## The link-preview image
@@ -33,6 +37,44 @@ It has to stay **1200x630**. The cards are `summary_large_image`, which
 centre-crops anything squarer, and `og:image` has to be an absolute
 `https://beeskeysapp.com/...` URL or the scrapers won't fetch it. If you change
 the hero, re-render this so the two don't drift apart.
+
+## Free resources
+
+`resources.html` lists the printables; each one gets its own page under
+`resources/`, with the PDF beside it in `resources/files/`. The per-resource page
+exists so a teacher arriving from a search lands on something that can explain
+the printable and point at the app — a bare PDF is a dead end.
+
+Downloads are **ungated**: no email, no form, no third-party script. That is what
+`privacy.html` promises, so keep it that way unless the policy changes with it.
+
+### Adding a printable
+
+1. Drop the PDF in `resources/files/`, named for its URL slug.
+2. Render previews from it (cover plus a page or two) into `images/resources/`.
+3. Copy `resources/meet-the-piano-keys.html` as the starting point, and add a
+   `.res-card` to the list in `resources.html`.
+4. Render a link-preview card from a copy of `tools/og-card-resource.html`.
+
+### Combining a cover with worksheets
+
+The cover PDF carries live App Store links as annotations. Dragging pages
+together in Preview flattens them into dead pixels. Use the script instead — it
+verifies the links survived and fails if they didn't:
+
+```sh
+pip install pymupdf
+python3 tools/combine-printable.py cover.pdf worksheets.pdf \
+  resources/files/bees-keys-meet-the-piano-keys.pdf
+```
+
+It re-encodes the page artwork as high-quality JPEG, which takes the current set
+from ~10 MB to ~3 MB with no difference visible at print scale. `--lossless`
+skips that.
+
+> **Known issue:** the worksheet pages in the current set are 72 dpi — screen
+> resolution, not print resolution — so they print noticeably soft. The cover is
+> a proper 300 dpi. Re-export the worksheets at 300 dpi and re-run the script.
 
 ## Design language
 

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>OG card source — Meet the Piano Keys</title>
+<!--
+  Source for images/resources/meet-the-piano-keys-og.png, the 1200x630
+  link-preview image for the printable's page. Render it with:
+
+    python3 -m http.server 8000
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1200,630 \
+      --virtual-time-budget=5000 \
+      --screenshot=images/resources/meet-the-piano-keys-og.png \
+      http://localhost:8000/tools/og-card-resource.html
+
+  Same sky-to-meadow ground as tools/og-card.html so the two cards read as one
+  family — this one just leads with the printable instead of the bee, because
+  it gets shared into teacher groups where the worksheet is the draw.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    color: #232323;
+    background:
+      radial-gradient(ellipse 60% 42% at 30% 84%, rgba(255,255,255,.85) 0%, rgba(251,227,142,.75) 26%, rgba(251,227,142,0) 68%),
+      linear-gradient(180deg, #3f9ae6 0%, #79c4ee 34%, #b7e2f7 56%, #fbe38e 78%, #f7d067 88%);
+  }
+
+  .meadow {
+    position: absolute;
+    left: -30px; right: -30px; bottom: -30px;
+    height: 210px;
+    filter: blur(9px);
+  }
+  .meadow svg { width: 100%; height: 100%; display: block; }
+
+  .cloud { position: absolute; opacity: .75; }
+  .cloud-a { width: 150px; top: 6%; left: 40%; }
+  .cloud-b { width: 105px; top: 26%; left: 90%; opacity: .45; }
+
+  .inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr .92fr;
+    align-items: center;
+    gap: 30px;
+    padding: 0 60px;
+  }
+
+  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .brand img { width: 44px; }
+  .brand span { font-weight: 800; font-size: 27px; letter-spacing: -.02em; }
+
+  .eyebrow {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #b8651a;
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-size: 55px;
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -.025em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.4);
+  }
+
+  h1 em { font-style: normal; color: #2f6b23; }
+
+  .sub {
+    margin-top: 16px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #3c4a44;
+  }
+
+  .free {
+    display: inline-block;
+    margin-top: 22px;
+    background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
+    color: #2a2208;
+    font-weight: 800;
+    font-size: 21px;
+    padding: 11px 26px;
+    border-radius: 999px;
+    border: 1px solid rgba(180,120,20,.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 14px rgba(160,110,20,.28);
+  }
+
+  /* The worksheets themselves, fanned the way the cover fans them. */
+  .stack { position: relative; height: 430px; }
+
+  .stack img {
+    position: absolute;
+    width: 430px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,.12);
+    background: #fff;
+    box-shadow: 0 14px 34px rgba(31,33,28,.3);
+  }
+
+  .sheet-back  { top: 46px;  left: 44px; transform: rotate(-7deg); }
+  .sheet-front { top: 108px; left: 10px; transform: rotate(4deg); }
+</style>
+</head>
+<body>
+
+  <div class="meadow">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,44 C260,22 460,54 720,40 C980,26 1200,50 1440,32 L1440,150 L0,150 Z" fill="#d3ecb2" />
+      <path d="M0,64 C300,46 520,74 780,60 C1040,46 1240,68 1440,56 L1440,150 L0,150 Z" fill="#b3de8b" />
+      <path d="M0,84 C320,72 560,94 820,82 C1080,70 1260,88 1440,78 L1440,150 L0,150 Z" fill="#93cf63" />
+      <path d="M0,102 C360,94 620,110 900,100 C1140,92 1300,104 1440,98 L1440,150 L0,150 Z" fill="#7cc142" />
+    </svg>
+  </div>
+
+  <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
+  <img src="../images/cloud2.svg" alt="" class="cloud cloud-b" />
+
+  <div class="inner">
+    <div>
+      <div class="brand">
+        <img src="../images/bee_icon.png" alt="" />
+        <span>Bees Keys</span>
+      </div>
+
+      <p class="eyebrow">Free printable</p>
+      <h1>Piano key name<br /><em>worksheets</em></h1>
+      <p class="sub">Trace · Write · Find · Color</p>
+      <span class="free">7 worksheets, free</span>
+    </div>
+
+    <div class="stack">
+      <img class="sheet-back"  src="../images/resources/meet-the-piano-keys-printer.jpg" alt="" />
+      <img class="sheet-front" src="../images/resources/meet-the-piano-keys-color.jpg" alt="" />
+    </div>
+  </div>
+
+</body>
+</html>
