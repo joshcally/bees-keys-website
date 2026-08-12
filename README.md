@@ -72,10 +72,15 @@ It re-encodes the page artwork as high-quality JPEG, which takes the current set
 from ~10 MB to ~3 MB with no difference visible at print scale. `--lossless`
 skips that.
 
-> **Note:** the worksheet pages in the current set are 72 dpi and the cover is
-> 300. Checked on paper and judged fine, so it is not something to fix. If the
-> set is ever redrawn, 11x8.5in at 300 dpi is 3300x2550 px per page — set the
-> DPI when creating the canvas, since it cannot be added afterwards.
+The whole set is 300 dpi (3300x2550 px per landscape 11x8.5in page), which is
+why the download is ~12 MB. If that ever needs to come down, the lever is
+resolution rather than JPEG quality: 220 dpi lands near 8 MB and 200 dpi near
+7 MB. `rewrite_images(dpi_target=...)` will *not* do it — it does not
+re-downsample images it has already re-encoded, so the pages have to be
+re-rendered at the target dpi and re-inserted as JPEG streams.
+
+> Procreate bakes resolution in at canvas creation and cannot add it later, so
+> a redraw has to start from a canvas set to 300 dpi.
 
 ## Design language
 
