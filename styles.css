@@ -1138,7 +1138,34 @@ a { color: var(--leaf); }
   margin-bottom: 2.5rem;
 }
 
+.post-hero { display: block; position: relative; text-decoration: none; }
 .post-hero img { width: 100%; height: auto; }
+
+.post-hero:hover { box-shadow: 0 14px 30px rgba(31, 33, 28, 0.2); }
+
+/* The hint only appears on hover, and never on touch, where there is no hover
+   to reveal it and the button below is the obvious path anyway. */
+.post-hero-hint {
+  position: absolute;
+  right: 0.9rem;
+  bottom: 0.9rem;
+  background: rgba(35, 35, 35, 0.82);
+  color: var(--cream);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.post-hero:hover .post-hero-hint,
+.post-hero:focus-visible .post-hero-hint { opacity: 1; }
+
+@media (hover: none) {
+  .post-hero-hint { display: none; }
+}
 
 .post-body p { color: var(--ink-soft); }
 .post-body strong { color: var(--ink); }
@@ -1147,8 +1174,9 @@ a { color: var(--leaf); }
 /* The opening line carries the whole post — give it a little more presence. */
 .post-body .post-lede { font-size: 1.1rem; color: var(--ink); }
 
-/* The download itself, treated as the destination it is. */
-.dl-band {
+/* The download itself, treated as the destination it is. The signup box below
+   the post borrows the same cream callout so the page has one panel style. */
+.dl-band, .signup {
   margin: 2rem 0 2.5rem;
   background: linear-gradient(170deg, #fdf4d9 0%, var(--card) 100%);
   border: 1px solid var(--card-line);
@@ -1158,7 +1186,10 @@ a { color: var(--leaf); }
   box-shadow: 0 6px 18px rgba(31, 33, 28, 0.08);
 }
 
-.dl-band h2 { margin-top: 0; }
+.dl-band h2, .signup h2 { margin-top: 0; }
+.signup { margin-top: 3rem; }
+.signup h2 { font-size: 1.3rem; }
+.signup-tiny { font-size: 0.82rem; color: var(--ink-soft); opacity: 0.8; margin: 0.9rem 0 0; }
 .dl-cta { display: flex; justify-content: center; margin: 1.25rem 0 0.9rem; }
 
 .dl-meta {
