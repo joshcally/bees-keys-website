@@ -8,15 +8,28 @@ carries the annotations across untouched.
 
     pip install pymupdf
     python3 tools/combine-printable.py cover.pdf worksheets.pdf out.pdf
+    python3 tools/combine-printable.py cover.pdf worksheets.pdf out.pdf --dpi 200
 
-It verifies the link count afterwards and fails loudly if any went missing, so a
+It verifies the links afterwards and fails loudly if any went missing, so a
 silent regression can't ship.
 
-The straight join lands at ~10 MB, which is a long download for a teacher on
-school wifi. The pages are all full-bleed artwork stored lossless, so re-encoding
-them as high-quality JPEG cuts that to ~3 MB with no difference visible at print
-scale — that is the default. Pass --lossless to skip it. Anything already below
-300 dpi is left at its own resolution; this never upsamples.
+Every page is full-bleed artwork, so the file is essentially 16 photographs and
+its size is decided by resolution. Two levers, in order of effect:
+
+  --dpi N     re-render the worksheet pages at N dpi. This is the real lever.
+              The source art is 300 dpi (3300x2550 per page); 200 dpi lands near
+              7 MB against 12, and stays well above what a home printer resolves.
+              The cover pages are never re-rendered — they carry the links, and
+              rasterising them would flatten those into dead pixels.
+  --quality Q JPEG quality, default 92. Worth far less than --dpi; dropping to
+              85 saves about a tenth and starts to show on the flat colour.
+
+Note that `rewrite_images(dpi_target=...)` looks like it should do the resizing
+and does not: it will not re-downsample images it has already re-encoded, and
+reports success either way. The pages have to be re-rendered and re-inserted as
+JPEG streams, which is what --dpi does.
+
+Pass --lossless to skip all re-encoding and keep the source bytes.
 """
 
 import sys
@@ -34,19 +47,35 @@ def links_in(doc):
     ]
 
 
-def combine(cover_path, worksheets_path, out_path, lossless=False):
+def combine(cover_path, worksheets_path, out_path, lossless=False, dpi=None, quality=92):
     out = pymupdf.open()
     expected = []
 
-    for path in (cover_path, worksheets_path):
-        src = pymupdf.open(path)
-        offset = len(out)
-        # insert_pdf copies the page objects wholesale — annotations, and so the
-        # link rectangles, ride along. links=True is the default; it is spelled
-        # out here because it is the entire point of the script.
-        out.insert_pdf(src, links=True, annots=True)
-        expected += [(i + offset, uri) for i, uri in links_in(src)]
-        src.close()
+    # The cover always goes in as real page objects so its link annotations
+    # survive. It leads the document: two preview pages, then the worksheets.
+    cover = pymupdf.open(cover_path)
+    out.insert_pdf(cover, links=True, annots=True)
+    expected += links_in(cover)
+    offset = len(cover)
+    cover.close()
+
+    sheets = pymupdf.open(worksheets_path)
+    if dpi:
+        # Re-render each worksheet at the target resolution. Safe here only
+        # because the worksheets carry no links or text to lose — they are
+        # single full-page bitmaps already.
+        for page in sheets:
+            pix = page.get_pixmap(dpi=dpi)
+            new = out.new_page(width=page.rect.width, height=page.rect.height)
+            new.insert_image(
+                new.rect,
+                stream=pix.tobytes("jpeg", jpg_quality=quality),
+                keep_proportion=False,
+            )
+    else:
+        out.insert_pdf(sheets, links=True, annots=True)
+        expected += [(i + offset, uri) for i, uri in links_in(sheets)]
+    sheets.close()
 
     out.set_metadata(
         {
@@ -57,9 +86,9 @@ def combine(cover_path, worksheets_path, out_path, lossless=False):
         }
     )
     if not lossless:
-        # dpi_target only ever downsamples, so the 72 dpi worksheet scans keep
-        # every pixel they have and only the 300 dpi cover art is capped.
-        out.rewrite_images(dpi_target=300, quality=92)
+        # Squashes the cover's lossless artwork. Worksheets rendered by --dpi are
+        # already JPEG at the requested quality; this leaves their size alone.
+        out.rewrite_images(quality=quality)
 
     # garbage=4 dedupes the objects the two files share; deflate re-compresses
     # the streams.
@@ -77,14 +106,34 @@ def combine(cover_path, worksheets_path, out_path, lossless=False):
         print(f"  found:    {found}", file=sys.stderr)
         return 1
 
-    print(f"{out_path}: {pages} pages, {len(found)} links intact")
+    detail = f" at {dpi} dpi" if dpi else ""
+    print(f"{out_path}: {pages} pages{detail}, {len(found)} links intact")
     for page, uri in found:
         print(f"  p{page + 1}  {uri}")
     return 0
 
 
-if __name__ == "__main__":
-    args = [a for a in sys.argv[1:] if a != "--lossless"]
+def main(argv):
+    opts = {"lossless": False, "dpi": None, "quality": 92}
+    args = []
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a == "--lossless":
+            opts["lossless"] = True
+        elif a in ("--dpi", "--quality"):
+            if i + 1 >= len(argv):
+                sys.exit(f"{a} needs a value")
+            opts[a[2:]] = int(argv[i + 1])
+            i += 1
+        else:
+            args.append(a)
+        i += 1
+
     if len(args) != 3:
         sys.exit(__doc__)
-    sys.exit(combine(*args, lossless="--lossless" in sys.argv))
+    return combine(*args, **opts)
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

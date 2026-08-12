@@ -68,16 +68,26 @@ python3 tools/combine-printable.py cover.pdf worksheets.pdf \
   resources/files/bees-keys-meet-the-piano-keys.pdf
 ```
 
-It re-encodes the page artwork as high-quality JPEG, which takes the current set
-from ~10 MB to ~3 MB with no difference visible at print scale. `--lossless`
-skips that.
+It re-encodes the page artwork as JPEG rather than storing it lossless, which is
+worth roughly a third of the file. `--lossless` skips that.
 
-The whole set is 300 dpi (3300x2550 px per landscape 11x8.5in page), which is
-why the download is ~12 MB. If that ever needs to come down, the lever is
-resolution rather than JPEG quality: 220 dpi lands near 8 MB and 200 dpi near
-7 MB. `rewrite_images(dpi_target=...)` will *not* do it — it does not
-re-downsample images it has already re-encoded, so the pages have to be
-re-rendered at the target dpi and re-inserted as JPEG streams.
+The worksheet masters in `~/Downloads` are 300 dpi (3300x2550 px per landscape
+11x8.5in page). The **published copy is built at 200 dpi** with `--dpi 200`,
+which takes the download from ~12 MB to ~7 MB with no difference visible at
+print scale — both measure a 2px edge transition, against 6px for the old
+72 dpi set. Most of the traffic arrives from Facebook groups on phones, so the
+download size matters more than the last 100 dpi.
+
+Rebuild from the masters, never from the published copy:
+
+```sh
+python3 tools/combine-printable.py cover.pdf worksheets-300dpi.pdf \
+  resources/files/bees-keys-meet-the-piano-keys.pdf --dpi 200
+```
+
+Drop `--dpi` for the full 300 dpi build. Note that `rewrite_images(dpi_target=...)`
+looks like it should resize and does not — it will not re-downsample images it
+has already re-encoded, and reports success either way.
 
 > Procreate bakes resolution in at canvas creation and cannot add it later, so
 > a redraw has to start from a canvas set to 300 dpi.
