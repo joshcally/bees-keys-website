@@ -15,7 +15,7 @@ resources/        one page per printable, plus resources/files/*.pdf
 CNAME             custom domain, beeskeysapp.com
 images/           art copied from the app asset catalogs
 tools/og-card.html           source for the link-preview image
-tools/og-card-resource.html  same, for the printable's page
+tools/og-card-<slug>.html    same, one per printable page
 tools/combine-printable.py   joins a printable's cover onto its worksheets
 ```
 
@@ -51,10 +51,17 @@ Downloads are **ungated**: no email, no form, no third-party script. That is wha
 ### Adding a printable
 
 1. Drop the PDF in `resources/files/`, named for its URL slug.
-2. Render previews from it (cover plus a page or two) into `images/resources/`.
-3. Copy `resources/meet-the-piano-keys.html` as the starting point, and add a
-   `.res-card` to the list in `resources.html`.
-4. Render a link-preview card from a copy of `tools/og-card-resource.html`.
+2. Render previews from it (cover plus a page or two) into `images/resources/`,
+   at 1056x816 — 96 dpi of a landscape US Letter page, which is what the pages
+   size their `<img>` at.
+3. Copy `resources/groups-of-black-keys.html` as the starting point, and add a
+   `.res-card` to the list in `resources.html`. That list is ordered the way a
+   student meets the material, not by date.
+4. Render a link-preview card from a copy of an existing `tools/og-card-<slug>.html`.
+
+Leave `index.html` alone. The `#freebies` column there shows **one** printable
+as a door to `resources.html` — it is not a second copy of the list, and it
+doesn't grow as printables are added.
 
 ### Combining a cover with worksheets
 
@@ -65,15 +72,19 @@ verifies the links survived and fails if they didn't:
 ```sh
 pip install pymupdf
 python3 tools/combine-printable.py cover.pdf worksheets.pdf \
-  resources/files/bees-keys-meet-the-piano-keys.pdf
+  resources/files/bees-keys-groups-of-black-keys.pdf \
+  --title "Groups of Black Keys"
 ```
 
 It re-encodes the page artwork as JPEG rather than storing it lossless, which is
 worth roughly a third of the file. `--lossless` skips that.
 
+`--title` is required — it sets the PDF's own metadata title, which is what a
+reader's tab and print dialog show. `--subject` and `--keywords` are optional.
+
 The worksheet masters in `~/Downloads` are 300 dpi (3300x2550 px per landscape
-11x8.5in page). The **published copy is built at 200 dpi** with `--dpi 200`,
-which takes the download from ~12 MB to ~7 MB with no difference visible at
+11x8.5in page). The **published copies are built at 200 dpi** with `--dpi 200`,
+which took the 16-page set from ~12 MB to ~7 MB with no difference visible at
 print scale — both measure a 2px edge transition, against 6px for the old
 72 dpi set. Most of the traffic arrives from Facebook groups on phones, so the
 download size matters more than the last 100 dpi.
@@ -82,7 +93,8 @@ Rebuild from the masters, never from the published copy:
 
 ```sh
 python3 tools/combine-printable.py cover.pdf worksheets-300dpi.pdf \
-  resources/files/bees-keys-meet-the-piano-keys.pdf --dpi 200
+  resources/files/bees-keys-groups-of-black-keys.pdf \
+  --title "Groups of Black Keys" --dpi 200
 ```
 
 Drop `--dpi` for the full 300 dpi build. Note that `rewrite_images(dpi_target=...)`

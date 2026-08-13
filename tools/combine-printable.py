@@ -7,8 +7,8 @@ flatten those into dead pixels. Concatenating the page objects the way this does
 carries the annotations across untouched.
 
     pip install pymupdf
-    python3 tools/combine-printable.py cover.pdf worksheets.pdf out.pdf
-    python3 tools/combine-printable.py cover.pdf worksheets.pdf out.pdf --dpi 200
+    python3 tools/combine-printable.py cover.pdf worksheets.pdf out.pdf \
+      --title "Groups of Black Keys" --dpi 200
 
 It verifies the links afterwards and fails loudly if any went missing, so a
 silent regression can't ship.
@@ -30,6 +30,11 @@ reports success either way. The pages have to be re-rendered and re-inserted as
 JPEG streams, which is what --dpi does.
 
 Pass --lossless to skip all re-encoding and keep the source bytes.
+
+--title is required rather than defaulted, because the PDF's own metadata is
+what a reader's tab, print dialog, and Google's index all show. A default would
+quietly ship the previous printable's name on the next one.
+--subject and --keywords are optional and left out when not given.
 """
 
 import sys
@@ -47,7 +52,17 @@ def links_in(doc):
     ]
 
 
-def combine(cover_path, worksheets_path, out_path, lossless=False, dpi=None, quality=92):
+def combine(
+    cover_path,
+    worksheets_path,
+    out_path,
+    title,
+    subject=None,
+    keywords=None,
+    lossless=False,
+    dpi=None,
+    quality=92,
+):
     out = pymupdf.open()
     expected = []
 
@@ -77,14 +92,12 @@ def combine(cover_path, worksheets_path, out_path, lossless=False, dpi=None, qua
         expected += [(i + offset, uri) for i, uri in links_in(sheets)]
     sheets.close()
 
-    out.set_metadata(
-        {
-            "title": "Meet the Piano Keys - Bees Keys Printables",
-            "author": "Bees Keys",
-            "subject": "7 beginner piano worksheets for learning the key names A-G",
-            "keywords": "piano, worksheets, printable, note names, beginner, music teacher",
-        }
-    )
+    meta = {"title": f"{title} - Bees Keys Printables", "author": "Bees Keys"}
+    if subject:
+        meta["subject"] = subject
+    if keywords:
+        meta["keywords"] = keywords
+    out.set_metadata(meta)
     if not lossless:
         # Squashes the cover's lossless artwork. Worksheets rendered by --dpi are
         # already JPEG at the requested quality; this leaves their size alone.
@@ -115,6 +128,7 @@ def combine(cover_path, worksheets_path, out_path, lossless=False, dpi=None, qua
 
 def main(argv):
     opts = {"lossless": False, "dpi": None, "quality": 92}
+    text = {}
     args = []
     i = 0
     while i < len(argv):
@@ -126,13 +140,18 @@ def main(argv):
                 sys.exit(f"{a} needs a value")
             opts[a[2:]] = int(argv[i + 1])
             i += 1
+        elif a in ("--title", "--subject", "--keywords"):
+            if i + 1 >= len(argv):
+                sys.exit(f"{a} needs a value")
+            text[a[2:]] = argv[i + 1]
+            i += 1
         else:
             args.append(a)
         i += 1
 
-    if len(args) != 3:
+    if len(args) != 3 or "title" not in text:
         sys.exit(__doc__)
-    return combine(*args, **opts)
+    return combine(*args, **text, **opts)
 
 
 if __name__ == "__main__":
