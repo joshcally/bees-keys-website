@@ -55,8 +55,9 @@ Downloads are **ungated**: no email, no form, no third-party script. That is wha
    at 1056x816 — 96 dpi of a landscape US Letter page, which is what the pages
    size their `<img>` at.
 3. Copy `resources/groups-of-black-keys.html` as the starting point, and add a
-   `.res-card` to the list in `resources.html`. That list is ordered the way a
-   student meets the material, not by date.
+   `.res-card` to the list in `resources.html`. **New printables go at the top**
+   — most visitors arrive from a link to the latest one shared in a teacher
+   group, so the newest leads.
 4. Render a link-preview card from a copy of an existing `tools/og-card-<slug>.html`.
 
 Leave `index.html` alone. The `#freebies` column there shows **one** printable
