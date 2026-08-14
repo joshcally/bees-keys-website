@@ -4,16 +4,17 @@
 <meta charset="UTF-8" />
 <title>Instagram card source — Help the Bees Find Their Keys</title>
 <!--
-  Source for the 1080x1080 Instagram post for the printable. Render it with:
+  Source for the 1080x1350 Instagram post for the printable. Render it with:
 
     python3 -m http.server 8000
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-      --headless=new --disable-gpu --hide-scrollbars --window-size=1080,1080 \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1080,1350 \
       --virtual-time-budget=5000 \
       --screenshot=help-the-bees-find-their-keys-instagram.png \
       http://localhost:8000/tools/ig-card-help-the-bees-find-their-keys.html
 
-  Same ground and type as tools/og-card-*.html, restacked for a square: the
+  Same ground and type as tools/og-card-*.html, restacked for 4:5 — the taller
+  feed format, matching the Pro ad so the two posts sit together in a grid. The
   headline leads, the worksheets sit underneath, and the handle is legible at
   feed thumbnail size.
 -->
@@ -25,7 +26,7 @@
 
   body {
     width: 1080px;
-    height: 1080px;
+    height: 1350px;
     overflow: hidden;
     position: relative;
     font-family: 'Nunito', sans-serif;
@@ -55,7 +56,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 62px 60px 54px;
+    padding: 74px 60px 62px;
   }
 
   .brand { display: flex; align-items: center; gap: 13px; }
@@ -73,7 +74,7 @@
 
   h1 {
     margin-top: 10px;
-    font-size: 68px;
+    font-size: 74px;
     font-weight: 900;
     line-height: 1.03;
     letter-spacing: -.028em;
@@ -93,7 +94,8 @@
 
   .stack img {
     position: absolute;
-    width: 620px;
+    width: 700px;
+    top: 50%;
     left: 50%;
     border-radius: 12px;
     border: 1px solid rgba(0,0,0,.12);
@@ -101,8 +103,8 @@
     box-shadow: 0 18px 40px rgba(31,33,28,.32);
   }
 
-  .sheet-back  { top: 26px; transform: translateX(-54%) rotate(-6deg); }
-  .sheet-front { top: 92px; transform: translateX(-46%) rotate(4deg); }
+  .sheet-back  { transform: translate(-54%, -60%) rotate(-6deg); }
+  .sheet-front { transform: translate(-46%, -40%) rotate(4deg); }
 
   .foot {
     display: flex;
