@@ -75,7 +75,7 @@ h1, h2, h3 { margin: 0 0 0.4em; line-height: 1.15; }
 
 /* Every display heading: heavy Nunito, tightened tracking. */
 .logo-text, .hero-copy h1, .proof-num, .teachers h2, .apps h2,
-.android h2, .pro h2, .share-box h3, .legal h1, .pro-badge-word,
+.android h2, .pro h2, .share-box h3, .legal h1,
 .footer-brand p, .res-head h1, .res-card h2, .post h1, .post h2 {
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -627,73 +627,44 @@ a { color: var(--leaf); }
 
 .pro-visual { display: grid; place-items: center; }
 
-/* Honeycomb badge: a gold hexagon on two dimmer hexagons, echoing the
-   paywall's gold-gradient hex tiles. */
-.pro-badge-stack {
+/* The piano cutout. A soft gold glow behind it separates the black instrument
+   from the near-black end of the section's gradient — without it the lower
+   half of the photo disappears into the background. */
+/* min-width:0 because a grid item's automatic minimum is its content size —
+   without it the 460px image sets the column's floor and pushes the whole page
+   wider than a phone viewport, clipping the copy. */
+.pro-visual {
   position: relative;
-  width: 250px;
-  height: 264px;
-  display: grid;
-  place-items: center;
+  min-width: 0;
 }
 
-.pro-badge-stack::before,
-.pro-badge-stack::after {
+.pro-visual::before {
   content: "";
   position: absolute;
-  clip-path: var(--hex);
-  background: var(--comb);
+  width: 82%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(246, 185, 59, 0.20) 0%, rgba(246, 185, 59, 0) 68%);
 }
 
-.pro-badge-stack::before {
-  width: 100%; height: 100%;
-  opacity: 0.1;
-  animation: comb-pulse 3.2s ease-in-out infinite;
-}
-
-.pro-badge-stack::after {
-  width: 86%; height: 86%;
-  opacity: 0.16;
-  animation: comb-pulse 3.2s ease-in-out infinite 0.4s;
-}
-
-@keyframes comb-pulse {
-  0%, 100% { transform: scale(1);    opacity: 0.1; }
-  50%      { transform: scale(1.05); opacity: 0.2; }
-}
-
-.pro-badge {
+/* The photo is only transparent along its top edge — the piano fills the rest
+   of the frame — so it is a rectangle, not a true cutout. A drop-shadow would
+   trace that rectangle. Instead the bottom and sides are masked to nothing, so
+   the instrument dissolves into the section and no crop line shows. */
+.pro-visual img {
   position: relative;
-  z-index: 2;
-  width: 72%;
-  height: 72%;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 0.3rem;
-  clip-path: var(--hex);
-  background: linear-gradient(180deg, var(--comb-light) 0%, var(--comb) 100%);
-}
-
-.pro-badge-word {
-  font-family: var(--display);
-  font-size: 2.3rem;
-  line-height: 1;
-  color: #38290a;
-  letter-spacing: 0.02em;
-}
-
-.pro-badge-wave {
-  width: 46%;
-  color: #38290a;
-  opacity: 0.85;
-}
-
-.pro-badge-sub {
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: rgba(56, 41, 10, 0.75);
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  display: block;
+  mask-image:
+    linear-gradient(180deg, #000 58%, transparent 97%),
+    linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  -webkit-mask-image:
+    linear-gradient(180deg, #000 58%, transparent 97%),
+    linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
 }
 
 /* ===================== TEACHERS ===================== */
@@ -1002,7 +973,7 @@ a { color: var(--leaf); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .cloud, .bee-rig, .bee-layer.wing, .pro-badge {
+  .cloud, .bee-rig, .bee-layer.wing {
     animation: none !important;
   }
   *, *::before, *::after {

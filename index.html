@@ -250,30 +250,17 @@
           </a>
         </div>
 
-        <div class="pro-visual" aria-hidden="true">
-          <div class="pro-badge-stack">
-            <div class="pro-badge">
-              <span class="pro-badge-word">LIVE</span>
-
-              <!-- The waveform the Live tile carries (LiveGame.classicHoneycomb),
-                   redrawn here — SF Symbols can't ship off Apple platforms. -->
-              <svg class="pro-badge-wave" viewBox="0 0 84 32" aria-hidden="true">
-                <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
-                  <path d="M4 16v0" />
-                  <path d="M14 10v12" />
-                  <path d="M24 4v24" />
-                  <path d="M34 11v10" />
-                  <path d="M44 2v28" />
-                  <path d="M54 8v16" />
-                  <path d="M64 5v22" />
-                  <path d="M74 12v8" />
-                  <path d="M80 15v2" />
-                </g>
-              </svg>
-
-              <span class="pro-badge-sub">Mic · MIDI · Bluetooth</span>
-            </div>
-          </div>
+        <!-- The copy claims "put the iPad on the music desk", so the visual is
+             that exact thing rather than an abstract badge — a studio photo of
+             Live running on a real piano. It carries the section's whole
+             argument, so it gets real alt text rather than aria-hidden. The
+             cutout is on transparency so the section's gradient shows through.
+             The features list beside it already says mic, MIDI and Bluetooth,
+             which is why the old badge repeating them was dropped. -->
+        <div class="pro-visual">
+          <img src="images/pro-piano.webp"
+               alt="An iPad propped on the music desk of a Yamaha digital piano, running Bees Keys: a bee carries a hexagon marked C above an on-screen keyboard, with the piano's real keys below."
+               width="900" height="968" loading="lazy" />
         </div>
       </div>
     </section>

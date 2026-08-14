@@ -16,8 +16,16 @@ CNAME             custom domain, beeskeysapp.com
 images/           art copied from the app asset catalogs
 tools/og-card.html           source for the link-preview image
 tools/og-card-<slug>.html    same, one per printable page
+tools/ig-card-<slug>.html    source for the Instagram post, rendered the same way
 tools/combine-printable.py   joins a printable's cover onto its worksheets
+tools/trace-cutout-edge.py   draws a gold edge along a cutout's alpha boundary
 ```
+
+`images/pro-piano.webp` is the studio photo in the Pro section — an iPad running
+Live on a real piano, which is the section's whole claim. It is a WebP because
+the same image as PNG is 870 KB against 78 KB, and it is a cutout on
+transparency so the section's gradient shows through. Its ragged removal edge is
+covered by a gold trace from `tools/trace-cutout-edge.py`.
 
 ## The link-preview image
 
