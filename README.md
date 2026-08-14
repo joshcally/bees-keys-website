@@ -13,6 +13,8 @@ terms.html        terms of use
 resources.html    index of the free printables
 resources/        one page per printable, plus resources/files/*.pdf
 CNAME             custom domain, beeskeysapp.com
+robots.txt        allows everything, points at the sitemap
+sitemap.xml       hand-maintained; add a line when a page is added
 images/           art copied from the app asset catalogs
 tools/og-card.html           source for the link-preview image
 tools/og-card-<slug>.html    same, one per printable page
