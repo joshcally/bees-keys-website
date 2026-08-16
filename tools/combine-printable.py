@@ -31,6 +31,12 @@ JPEG streams, which is what --dpi does.
 
 Pass --lossless to skip all re-encoding and keep the source bytes.
 
+--fit-cover (needs --dpi) puts each re-rendered worksheet on a page the size of
+the cover's, centred on white. Without it a worksheet keeps its own page size,
+which is right when the masters are drawn at US Letter and wrong when they are
+not: a mixed-size PDF prints with a surprise scale jump between pages, and the
+site promises US Letter throughout.
+
 --title is required rather than defaulted, because the PDF's own metadata is
 what a reader's tab, print dialog, and Google's index all show. A default would
 quietly ship the previous printable's name on the next one.
@@ -62,7 +68,11 @@ def combine(
     lossless=False,
     dpi=None,
     quality=92,
+    fit_cover=False,
 ):
+    if fit_cover and not dpi:
+        sys.exit("--fit-cover re-renders the worksheets, so it needs --dpi")
+
     out = pymupdf.open()
     expected = []
 
@@ -72,6 +82,7 @@ def combine(
     out.insert_pdf(cover, links=True, annots=True)
     expected += links_in(cover)
     offset = len(cover)
+    cover_rect = cover[0].rect
     cover.close()
 
     sheets = pymupdf.open(worksheets_path)
@@ -80,10 +91,24 @@ def combine(
         # because the worksheets carry no links or text to lose — they are
         # single full-page bitmaps already.
         for page in sheets:
-            pix = page.get_pixmap(dpi=dpi)
-            new = out.new_page(width=page.rect.width, height=page.rect.height)
+            target = cover_rect if fit_cover else page.rect
+            scale = min(
+                target.width / page.rect.width, target.height / page.rect.height
+            )
+            dx = (target.width - page.rect.width * scale) / 2
+            dy = (target.height - page.rect.height * scale) / 2
+            placed = pymupdf.Rect(
+                dx, dy, dx + page.rect.width * scale, dy + page.rect.height * scale
+            )
+            # dpi is meant against the page being written, not the source page —
+            # a master drawn on an oversized canvas would otherwise be rendered
+            # huge and then squeezed down, spending megabytes on pixels the
+            # printer never sees.
+            zoom = placed.width * dpi / (72 * page.rect.width)
+            pix = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom))
+            new = out.new_page(width=target.width, height=target.height)
             new.insert_image(
-                new.rect,
+                placed,
                 stream=pix.tobytes("jpeg", jpg_quality=quality),
                 keep_proportion=False,
             )
@@ -127,7 +152,7 @@ def combine(
 
 
 def main(argv):
-    opts = {"lossless": False, "dpi": None, "quality": 92}
+    opts = {"lossless": False, "dpi": None, "quality": 92, "fit_cover": False}
     text = {}
     args = []
     i = 0
@@ -135,6 +160,8 @@ def main(argv):
         a = argv[i]
         if a == "--lossless":
             opts["lossless"] = True
+        elif a == "--fit-cover":
+            opts["fit_cover"] = True
         elif a in ("--dpi", "--quality"):
             if i + 1 >= len(argv):
                 sys.exit(f"{a} needs a value")
