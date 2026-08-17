@@ -2,7 +2,8 @@
 
 Six US Letter pages, nine poker-size cards (2.5x3.5in) per page, in
 front/back pairs for double-sided printing: covers then naturals (C-B),
-covers then sharps, covers then flats, with letterless wilds filling
+covers then all seven sharps, covers then all seven flats
+(enharmonics included), with letterless wilds filling
 spare slots. Each letter page's columns are mirrored so every back lands
 behind its front on a long-edge flip.
 
@@ -31,8 +32,8 @@ def cell(r, c):
 
 PAGES = [
     [["C", "D", "E"], ["F", "G", "A"], ["B", "wild", "wild"]],
-    [["Cs", "Ds", "Fs"], ["Gs", "As", "wild"], ["wild", "wild", "wild"]],
-    [["Db", "Eb", "Gb"], ["Ab", "Bb", "wild"], ["wild", "wild", "wild"]],
+    [["Cs", "Ds", "Es"], ["Fs", "Gs", "As"], ["Bs", "wild", "wild"]],
+    [["Cb", "Db", "Eb"], ["Fb", "Gb", "Ab"], ["Bb", "wild", "wild"]],
 ]
 
 for letters in PAGES:
