@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Instagram card source — Which Key Is Mine?</title>
+<!--
+  Source for the 1080x1350 Instagram post for the printable. Render it with:
+
+    python3 -m http.server 8000
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1080,1350 \
+      --virtual-time-budget=5000 \
+      --screenshot=which-key-is-mine-instagram.png \
+      http://localhost:8000/tools/ig-card-which-key-is-mine.html
+
+  Same ground and type as tools/og-card-*.html, restacked for 4:5 — the taller
+  feed format, matching the Pro ad so the two posts sit together in a grid. The
+  headline leads, the worksheets sit underneath, and the handle is legible at
+  feed thumbnail size.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    color: #232323;
+    background:
+      radial-gradient(ellipse 66% 40% at 50% 88%, rgba(255,255,255,.85) 0%, rgba(251,227,142,.72) 28%, rgba(251,227,142,0) 70%),
+      linear-gradient(180deg, #3f9ae6 0%, #79c4ee 30%, #b7e2f7 52%, #fbe38e 76%, #f7d067 90%);
+  }
+
+  .meadow {
+    position: absolute;
+    left: -30px; right: -30px; bottom: -20px;
+    height: 260px;
+    filter: blur(9px);
+  }
+  .meadow svg { width: 100%; height: 100%; display: block; }
+
+  .cloud { position: absolute; opacity: .7; }
+  .cloud-a { width: 170px; top: 5%;  left: 6%; }
+  .cloud-b { width: 120px; top: 13%; left: 80%; opacity: .45; }
+
+  .inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 74px 60px 62px;
+  }
+
+  .brand { display: flex; align-items: center; gap: 13px; }
+  .brand img { width: 52px; }
+  .brand span { font-weight: 800; font-size: 31px; letter-spacing: -.02em; }
+
+  .eyebrow {
+    margin-top: 26px;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: #b8651a;
+  }
+
+  h1 {
+    margin-top: 10px;
+    font-size: 74px;
+    font-weight: 900;
+    line-height: 1.03;
+    letter-spacing: -.028em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.4);
+  }
+  h1 em { font-style: normal; color: #2f6b23; }
+
+  .sub {
+    margin-top: 14px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #3c4a44;
+  }
+
+  /* The worksheets, fanned the way the cover fans them. */
+  .stack { position: relative; flex: 1; width: 100%; margin-top: 18px; }
+
+  .stack img {
+    position: absolute;
+    width: 700px;
+    top: 50%;
+    left: 50%;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,.12);
+    background: #fff;
+    box-shadow: 0 18px 40px rgba(31,33,28,.32);
+  }
+
+  .sheet-back  { transform: translate(-54%, -60%) rotate(-6deg); }
+  .sheet-front { transform: translate(-46%, -40%) rotate(4deg); }
+
+  .foot {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .free {
+    background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
+    color: #2a2208;
+    font-weight: 800;
+    font-size: 23px;
+    padding: 13px 30px;
+    border-radius: 999px;
+    border: 1px solid rgba(180,120,20,.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 14px rgba(160,110,20,.28);
+  }
+
+  .handle {
+    font-size: 24px;
+    font-weight: 800;
+    color: #2f4a2a;
+  }
+</style>
+</head>
+<body>
+
+  <div class="meadow">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,44 C260,22 460,54 720,40 C980,26 1200,50 1440,32 L1440,150 L0,150 Z" fill="#d3ecb2" />
+      <path d="M0,64 C300,46 520,74 780,60 C1040,46 1240,68 1440,56 L1440,150 L0,150 Z" fill="#b3de8b" />
+      <path d="M0,84 C320,72 560,94 820,82 C1080,70 1260,88 1440,78 L1440,150 L0,150 Z" fill="#93cf63" />
+      <path d="M0,102 C360,94 620,110 900,100 C1140,92 1300,104 1440,98 L1440,150 L0,150 Z" fill="#7cc142" />
+    </svg>
+  </div>
+
+  <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
+  <img src="../images/cloud2.svg" alt="" class="cloud cloud-b" />
+
+  <div class="inner">
+    <div class="brand">
+      <img src="../images/bee_icon.png" alt="" />
+      <span>Bees Keys</span>
+    </div>
+
+    <p class="eyebrow">Free printable</p>
+    <h1>Which Key <em>Is Mine?</em></h1>
+    <p class="sub">Identify · Color · Learn</p>
+
+    <div class="stack">
+      <img class="sheet-back"  src="../images/resources/which-key-is-mine-printer.jpg" alt="" />
+      <img class="sheet-front" src="../images/resources/which-key-is-mine-color.jpg" alt="" />
+    </div>
+
+    <div class="foot">
+      <span class="free">Free · no sign-up</span>
+      <span class="handle">beeskeysapp.com</span>
+    </div>
+  </div>
+
+</body>
+</html>
