@@ -66,14 +66,14 @@
 
   .cloud { position: absolute; opacity: .75; }
   .cloud-a { width: 180px; top: 4.5%; left: 6%; }
-  .cloud-b { width: 120px; top: 24%;  left: 78%; opacity: .5; }
+  .cloud-b { width: 120px; top: 12%;  left: 78%; opacity: .5; }
 
   .inner {
     position: relative;
     z-index: 2;
     height: 100%;
     text-align: center;
-    padding-top: 120px;
+    padding-top: 330px;
   }
 
   h1 {
@@ -88,12 +88,20 @@
 
   .sub {
     margin-top: 14px;
-    font-size: 126px;
+    font-size: 148px;
     font-weight: 900;
     line-height: 1;
     letter-spacing: -.025em;
     color: #2f6b23;
     text-shadow: 0 2px 0 rgba(255,255,255,.35);
+  }
+
+  .sub .key {
+    display: block;
+    font-size: 172px;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    margin-top: 6px;
   }
 
   /* The site's bee: body + two wings share one viewBox, wings pinned at the
@@ -122,8 +130,8 @@
     position: absolute;
     z-index: 6;
     width: 330px;
-    left: 700px;
-    bottom: 446px;
+    left: 668px;
+    bottom: 366px;
   }
 
   /* Dashed flight trail wandering in from the left, trailing off behind the bee. */
@@ -164,7 +172,7 @@
 
   <div class="inner">
     <h1>Bees Keys</h1>
-    <p class="sub">Find Every Key</p>
+    <p class="sub">Find Every <span class="key">Key</span></p>
   </div>
 
   <div class="bee">
