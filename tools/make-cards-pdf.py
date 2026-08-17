@@ -1,10 +1,10 @@
 """Compose the Find Every Key print-and-cut card sheet.
 
-Two US Letter pages, nine poker-size cards (2.5x3.5in) per page:
-page 1 is nine copies of the cover, page 2 the FIND EVERY letter cards
-(C-B plus two letterless wilds). Page 2's columns are mirrored so each
-back lands behind its front when printed double-sided with a long-edge
-flip.
+Six US Letter pages, nine poker-size cards (2.5x3.5in) per page, in
+front/back pairs for double-sided printing: covers then naturals (C-B),
+covers then sharps, covers then flats, with letterless wilds filling
+spare slots. Each letter page's columns are mirrored so every back lands
+behind its front on a long-edge flip.
 
 Render the inputs first with headless Chrome (see the header comments in
 tools/card-cover-find-every-key.html and tools/card-letter-find-every.html),
@@ -12,7 +12,8 @@ then:
 
     python3 tools/make-cards-pdf.py <cover.png> <letters-dir> <out.pdf>
 
-where <letters-dir> holds letter-C.png ... letter-B.png and letter-wild.png.
+where <letters-dir> holds letter-<X>.png for X in C..B, Cs Ds Fs Gs As,
+Db Eb Gb Ab Bb, and wild.
 """
 import sys
 import fitz
@@ -28,17 +29,22 @@ doc = fitz.open()
 def cell(r, c):
     return fitz.Rect(MX + c*CW, MY + r*CH, MX + (c+1)*CW, MY + (r+1)*CH)
 
-p1 = doc.new_page(width=W, height=H)
-for r in range(3):
-    for c in range(3):
-        p1.insert_image(cell(r, c), filename=cover)
+PAGES = [
+    [["C", "D", "E"], ["F", "G", "A"], ["B", "wild", "wild"]],
+    [["Cs", "Ds", "Fs"], ["Gs", "As", "wild"], ["wild", "wild", "wild"]],
+    [["Db", "Eb", "Gb"], ["Ab", "Bb", "wild"], ["wild", "wild", "wild"]],
+]
 
-letters = [["C", "D", "E"], ["F", "G", "A"], ["B", "wild", "wild"]]
-p2 = doc.new_page(width=W, height=H)
-for r in range(3):
-    for c in range(3):
-        name = letters[r][2 - c]
-        p2.insert_image(cell(r, c), filename=f"{letters_dir}/letter-{name}.png")
+for letters in PAGES:
+    front = doc.new_page(width=W, height=H)
+    for r in range(3):
+        for c in range(3):
+            front.insert_image(cell(r, c), filename=cover)
+    back = doc.new_page(width=W, height=H)
+    for r in range(3):
+        for c in range(3):
+            name = letters[r][2 - c]
+            back.insert_image(cell(r, c), filename=f"{letters_dir}/letter-{name}.png")
 
 doc.set_metadata({"title": "Find Every Key - Bees Keys Cards"})
 doc.save(out, deflate=True)

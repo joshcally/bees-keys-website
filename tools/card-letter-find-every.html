@@ -5,8 +5,9 @@
 <title>Letter card source — Find Every X</title>
 <!--
   Source for the Find Every X letter cards, same 5:7 shape and type as the
-  cover. Pass the letter as a query param: ?l=C ... ?l=B, or ?l=- for a
-  letterless wild card. Rendered by tools/make-cards-pdf.py.
+  cover but the inverse scheme: plain white, blue words, no clouds. Pass the
+  letter as a query param: ?l=C ... ?l=B, ?l=C%23 for a sharp, ?l=Db for a
+  flat, or ?l=- for a letterless wild card. Rendered by tools/make-cards-pdf.py.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,7 +30,7 @@
     overflow: hidden;
     border-radius: 44px;
     color: #232323;
-    background: linear-gradient(180deg, #3f9ae6 0%, #79c4ee 52%, #b7e2f7 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #f2f9fe 52%, #ddeffb 100%);
   }
 
   /* Faint inner frame, like a printed box edge. */
@@ -38,14 +39,10 @@
     position: absolute;
     inset: 18px;
     border-radius: 30px;
-    border: 3px solid rgba(255,255,255,.55);
+    border: 3px solid rgba(63,154,230,.4);
     pointer-events: none;
     z-index: 9;
   }
-
-  .cloud { position: absolute; }
-  .cloud-a { width: 180px; top: 4.5%; left: 6%; }
-  .cloud-b { width: 120px; top: 12%;  left: 78%; }
 
   .inner {
     position: relative;
@@ -77,8 +74,16 @@
     line-height: 1;
     letter-spacing: -.02em;
     text-transform: uppercase;
-    color: #ffffff;
-    text-shadow: 0 4px 18px rgba(31,64,104,.35);
+    color: #3f9ae6;
+    text-shadow: 0 4px 18px rgba(63,154,230,.28);
+  }
+
+  .sub .key .acc {
+    font-size: .55em;
+    vertical-align: .22em;
+    letter-spacing: 0;
+    margin-left: .04em;
+    text-transform: none;
   }
 
   .sub .key {
@@ -95,8 +100,6 @@
 <body>
 <div class="card">
 
-  <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
-  <img src="../images/cloud1.svg" alt="" class="cloud cloud-b" />
 
 
   <div class="inner">
@@ -104,7 +107,17 @@
   <script>
     const l = new URLSearchParams(location.search).get('l') || 'C';
     if (l === '-') { document.querySelector('.sub').style.display = 'none'; }
-    else { document.querySelector('.key').textContent = l; }
+    else {
+      const m = l.match(/^([A-G])([#b])?$/);
+      const key = document.querySelector('.key');
+      key.textContent = m[1];
+      if (m[2]) {
+        const acc = document.createElement('span');
+        acc.className = 'acc';
+        acc.textContent = m[2];
+        key.appendChild(acc);
+      }
+    }
   </script>
   </div>
 
