@@ -52,11 +52,16 @@
     color: #3f9ae6;
   }
   .materials {
-    margin-top: 14px;
+    margin-top: 16px;
     font-size: 26px;
     font-weight: 700;
     color: rgba(43,43,43,.65);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
+  .materials li::before { content: "· "; }
 
   ol.steps {
     margin-top: 48px;
@@ -191,7 +196,11 @@
   </div>
 
   <h1 class="title">Find Every Key</h1>
-  <p class="materials">You'll need: the cards · a piano · a stopwatch (a phone timer works) · a dry-erase marker for the score board</p>
+  <ul class="materials">
+    <li>Piano</li>
+    <li>Timer</li>
+    <li>Cards</li>
+  </ul>
 
   <ol class="steps">
     <li>
