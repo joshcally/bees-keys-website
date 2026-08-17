@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Letter card source — Find Every X</title>
+<!--
+  Source for the Find Every X letter cards, same 5:7 shape and type as the
+  cover. Pass the letter as a query param: ?l=C ... ?l=B, or ?l=- for a
+  letterless wild card. Rendered by tools/make-cards-pdf.py.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1080px;
+    height: 1512px;
+    overflow: hidden;
+    background: #fff;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .card {
+    position: relative;
+    width: 1080px;
+    height: 1512px;
+    overflow: hidden;
+    border-radius: 44px;
+    color: #232323;
+    background: linear-gradient(180deg, #3f9ae6 0%, #79c4ee 52%, #b7e2f7 100%);
+  }
+
+  /* Faint inner frame, like a printed box edge. */
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border-radius: 30px;
+    border: 3px solid rgba(255,255,255,.55);
+    pointer-events: none;
+    z-index: 9;
+  }
+
+  .cloud { position: absolute; }
+  .cloud-a { width: 180px; top: 4.5%; left: 6%; }
+  .cloud-b { width: 120px; top: 12%;  left: 78%; }
+
+  .inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    text-align: center;
+    padding-top: 300px;
+  }
+
+  /* Brand mark, moved to the floor of the card. */
+  h1 {
+    position: absolute;
+    z-index: 2;
+    left: 0; right: 0;
+    bottom: 74px;
+    text-align: center;
+    font-size: 60px;
+    font-weight: 900;
+    line-height: .95;
+    letter-spacing: -.01em;
+    color: #232323;
+    text-shadow: 0 1px 0 rgba(255,255,255,.4);
+  }
+
+  .sub {
+    margin-top: 14px;
+    font-size: 144px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 4px 18px rgba(31,64,104,.35);
+  }
+
+  .sub .key {
+    display: block;
+    font-size: 460px;
+    line-height: 1.05;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    margin-top: 40px;
+  }
+
+</style>
+</head>
+<body>
+<div class="card">
+
+  <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
+  <img src="../images/cloud1.svg" alt="" class="cloud cloud-b" />
+
+
+  <div class="inner">
+    <p class="sub">Find Every <span class="key">C</span></p>
+  <script>
+    const l = new URLSearchParams(location.search).get('l') || 'C';
+    if (l === '-') { document.querySelector('.sub').style.display = 'none'; }
+    else { document.querySelector('.key').textContent = l; }
+  </script>
+  </div>
+
+  <h1>Bees Keys</h1>
+
+
+
+
+
+
+</div>
+</body>
+</html>
