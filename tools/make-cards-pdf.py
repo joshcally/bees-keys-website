@@ -3,9 +3,9 @@
 Six US Letter pages, nine poker-size cards (2.5x3.5in) per page, in
 front/back pairs for double-sided printing: covers then naturals (C-B
 plus the group-of-2/3 black keys cards),
-covers then all seven sharps, covers then all seven flats
-(enharmonics included), with letterless wilds filling
-spare slots. Each letter page's columns are mirrored so every back lands
+covers then all seven sharps, covers then all seven flats (enharmonics
+included), with the special-challenge cards (middle C, lowest key,
+highest key, your choice) filling the spare slots. Each letter page's columns are mirrored so every back lands
 behind its front on a long-edge flip.
 
 Render the inputs first with headless Chrome (see the header comments in
@@ -33,8 +33,8 @@ def cell(r, c):
 
 PAGES = [
     [["C", "D", "E"], ["F", "G", "A"], ["B", "g2", "g3"]],
-    [["Cs", "Ds", "Es"], ["Fs", "Gs", "As"], ["Bs", "wild", "wild"]],
-    [["Cb", "Db", "Eb"], ["Fb", "Gb", "Ab"], ["Bb", "wild", "wild"]],
+    [["Cs", "Ds", "Es"], ["Fs", "Gs", "As"], ["Bs", "middlec", "lowest"]],
+    [["Cb", "Db", "Eb"], ["Fb", "Gb", "Ab"], ["Bb", "highest", "choice"]],
 ]
 
 for letters in PAGES:

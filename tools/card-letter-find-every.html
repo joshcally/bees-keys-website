@@ -87,6 +87,13 @@
     text-transform: none;
   }
 
+  .sub .key.key-word {
+    font-size: 190px;
+    line-height: 1.15;
+    margin-top: 26px;
+    margin-bottom: 14px;
+  }
+
   .sub .key.key-num {
     font-size: 340px;
     margin-top: 14px;
@@ -113,10 +120,22 @@
     <p class="sub">Find Every <span class="key">C</span></p>
   <script>
     const params = new URLSearchParams(location.search);
+    const sub = document.querySelector('.sub');
     const g = params.get('g');
     if (g) {
-      document.querySelector('.sub').innerHTML =
+      sub.innerHTML =
         'Find Every Group of <span class="key key-num">' + g + '</span> Black Keys';
+      throw new Error('done');
+    }
+    const SPECIALS = {
+      middlec: 'Find Middle <span class="key">C</span>',
+      lowest:  'Find the <span class="key key-word">Lowest</span> Key',
+      highest: 'Find the <span class="key key-word">Highest</span> Key',
+      choice:  'Your Choice! <span class="key">?</span>',
+    };
+    const sp = params.get('s');
+    if (sp) {
+      sub.innerHTML = SPECIALS[sp];
       throw new Error('done');
     }
     const l = params.get('l') || 'C';
