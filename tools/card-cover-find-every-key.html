@@ -40,9 +40,7 @@
     overflow: hidden;
     border-radius: 44px;
     color: #232323;
-    background:
-      radial-gradient(ellipse 66% 44% at 40% 92%, rgba(255,255,255,.85) 0%, rgba(251,227,142,.72) 28%, rgba(251,227,142,0) 70%),
-      linear-gradient(180deg, #3f9ae6 0%, #79c4ee 30%, #b7e2f7 52%, #fbe38e 74%, #f7d067 88%);
+    background: linear-gradient(180deg, #3f9ae6 0%, #79c4ee 52%, #b7e2f7 100%);
   }
 
   /* Faint inner frame, like a printed box edge. */
@@ -55,14 +53,6 @@
     pointer-events: none;
     z-index: 9;
   }
-
-  .meadow {
-    position: absolute;
-    left: -40px; right: -40px; bottom: -30px;
-    height: 320px;
-    filter: blur(7px);
-  }
-  .meadow svg { width: 100%; height: 100%; display: block; }
 
   .cloud { position: absolute; opacity: .75; }
   .cloud-a { width: 180px; top: 4.5%; left: 6%; }
@@ -81,17 +71,17 @@
     font-weight: 900;
     line-height: .95;
     letter-spacing: -.01em;
-    text-transform: uppercase;
     color: #232323;
     text-shadow: 0 1px 0 rgba(255,255,255,.4);
   }
 
   .sub {
     margin-top: 14px;
-    font-size: 148px;
+    font-size: 126px;
     font-weight: 900;
     line-height: 1;
-    letter-spacing: -.025em;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
     color: #2f6b23;
     text-shadow: 0 2px 0 rgba(255,255,255,.35);
   }
@@ -130,8 +120,20 @@
     position: absolute;
     z-index: 6;
     width: 330px;
-    left: 668px;
-    bottom: 288px;
+    left: 636px;
+    bottom: 302px;
+  }
+
+  /* Two front arms reaching from the bee's chest to grip the handle, drawn in
+     the bee art's own leg style: #1c1c18 strokes with round caps. Page-sized
+     so the paths use card coordinates. */
+  .arms {
+    position: absolute;
+    z-index: 7;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
   }
 
   /* Dashed flight trail wandering in from the left, trailing off behind the bee. */
@@ -147,15 +149,6 @@
 </head>
 <body>
 <div class="card">
-
-  <div class="meadow">
-    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
-      <path d="M0,44 C260,22 460,54 720,40 C980,26 1200,50 1440,32 L1440,150 L0,150 Z" fill="#d3ecb2" />
-      <path d="M0,64 C300,46 520,74 780,60 C1040,46 1240,68 1440,56 L1440,150 L0,150 Z" fill="#b3de8b" />
-      <path d="M0,84 C320,72 560,94 820,82 C1080,70 1260,88 1440,78 L1440,150 L0,150 Z" fill="#93cf63" />
-      <path d="M0,102 C360,94 620,110 900,100 C1140,92 1300,104 1440,98 L1440,150 L0,150 Z" fill="#7cc142" />
-    </svg>
-  </div>
 
   <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
   <img src="../images/cloud2.svg" alt="" class="cloud cloud-b" />
@@ -194,6 +187,13 @@
             stroke="#ffffff" stroke-opacity=".8" stroke-width="7" />
     <path d="M118,72 A 42 42 0 0 1 136,54" fill="none"
           stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+  </svg>
+
+  <svg class="arms" viewBox="0 0 1080 1512" fill="none">
+    <path d="M634,1098 Q 690,1088 742,1088" stroke="#1c1c18"
+          stroke-width="14" stroke-linecap="round" />
+    <path d="M614,1128 Q 670,1130 716,1118" stroke="#1c1c18"
+          stroke-width="14" stroke-linecap="round" />
   </svg>
 
 
