@@ -53,15 +53,19 @@
   }
   .materials {
     margin-top: 16px;
-    font-size: 26px;
+    font-size: 27px;
     font-weight: 700;
     color: rgba(43,43,43,.65);
     list-style: none;
     display: flex;
-    flex-direction: column;
-    gap: 6px;
+    align-items: baseline;
+    gap: 14px;
   }
-  .materials li::before { content: "· "; }
+  .materials .mat-label {
+    font-weight: 800;
+    color: #2f6b23;
+  }
+  .materials li + li::before { content: "·  "; color: rgba(43,43,43,.45); }
 
   ol.steps {
     margin-top: 48px;
@@ -197,6 +201,7 @@
 
   <h1 class="title">Find Every Key</h1>
   <ul class="materials">
+    <span class="mat-label">Materials needed:</span>
     <li>Piano</li>
     <li>Timer</li>
     <li>Cards</li>
