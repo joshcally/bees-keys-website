@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Instructions sheet source — Find Every Key</title>
+<!--
+  Source for the Find Every Key instructions sheet, US Letter portrait.
+  ?page=1 is How to Play; ?page=2 is the laminate-and-write Best Times
+  board, recreated from the app's FindEveryBestTimesSheet (LiveFinishView.swift)
+  with empty dry-erase cells. Render each with:
+
+    python3 -m http.server 8000
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1224,1584 \
+      --force-device-scale-factor=2 --virtual-time-budget=5000 \
+      --screenshot=instructions-p1.png \
+      "http://localhost:8000/tools/find-every-instructions.html?page=1"
+
+  qr-clean.png beside this file is the App Store QR (python3 -c "import qrcode;
+  qrcode.make('https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053').save('tools/qr-clean.png')").
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1224px;
+    height: 1584px;
+    background: #ffffff;
+    font-family: 'Nunito', sans-serif;
+    color: #2b2b2b;
+  }
+
+  .page { width: 1224px; height: 1584px; padding: 90px 100px; display: none; }
+  .page.active { display: block; }
+
+  /* ---------- Page 1: How to Play ---------- */
+
+  .brand-row { display: flex; align-items: center; gap: 14px; }
+  .brand-row img { width: 44px; }
+  .brand-row span { font-weight: 800; font-size: 28px; letter-spacing: -.02em; }
+
+  .title {
+    margin-top: 28px;
+    font-weight: 900;
+    font-size: 84px;
+    line-height: 1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: #3f9ae6;
+  }
+  .subtitle {
+    margin-top: 10px;
+    font-size: 34px;
+    font-weight: 800;
+    color: #2f6b23;
+  }
+
+  ol.steps {
+    margin-top: 48px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  ol.steps li {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    font-size: 29px;
+    line-height: 1.45;
+  }
+  ol.steps li strong { font-weight: 800; }
+  .step-num {
+    flex: 0 0 auto;
+    width: 56px; height: 56px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
+    border: 1px solid rgba(180,120,20,.35);
+    color: #2a2208;
+    font-weight: 900;
+    font-size: 30px;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+
+  .tip {
+    margin-top: 44px;
+    background: #eef7fe;
+    border: 2px solid rgba(63,154,230,.35);
+    border-radius: 18px;
+    padding: 26px 30px;
+    font-size: 26px;
+    line-height: 1.45;
+  }
+  .tip strong { color: #3f9ae6; }
+
+  .pivot {
+    margin-top: 46px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background: #fcf5db;
+    border: 2px solid rgba(184,122,26,.35);
+    border-radius: 18px;
+    padding: 26px 30px;
+  }
+  .pivot img.qr { width: 150px; height: 150px; }
+  .pivot img.bee { width: 56px; }
+  .pivot-copy { font-size: 26px; line-height: 1.45; }
+  .pivot-copy strong { font-weight: 800; color: #b87a1a; }
+
+  /* ---------- Page 2: Best Times board ---------- */
+
+  .board-wrap {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .board-card {
+    background: #fcf5db;
+    border-radius: 34px;
+    padding: 54px 58px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  }
+
+  .board-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+  }
+  .board-head .trophy { font-size: 48px; }
+  .board-head h2 {
+    font-size: 56px;
+    font-weight: 900;
+    color: #33260d;
+  }
+  .student {
+    margin-left: auto;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(51,38,13,.65);
+  }
+  .student .line {
+    display: inline-block;
+    width: 320px;
+    border-bottom: 3px solid rgba(51,38,13,.4);
+  }
+
+  .row-label {
+    margin: 26px 0 10px;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(51,38,13,.5);
+  }
+
+  .grid7 { display: flex; gap: 12px; }
+  .cellbox {
+    flex: 1;
+    height: 168px;
+    border-radius: 14px;
+    border: 2px solid rgba(242,194,56,.75);
+    background: rgba(255,255,255,.65);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 8px;
+  }
+  .cellbox .note {
+    font-size: 30px;
+    font-weight: 800;
+    color: #33260d;
+  }
+  .cellbox .note .acc { font-size: .7em; vertical-align: .18em; }
+  .cellbox.na {
+    background: transparent;
+    border-color: rgba(51,38,13,.12);
+  }
+
+  .grid5 { display: flex; gap: 12px; margin-top: 10px; }
+  .grid5 .cellbox .note { font-size: 24px; line-height: 1.15; text-align: center; }
+
+  .laminate {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(43,43,43,.6);
+  }
+
+  .board-pivot {
+    margin-top: auto;
+    text-align: center;
+    font-size: 25px;
+    line-height: 1.5;
+    color: rgba(43,43,43,.85);
+  }
+  .board-pivot strong { color: #b87a1a; font-weight: 800; }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 ============ -->
+<div class="page" id="p1">
+  <div class="brand-row">
+    <img src="../images/bee_icon.png" alt="" />
+    <span>Bees Keys</span>
+  </div>
+
+  <h1 class="title">Find Every Key</h1>
+  <p class="subtitle">How to play · at the piano · 1+ players</p>
+
+  <ol class="steps">
+    <li>
+      <span class="step-num">1</span>
+      <span><strong>Shuffle the cards</strong> and place the deck face down on the music stand.</span>
+    </li>
+    <li>
+      <span class="step-num">2</span>
+      <span><strong>Flip the top card.</strong> Find every one of that key on the piano — play them all, from the lowest to the highest!</span>
+    </li>
+    <li>
+      <span class="step-num">3</span>
+      <span><strong>Too easy?</strong> Time it. Write your best time on the board on the back of this sheet, then try to beat it next lesson.</span>
+    </li>
+    <li>
+      <span class="step-num">4</span>
+      <span><strong>Special cards:</strong> Middle C, the Lowest Key, and the Highest Key have just one right answer — find it fast! <strong>Your Choice</strong> means the player picks any key to hunt.</span>
+    </li>
+    <li>
+      <span class="step-num">5</span>
+      <span><strong>Group cards:</strong> find every group of 2 or every group of 3 black keys, all the way up the keyboard.</span>
+    </li>
+  </ol>
+
+  <div class="tip">
+    <strong>Stuck?</strong> The black keys are the map: C, D, and E live around every
+    group of 2, and F, G, A, and B live around every group of 3.
+  </div>
+
+  <div class="pivot">
+    <img class="bee" src="../images/bee_icon.png" alt="" />
+    <p class="pivot-copy">
+      <strong>Bees Keys times every round for you.</strong> Play Find Every on the
+      app's keyboard — or with your real piano by microphone — and it keeps every
+      best time automatically. Free on the App Store.
+    </p>
+    <img class="qr" src="qr-clean.png" alt="QR code to Bees Keys on the App Store" />
+  </div>
+</div>
+
+<!-- ============ PAGE 2 ============ -->
+<div class="page" id="p2">
+  <div class="board-wrap">
+    <div class="board-card">
+      <div class="board-head">
+        <span class="trophy">🏆</span>
+        <h2>Best Times</h2>
+        <span class="student">Student: <span class="line"></span></span>
+      </div>
+
+      <p class="row-label">Sharps</p>
+      <div class="grid7">
+        <div class="cellbox"><span class="note">C<span class="acc">#</span></span></div>
+        <div class="cellbox"><span class="note">D<span class="acc">#</span></span></div>
+        <div class="cellbox"><span class="note">E<span class="acc">#</span></span></div>
+        <div class="cellbox"><span class="note">F<span class="acc">#</span></span></div>
+        <div class="cellbox"><span class="note">G<span class="acc">#</span></span></div>
+        <div class="cellbox"><span class="note">A<span class="acc">#</span></span></div>
+        <div class="cellbox"><span class="note">B<span class="acc">#</span></span></div>
+      </div>
+
+      <p class="row-label">Naturals</p>
+      <div class="grid7">
+        <div class="cellbox"><span class="note">C</span></div>
+        <div class="cellbox"><span class="note">D</span></div>
+        <div class="cellbox"><span class="note">E</span></div>
+        <div class="cellbox"><span class="note">F</span></div>
+        <div class="cellbox"><span class="note">G</span></div>
+        <div class="cellbox"><span class="note">A</span></div>
+        <div class="cellbox"><span class="note">B</span></div>
+      </div>
+
+      <p class="row-label">Flats</p>
+      <div class="grid7">
+        <div class="cellbox"><span class="note">C<span class="acc">b</span></span></div>
+        <div class="cellbox"><span class="note">D<span class="acc">b</span></span></div>
+        <div class="cellbox"><span class="note">E<span class="acc">b</span></span></div>
+        <div class="cellbox"><span class="note">F<span class="acc">b</span></span></div>
+        <div class="cellbox"><span class="note">G<span class="acc">b</span></span></div>
+        <div class="cellbox"><span class="note">A<span class="acc">b</span></span></div>
+        <div class="cellbox"><span class="note">B<span class="acc">b</span></span></div>
+      </div>
+
+      <p class="row-label">Challenges</p>
+      <div class="grid5">
+        <div class="cellbox"><span class="note">Middle C</span></div>
+        <div class="cellbox"><span class="note">Lowest Key</span></div>
+        <div class="cellbox"><span class="note">Highest Key</span></div>
+        <div class="cellbox"><span class="note">Groups of 2</span></div>
+        <div class="cellbox"><span class="note">Groups of 3</span></div>
+      </div>
+
+      <p class="laminate">Laminate me! Write times with a dry-erase marker and reuse for every student.</p>
+    </div>
+
+    <p class="board-pivot">
+      Rather not keep score by hand? <strong>The Bees Keys app tracks best times
+      automatically</strong> — this same board, filled in as your student plays.
+    </p>
+  </div>
+</div>
+
+<script>
+  const page = new URLSearchParams(location.search).get('page') || '1';
+  document.getElementById('p' + page).classList.add('active');
+</script>
+
+</body>
+</html>
