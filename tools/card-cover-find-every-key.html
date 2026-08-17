@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Card game cover source — Find Every Key</title>
+<!--
+  Source for the Find Every Key card game cover, 3:2 landscape. Render it with:
+
+    python3 -m http.server 8000
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1536,1024 \
+      --force-device-scale-factor=2 --virtual-time-budget=5000 \
+      --screenshot=find-every-key-cover.png \
+      http://localhost:8000/tools/card-cover-find-every-key.html
+
+  Built from the site's own elements — the layered bee SVGs, the og-card
+  sky-to-meadow ground, the clouds, Nunito — so the box matches the app and
+  the printables. The magnifying glass is drawn here in the bee art's own
+  outline style (#1c1c18, round caps).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1536px;
+    height: 1024px;
+    overflow: hidden;
+    background: #fff;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .card {
+    position: relative;
+    width: 1536px;
+    height: 1024px;
+    overflow: hidden;
+    border-radius: 44px;
+    color: #232323;
+    background:
+      radial-gradient(ellipse 66% 44% at 40% 92%, rgba(255,255,255,.85) 0%, rgba(251,227,142,.72) 28%, rgba(251,227,142,0) 70%),
+      linear-gradient(180deg, #3f9ae6 0%, #79c4ee 30%, #b7e2f7 52%, #fbe38e 74%, #f7d067 88%);
+  }
+
+  /* Faint inner frame, like a printed box edge. */
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border-radius: 30px;
+    border: 3px solid rgba(255,255,255,.55);
+    pointer-events: none;
+    z-index: 9;
+  }
+
+  .meadow {
+    position: absolute;
+    left: -40px; right: -40px; bottom: -30px;
+    height: 340px;
+    filter: blur(7px);
+  }
+  .meadow svg { width: 100%; height: 100%; display: block; }
+
+  .cloud { position: absolute; opacity: .75; }
+  .cloud-a { width: 190px; top: 6%;  left: 5%; }
+  .cloud-b { width: 130px; top: 9%;  left: 84%; opacity: .5; }
+
+  .inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    text-align: center;
+    padding-top: 118px;
+  }
+
+  h1 {
+    font-size: 218px;
+    font-weight: 900;
+    line-height: .95;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: #232323;
+    text-shadow: 0 2px 0 rgba(255,255,255,.4);
+  }
+
+  .sub {
+    margin-top: 26px;
+    font-size: 74px;
+    font-weight: 800;
+    letter-spacing: -.01em;
+    color: #2f6b23;
+    text-shadow: 0 1px 0 rgba(255,255,255,.35);
+  }
+
+  /* The site's bee: body + two wings share one viewBox, wings pinned at the
+     app's pivot and frozen mid-flap. */
+  .bee {
+    position: absolute;
+    z-index: 5;
+    width: 470px;
+    right: 60px;
+    bottom: 118px;
+    transform: rotate(-5deg);
+  }
+  .bee img { width: 100%; display: block; }
+  .bee .wing {
+    position: absolute;
+    inset: 0;
+    transform-origin: 51.6% 55.6%;
+  }
+  .bee .wing-back  { transform: rotate(30deg); }
+  .bee .wing-front { transform: rotate(-12deg); }
+
+  /* Magnifying glass in the bee's front legs, drawn in the art's own style. */
+  .glass {
+    position: absolute;
+    z-index: 6;
+    width: 270px;
+    right: 424px;
+    bottom: 62px;
+    transform: rotate(-22deg);
+  }
+
+  /* Dashed flight trail wandering in from the left, ending at the glass. */
+  .trail {
+    position: absolute;
+    z-index: 1;
+    left: 70px;
+    bottom: 130px;
+    width: 1050px;
+    height: 330px;
+  }
+
+  /* Foreground flowers standing in the meadow, sharp against the blurred hills. */
+  .flower { position: absolute; z-index: 3; }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="meadow">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,44 C260,22 460,54 720,40 C980,26 1200,50 1440,32 L1440,150 L0,150 Z" fill="#d3ecb2" />
+      <path d="M0,64 C300,46 520,74 780,60 C1040,46 1240,68 1440,56 L1440,150 L0,150 Z" fill="#b3de8b" />
+      <path d="M0,84 C320,72 560,94 820,82 C1080,70 1260,88 1440,78 L1440,150 L0,150 Z" fill="#93cf63" />
+      <path d="M0,102 C360,94 620,110 900,100 C1140,92 1300,104 1440,98 L1440,150 L0,150 Z" fill="#7cc142" />
+    </svg>
+  </div>
+
+  <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
+  <img src="../images/cloud2.svg" alt="" class="cloud cloud-b" />
+
+  <svg class="trail" viewBox="0 0 1050 330" fill="none">
+    <path d="M10,200
+             C 170,300 320,140 430,210
+             C 500,255 470,320 530,315
+             C 590,310 585,240 535,235
+             C 480,230 470,300 560,290
+             C 720,270 850,210 970,180"
+          stroke="#6b6428" stroke-opacity=".5" stroke-width="7"
+          stroke-linecap="round" stroke-dasharray="22 26" />
+  </svg>
+
+  <div class="inner">
+    <h1>Bees Keys</h1>
+    <p class="sub">Find Every Key</p>
+  </div>
+
+  <div class="bee">
+    <img src="../images/bee-body.svg" alt="" />
+    <img src="../images/back-wing.svg" alt="" class="wing wing-back" />
+    <img src="../images/front-wing.svg" alt="" class="wing wing-front" />
+  </div>
+
+  <svg class="glass" viewBox="0 0 200 200">
+    <!-- handle -->
+    <g transform="rotate(45 100 100)">
+      <rect x="88" y="138" width="24" height="58" rx="11"
+            fill="#8a5a2b" stroke="#1c1c18" stroke-width="5" />
+    </g>
+    <!-- rim + glass -->
+    <circle cx="88" cy="88" r="62" fill="#eaf6fd" fill-opacity=".9"
+            stroke="#1c1c18" stroke-width="9" />
+    <circle cx="88" cy="88" r="47" fill="none"
+            stroke="#ffffff" stroke-opacity=".8" stroke-width="7" />
+    <path d="M56,70 A 42 42 0 0 1 74,52" fill="none"
+          stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+  </svg>
+
+  <!-- daisies, in the meadow's own greens/creams -->
+  <svg class="flower" style="left:110px; bottom:52px; width:74px;" viewBox="0 0 40 60">
+    <path d="M20,28 L20,58" stroke="#4f8a2f" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M20,42 C12,40 9,34 8,30" stroke="#4f8a2f" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <g fill="#fffdf4">
+      <ellipse cx="20" cy="8" rx="5.5" ry="8"/><ellipse cx="20" cy="28" rx="5.5" ry="8"/>
+      <ellipse cx="10" cy="18" rx="8" ry="5.5"/><ellipse cx="30" cy="18" rx="8" ry="5.5"/>
+      <ellipse cx="13" cy="11" rx="6" ry="6"/><ellipse cx="27" cy="11" rx="6" ry="6"/>
+      <ellipse cx="13" cy="25" rx="6" ry="6"/><ellipse cx="27" cy="25" rx="6" ry="6"/>
+    </g>
+    <circle cx="20" cy="18" r="6" fill="#f5c842"/>
+  </svg>
+  <svg class="flower" style="left:230px; bottom:34px; width:56px;" viewBox="0 0 40 60">
+    <path d="M20,28 L20,58" stroke="#4f8a2f" stroke-width="3.5" stroke-linecap="round"/>
+    <g fill="#f7c9de">
+      <ellipse cx="20" cy="8" rx="5.5" ry="8"/><ellipse cx="20" cy="28" rx="5.5" ry="8"/>
+      <ellipse cx="10" cy="18" rx="8" ry="5.5"/><ellipse cx="30" cy="18" rx="8" ry="5.5"/>
+      <ellipse cx="13" cy="11" rx="6" ry="6"/><ellipse cx="27" cy="11" rx="6" ry="6"/>
+      <ellipse cx="13" cy="25" rx="6" ry="6"/><ellipse cx="27" cy="25" rx="6" ry="6"/>
+    </g>
+    <circle cx="20" cy="18" r="6" fill="#fde08a"/>
+  </svg>
+  <svg class="flower" style="left:1380px; bottom:44px; width:64px;" viewBox="0 0 40 60">
+    <path d="M20,28 L20,58" stroke="#4f8a2f" stroke-width="3.5" stroke-linecap="round"/>
+    <g fill="#f7c9de">
+      <ellipse cx="20" cy="8" rx="5.5" ry="8"/><ellipse cx="20" cy="28" rx="5.5" ry="8"/>
+      <ellipse cx="10" cy="18" rx="8" ry="5.5"/><ellipse cx="30" cy="18" rx="8" ry="5.5"/>
+      <ellipse cx="13" cy="11" rx="6" ry="6"/><ellipse cx="27" cy="11" rx="6" ry="6"/>
+      <ellipse cx="13" cy="25" rx="6" ry="6"/><ellipse cx="27" cy="25" rx="6" ry="6"/>
+    </g>
+    <circle cx="20" cy="18" r="6" fill="#fde08a"/>
+  </svg>
+  <svg class="flower" style="left:660px; bottom:24px; width:44px;" viewBox="0 0 40 60">
+    <path d="M20,28 L20,58" stroke="#4f8a2f" stroke-width="3.5" stroke-linecap="round"/>
+    <g fill="#fffdf4">
+      <ellipse cx="20" cy="8" rx="5.5" ry="8"/><ellipse cx="20" cy="28" rx="5.5" ry="8"/>
+      <ellipse cx="10" cy="18" rx="8" ry="5.5"/><ellipse cx="30" cy="18" rx="8" ry="5.5"/>
+    </g>
+    <circle cx="20" cy="18" r="6" fill="#f5c842"/>
+  </svg>
+
+</div>
+</body>
+</html>
