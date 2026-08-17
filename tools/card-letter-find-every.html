@@ -7,7 +7,8 @@
   Source for the Find Every X letter cards, same 5:7 shape and type as the
   cover but the inverse scheme: plain white, blue words, no clouds. Pass the
   letter as a query param: ?l=C ... ?l=B, ?l=C%23 for a sharp, ?l=Db for a
-  flat, or ?l=- for a letterless wild card. Rendered by tools/make-cards-pdf.py.
+  flat, or ?l=- for a letterless wild card. ?g=2 / ?g=3 makes the black-key
+  group cards instead. Rendered by tools/make-cards-pdf.py.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -86,6 +87,12 @@
     text-transform: none;
   }
 
+  .sub .key.key-num {
+    font-size: 340px;
+    margin-top: 14px;
+    margin-bottom: 8px;
+  }
+
   .sub .key {
     display: block;
     font-size: 460px;
@@ -105,7 +112,14 @@
   <div class="inner">
     <p class="sub">Find Every <span class="key">C</span></p>
   <script>
-    const l = new URLSearchParams(location.search).get('l') || 'C';
+    const params = new URLSearchParams(location.search);
+    const g = params.get('g');
+    if (g) {
+      document.querySelector('.sub').innerHTML =
+        'Find Every Group of <span class="key key-num">' + g + '</span> Black Keys';
+      throw new Error('done');
+    }
+    const l = params.get('l') || 'C';
     if (l === '-') { document.querySelector('.sub').style.display = 'none'; }
     else {
       const m = l.match(/^([A-G])([#b])?$/);

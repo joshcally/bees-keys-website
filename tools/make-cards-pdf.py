@@ -1,7 +1,8 @@
 """Compose the Find Every Key print-and-cut card sheet.
 
 Six US Letter pages, nine poker-size cards (2.5x3.5in) per page, in
-front/back pairs for double-sided printing: covers then naturals (C-B),
+front/back pairs for double-sided printing: covers then naturals (C-B
+plus the group-of-2/3 black keys cards),
 covers then all seven sharps, covers then all seven flats
 (enharmonics included), with letterless wilds filling
 spare slots. Each letter page's columns are mirrored so every back lands
@@ -31,7 +32,7 @@ def cell(r, c):
     return fitz.Rect(MX + c*CW, MY + r*CH, MX + (c+1)*CW, MY + (r+1)*CH)
 
 PAGES = [
-    [["C", "D", "E"], ["F", "G", "A"], ["B", "wild", "wild"]],
+    [["C", "D", "E"], ["F", "G", "A"], ["B", "g2", "g3"]],
     [["Cs", "Ds", "Es"], ["Fs", "Gs", "As"], ["Bs", "wild", "wild"]],
     [["Cb", "Db", "Eb"], ["Fb", "Gb", "Ab"], ["Bb", "wild", "wild"]],
 ]
