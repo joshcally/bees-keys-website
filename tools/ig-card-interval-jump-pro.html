@@ -16,18 +16,19 @@
 
   Change --window-size alone for the square placement: 1080,1080.
 
-  The companion to ig-card-interval-jump-bug-collection.html: same skeleton, so
-  the two sit together in a grid, but the opposite ground. The printable card is
-  cream parchment because the printable is paper; this one is the app, so it is
-  the app's own river and sky. Run as a pair, the sheets ad sells the free thing
-  and this one sells the upgrade.
+  Deliberately the same card as ig-card-interval-jump-bug-collection.html —
+  same parchment ground, same washes, same type scale, same gold pill — with
+  the game screenshot where the fan of sheets goes. An earlier version put this
+  one on the app's blue sky and water, and the result read as a Bees Keys card:
+  that sky-over-ground treatment is the Bees Keys house style, and using it here
+  made the Interval Jump pair look like two different studios. The parchment is
+  what makes them a set, so it stays whatever the card is selling.
 
-  The headline is from Josh's App Store creative ("Take on new challenges"), and
-  the perks are the paywall's own four lines, in the paywall's own words
-  (`view/settings/PaywallScreen.swift`). That matters more here than anywhere
-  else on the site: this is the card that asks for money, so what it promises
-  has to be exactly what the purchase unlocks. If a perk is edited there, edit
-  it here.
+  The headline is from Josh's App Store creative ("Take on new challenges"). The
+  perk strip under the screenshot is the paywall's own four lines in the
+  paywall's own words (`view/settings/PaywallScreen.swift`) — this is the card
+  that asks for money, so what it promises has to be exactly what the purchase
+  unlocks. If a perk is edited there, edit it here.
 
   No price. The paywall shows StoreKit's localized `displayPrice` and only falls
   back to $3.99, so a hardcoded number would be wrong in most storefronts the
@@ -41,25 +42,30 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    /* Viewport-sized so 1080x1350 and 1080x1080 both compose from this file —
-       see the note in the sheets card. The screenshot is the flexible row. */
+    /* Viewport-sized so 1080x1350 and 1080x1080 both compose from this file.
+       The screenshot is the flexible row. */
     width: 100vw;
     height: 100vh;
     overflow: hidden;
     position: relative;
     font-family: 'Nunito', sans-serif;
-    color: #1d3b2a;
-    /* Sky over water, in the app's azul (`colors/*.colorset`). Deliberately
-       just those two: an earlier version put the green bank in here too, and it
-       read as a smear either side of the screenshot, which paints its own bank
-       far better. */
+    color: #373936;
+    /* Parchment cream and gold, from the collection cards
+       (`view/common/SegmentedPicker.swift`). Identical to the sheets card. */
     background:
-      linear-gradient(180deg, #8fd3f4 0%, #bfe6f7 26%, #7fd2f0 56%, #3cb6ea 80%, #15b8f1 100%);
+      radial-gradient(ellipse 70% 42% at 50% 60%, rgba(255,255,255,.95) 0%, rgba(255,255,255,.5) 34%, rgba(255,255,255,0) 72%),
+      linear-gradient(180deg, #FDF9EC 0%, #FAF2D6 42%, #F6E7B6 78%, #F0DA9C 100%);
   }
 
-  .cloud { position: absolute; opacity: .8; }
-  .cloud-a { width: 210px; top: 4%;  left: 5%; }
-  .cloud-b { width: 150px; top: 10%; left: 76%; opacity: .55; }
+  .wash { position: absolute; border-radius: 50%; pointer-events: none; }
+  .wash-a {
+    width: 620px; height: 620px; top: -230px; right: -200px;
+    background: radial-gradient(circle, rgba(238,172,45,.20) 0%, rgba(238,172,45,0) 70%);
+  }
+  .wash-b {
+    width: 560px; height: 560px; bottom: -190px; left: -180px;
+    background: radial-gradient(circle, rgba(17,142,185,.16) 0%, rgba(17,142,185,0) 70%);
+  }
 
   .inner {
     position: relative;
@@ -69,90 +75,76 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 62px 52px 54px;
+    padding: 70px 56px 60px;
   }
 
   .brand { display: flex; align-items: center; gap: 13px; }
   .brand img { width: 52px; border-radius: 11px; }
-  .brand span { font-weight: 800; font-size: 31px; letter-spacing: -.02em; color: #14432c; }
+  .brand span { font-weight: 800; font-size: 31px; letter-spacing: -.02em; }
 
   .eyebrow {
-    margin-top: 20px;
-    font-size: 20px;
+    margin-top: 24px;
+    font-size: 19px;
     font-weight: 800;
-    letter-spacing: .14em;
+    letter-spacing: .13em;
     text-transform: uppercase;
-    color: #0d5f7d;
+    color: #8C5E2E;
   }
 
   h1 {
     margin-top: 8px;
-    font-size: 74px;
+    font-size: 76px;
     font-weight: 900;
     line-height: 1.0;
     letter-spacing: -.03em;
-    color: #16213a;
-    text-shadow: 0 2px 0 rgba(255,255,255,.45);
+    text-shadow: 0 1px 0 rgba(255,255,255,.55);
   }
-  h1 em { font-style: normal; color: #2f7d20; }
+  h1 em { font-style: normal; color: #118EB9; }
 
-  /* The game itself, in a rounded frame. */
-  .shot {
+  .sub {
+    margin-top: 16px;
+    font-size: 27px;
+    font-weight: 700;
+    color: #6b6f68;
+  }
+
+  /* The game, floating on the parchment the way the sheets do. */
+  .stack {
     flex: 1;
     min-height: 0;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 26px;
+    margin-top: 10px;
   }
-  .shot img {
-    width: 900px;
+  .stack img {
+    width: 940px;
     max-width: 100%;
     max-height: 100%;
     height: auto;
-    border-radius: 20px;
-    border: 5px solid #fff;
-    box-shadow: 0 18px 40px rgba(12,40,25,.32);
+    border-radius: 18px;
+    border: 6px solid #fff;
+    box-shadow: 0 18px 40px rgba(31,33,28,.28);
   }
 
-  /* The paywall's four lines, two up two down. */
+  /* The paywall's four lines, as a strip rather than four boxes — boxes would
+     be furniture the sheets card does not have, and the pair has to match. Two
+     per line, broken by hand: left to wrap on its own the fourth perk splits
+     and strands "bugs" alone on a centred line. */
   .perks {
-    margin-top: 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    width: 100%;
+    margin-top: 22px;
+    font-size: 21px;
+    font-weight: 800;
+    color: #8C5E2E;
+    line-height: 1.5;
+    max-width: 880px;
   }
+  .perks .dot { color: #EEAC2D; margin: 0 10px; }
 
-  .perk {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-align: left;
-    background: rgba(255,255,255,.93);
-    border-radius: 16px;
-    padding: 14px 18px;
-    box-shadow: 0 4px 12px rgba(12,40,25,.16);
-  }
+  .foot { margin-top: 22px; display: flex; align-items: center; gap: 18px; }
 
-  .perk .tick {
-    flex: none;
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    background: linear-gradient(180deg, #ffd940 0%, #f29900 100%);
-    color: #fff;
-    font-size: 17px;
-    font-weight: 900;
-    line-height: 30px;
-    text-align: center;
-  }
-
-  .perk span { font-size: 22px; font-weight: 800; color: #1d3b2a; line-height: 1.15; }
-
-  .foot { margin-top: 24px; display: flex; align-items: center; gap: 18px; }
-
-  .buy {
+  .free {
     background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
     color: #2a2208;
     font-weight: 800;
@@ -160,16 +152,16 @@
     padding: 13px 30px;
     border-radius: 999px;
     border: 1px solid rgba(180,120,20,.35);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 14px rgba(120,80,10,.3);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 14px rgba(160,110,20,.28);
   }
 
-  .handle { font-size: 24px; font-weight: 800; color: #10405a; }
+  .handle { font-size: 24px; font-weight: 800; color: #8C5E2E; }
 </style>
 </head>
 <body>
 
-  <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
-  <img src="../images/cloud2.svg" alt="" class="cloud cloud-b" />
+  <div class="wash wash-a"></div>
+  <div class="wash wash-b"></div>
 
   <div class="inner">
     <div class="brand">
@@ -179,20 +171,19 @@
 
     <p class="eyebrow">Interval Jump Pro</p>
     <h1>Take on new <em>challenges</em></h1>
+    <p class="sub">Unlock the whole river.</p>
 
-    <div class="shot">
+    <div class="stack">
       <img src="../images/resources/interval-jump-bug-collection-game.jpg" alt="" />
     </div>
 
-    <div class="perks">
-      <div class="perk"><i class="tick">✓</i><span>4th–9th intervals</span></div>
-      <div class="perk"><i class="tick">✓</i><span>Custom practice sessions</span></div>
-      <div class="perk"><i class="tick">✓</i><span>All timers &amp; controls</span></div>
-      <div class="perk"><i class="tick">✓</i><span>Catch river bugs</span></div>
-    </div>
+    <p class="perks">
+      4th–9th intervals <span class="dot">·</span> Custom practice sessions<br />
+      All timers &amp; controls <span class="dot">·</span> Catch river bugs
+    </p>
 
     <div class="foot">
-      <span class="buy">One-time unlock · no subscription</span>
+      <span class="free">One-time unlock · no subscription</span>
       <span class="handle">On the App Store</span>
     </div>
   </div>
