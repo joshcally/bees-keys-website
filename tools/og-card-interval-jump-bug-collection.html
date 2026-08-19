@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>OG card source — Interval Jump Bug Collection</title>
+<!--
+  Source for images/resources/interval-jump-bug-collection-og.png, the 1200x630
+  link-preview image for the printable's page. Render it with:
+
+    python3 -m http.server 8000
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1200,630 \
+      --virtual-time-budget=5000 \
+      --screenshot=images/resources/interval-jump-bug-collection-og.png \
+      http://localhost:8000/tools/og-card-interval-jump-bug-collection.html
+
+  Same construction as the Bees Keys printable cards — brand row, eyebrow,
+  two-line headline, kicker, gold pill, and the sheets fanned on the right — so
+  the whole set still reads as one studio. The ground is the only thing that
+  changes: this printable belongs to Interval Jump, so the meadow becomes the
+  app's river (azul and cerulean from `colors/*.colorset`) with a green bank.
+
+  The sheets fan narrower than the Bees Keys cards do because these are portrait
+  and those are landscape; at the Bees Keys width they would run off the card.
+  The sticker sheet leads and a collection card sits behind it: at 322px the
+  ghosted Collect All Six card reads as a washed-out grid, while the sticker grid
+  still shows all six colours at a glance.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    color: #232323;
+    background:
+      radial-gradient(ellipse 60% 42% at 30% 84%, rgba(255,255,255,.7) 0%, rgba(120,206,240,.6) 26%, rgba(120,206,240,0) 68%),
+      linear-gradient(180deg, #3f9ae6 0%, #79c4ee 30%, #b7e2f7 52%, #6fd0f2 74%, #15b8f1 88%);
+  }
+
+  /* The river bank, in place of the Bees Keys meadow. */
+  .bank {
+    position: absolute;
+    left: -30px; right: -30px; bottom: -30px;
+    height: 230px;
+    filter: blur(9px);
+  }
+  .bank svg { width: 100%; height: 100%; display: block; }
+
+  .cloud { position: absolute; opacity: .75; }
+  .cloud-a { width: 150px; top: 6%; left: 40%; }
+  .cloud-b { width: 105px; top: 26%; left: 90%; opacity: .45; }
+
+  .inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr .92fr;
+    align-items: center;
+    gap: 30px;
+    padding: 0 60px;
+  }
+
+  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .brand img { width: 44px; border-radius: 10px; }
+  .brand span { font-weight: 800; font-size: 27px; letter-spacing: -.02em; }
+
+  .eyebrow {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #b8651a;
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-size: 55px;
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -.025em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.4);
+  }
+
+  h1 em { font-style: normal; color: #0d5f7d; }
+
+  .sub {
+    margin-top: 16px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #24424e;
+  }
+
+  .free {
+    display: inline-block;
+    margin-top: 22px;
+    background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
+    color: #2a2208;
+    font-weight: 800;
+    font-size: 21px;
+    padding: 11px 26px;
+    border-radius: 999px;
+    border: 1px solid rgba(180,120,20,.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 14px rgba(160,110,20,.28);
+  }
+
+  /* The sheets themselves, fanned the way the cover fans them. */
+  .stack { position: relative; height: 470px; }
+
+  .stack img {
+    position: absolute;
+    width: 322px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,.12);
+    background: #fff;
+    box-shadow: 0 14px 34px rgba(31,33,28,.3);
+  }
+
+  .sheet-back  { top: 6px;  left: 96px; transform: rotate(-7deg); }
+  .sheet-front { top: 52px; left: 6px;  transform: rotate(4deg); }
+</style>
+</head>
+<body>
+
+  <div class="bank">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,44 C260,22 460,54 720,40 C980,26 1200,50 1440,32 L1440,150 L0,150 Z" fill="#bfe6a8" />
+      <path d="M0,64 C300,46 520,74 780,60 C1040,46 1240,68 1440,56 L1440,150 L0,150 Z" fill="#9ed986" />
+      <path d="M0,84 C320,72 560,94 820,82 C1080,70 1260,88 1440,78 L1440,150 L0,150 Z" fill="#7cc95f" />
+      <path d="M0,102 C360,94 620,110 900,100 C1140,92 1300,104 1440,98 L1440,150 L0,150 Z" fill="#5fb841" />
+    </svg>
+  </div>
+
+  <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
+  <img src="../images/cloud2.svg" alt="" class="cloud cloud-b" />
+
+  <div class="inner">
+    <div>
+      <div class="brand">
+        <img src="../images/intervaljump-icon.png" alt="" />
+        <span>Interval Jump</span>
+      </div>
+
+      <p class="eyebrow">Free printable</p>
+      <h1>Bug collection<br /><em>sticker sheets</em></h1>
+      <p class="sub">Play · Catch · Collect</p>
+      <span class="free">756 stickers, free</span>
+    </div>
+
+    <div class="stack">
+      <img class="sheet-back"  src="../images/resources/interval-jump-bug-collection-6-slot.jpg" alt="" />
+      <img class="sheet-front" src="../images/resources/interval-jump-bug-collection-stickers.jpg" alt="" />
+    </div>
+  </div>
+
+</body>
+</html>

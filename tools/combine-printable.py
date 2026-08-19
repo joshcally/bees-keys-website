@@ -10,6 +10,13 @@ carries the annotations across untouched.
     python3 tools/combine-printable.py cover.pdf worksheets.pdf out.pdf \
       --title "Groups of Black Keys" --dpi 200
 
+Any number of worksheet files may sit between the cover and the output path, and
+they are appended in the order written — the printable's print order, decided
+here rather than by the filesystem:
+
+    python3 tools/combine-printable.py cover.pdf stickers.pdf cards-6.pdf \
+      cards-9.pdf collect-all-six.pdf out.pdf --title "Bug Collection"
+
 It verifies the links afterwards and fails loudly if any went missing, so a
 silent regression can't ship.
 
@@ -41,6 +48,10 @@ site promises US Letter throughout.
 what a reader's tab, print dialog, and Google's index all show. A default would
 quietly ship the previous printable's name on the next one.
 --subject and --keywords are optional and left out when not given.
+--brand is the suffix the title gets in that metadata, default "Bees Keys
+Printables". Set it for a printable belonging to one of the studio's other apps,
+so a reader's tab does not name the wrong one. Pass the bare name either way —
+the suffix is appended here, and passing it in --title too doubles it.
 """
 
 import sys
@@ -60,11 +71,12 @@ def links_in(doc):
 
 def combine(
     cover_path,
-    worksheets_path,
+    worksheet_paths,
     out_path,
     title,
     subject=None,
     keywords=None,
+    brand="Bees Keys Printables",
     lossless=False,
     dpi=None,
     quality=92,
@@ -85,39 +97,45 @@ def combine(
     cover_rect = cover[0].rect
     cover.close()
 
-    sheets = pymupdf.open(worksheets_path)
-    if dpi:
-        # Re-render each worksheet at the target resolution. Safe here only
-        # because the worksheets carry no links or text to lose — they are
-        # single full-page bitmaps already.
-        for page in sheets:
-            target = cover_rect if fit_cover else page.rect
-            scale = min(
-                target.width / page.rect.width, target.height / page.rect.height
-            )
-            dx = (target.width - page.rect.width * scale) / 2
-            dy = (target.height - page.rect.height * scale) / 2
-            placed = pymupdf.Rect(
-                dx, dy, dx + page.rect.width * scale, dy + page.rect.height * scale
-            )
-            # dpi is meant against the page being written, not the source page —
-            # a master drawn on an oversized canvas would otherwise be rendered
-            # huge and then squeezed down, spending megabytes on pixels the
-            # printer never sees.
-            zoom = placed.width * dpi / (72 * page.rect.width)
-            pix = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom))
-            new = out.new_page(width=target.width, height=target.height)
-            new.insert_image(
-                placed,
-                stream=pix.tobytes("jpeg", jpg_quality=quality),
-                keep_proportion=False,
-            )
-    else:
-        out.insert_pdf(sheets, links=True, annots=True)
-        expected += [(i + offset, uri) for i, uri in links_in(sheets)]
-    sheets.close()
+    # Worksheet files are appended in the order given, which is the order they
+    # print in. A printable can be assembled from several masters — a sticker
+    # sheet and three collection cards, say — and the caller decides the
+    # sequence rather than the filesystem.
+    for worksheets_path in worksheet_paths:
+        sheets = pymupdf.open(worksheets_path)
+        if dpi:
+            # Re-render each worksheet at the target resolution. Safe here only
+            # because the worksheets carry no links or text to lose — they are
+            # single full-page bitmaps already.
+            for page in sheets:
+                target = cover_rect if fit_cover else page.rect
+                scale = min(
+                    target.width / page.rect.width, target.height / page.rect.height
+                )
+                dx = (target.width - page.rect.width * scale) / 2
+                dy = (target.height - page.rect.height * scale) / 2
+                placed = pymupdf.Rect(
+                    dx, dy, dx + page.rect.width * scale, dy + page.rect.height * scale
+                )
+                # dpi is meant against the page being written, not the source
+                # page — a master drawn on an oversized canvas would otherwise
+                # be rendered huge and then squeezed down, spending megabytes on
+                # pixels the printer never sees.
+                zoom = placed.width * dpi / (72 * page.rect.width)
+                pix = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom))
+                new = out.new_page(width=target.width, height=target.height)
+                new.insert_image(
+                    placed,
+                    stream=pix.tobytes("jpeg", jpg_quality=quality),
+                    keep_proportion=False,
+                )
+        else:
+            out.insert_pdf(sheets, links=True, annots=True)
+            expected += [(i + offset, uri) for i, uri in links_in(sheets)]
+            offset += len(sheets)
+        sheets.close()
 
-    meta = {"title": f"{title} - Bees Keys Printables", "author": "Bees Keys"}
+    meta = {"title": f"{title} - {brand}", "author": "Bees Keys"}
     if subject:
         meta["subject"] = subject
     if keywords:
@@ -167,7 +185,7 @@ def main(argv):
                 sys.exit(f"{a} needs a value")
             opts[a[2:]] = int(argv[i + 1])
             i += 1
-        elif a in ("--title", "--subject", "--keywords"):
+        elif a in ("--title", "--subject", "--keywords", "--brand"):
             if i + 1 >= len(argv):
                 sys.exit(f"{a} needs a value")
             text[a[2:]] = argv[i + 1]
@@ -176,9 +194,9 @@ def main(argv):
             args.append(a)
         i += 1
 
-    if len(args) != 3 or "title" not in text:
+    if len(args) < 3 or "title" not in text:
         sys.exit(__doc__)
-    return combine(*args, **text, **opts)
+    return combine(args[0], args[1:-1], args[-1], **text, **opts)
 
 
 if __name__ == "__main__":
