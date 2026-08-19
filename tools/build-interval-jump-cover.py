@@ -2,7 +2,8 @@
 """Build the two-page cover that leads the Interval Jump Bug Collection printable.
 
     pip install reportlab pymupdf qrcode
-    python3 tools/build-interval-jump-cover.py
+    python3 tools/build-interval-jump-cover.py <cover.pdf>
+    python3 tools/build-interval-jump-cover.py --thumb <card.jpg>
 
 Same cover language as the Bees Keys printables — eyebrow, hairline rule, light
 title, a fanned preview of the real sheets, and a footer bar — with two
@@ -54,12 +55,16 @@ PAD = f"{IJ}/IntervalJump/assets/Assets.xcassets/river/lily-pad.imageset/lily-pa
 ART = f"{IJ}/printables/art"
 SHEETS = f"{IJ}/printables"
 
-OUT = sys.argv[1] if len(sys.argv) > 1 else "/tmp/interval-jump-bug-collection-cover.pdf"
+OUT = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith("-") \
+    else "/tmp/interval-jump-bug-collection-cover.pdf"
 
 APP_STORE = "https://apps.apple.com/us/app/interval-jump-read-music-fast/id6736377103"
 SITE_URL = "https://beeskeysapp.com"
 
 W, H = letter  # portrait, unlike every Bees Keys cover
+# The resources.html card list is landscape whatever the printable is, so the
+# thumbnail is composed on a landscape page of its own.
+THUMB_W, THUMB_H = letter[1], letter[0]
 
 # Bees Keys cover furniture (ink, muted, hairline) so the two sit in one family,
 # over Interval Jump's own palette: azul and cerulean from `colors/*.colorset`,
@@ -397,8 +402,53 @@ def page_two(c, qr):
     c.showPage()
 
 
+def page_thumb(c, strip, six, ghost, loose):
+    """The landscape thumbnail for the resources.html card list.
+
+    Cropping the portrait cover to landscape was the obvious shortcut and the
+    wrong one: it cut the sheet on all four edges, slicing bugs mid-body, which
+    reads as damage rather than as a frame. Every other card in that list shows
+    a whole cover page, so this composes the same three pieces afresh at the
+    list's own aspect, with nothing running off an edge.
+    """
+    c.setFillColor(white)
+    c.rect(0, 0, THUMB_W, THUMB_H, fill=1, stroke=0)
+
+    paper(c, strip, 396, 428, 560, angle=-2.0)
+    paper(c, six, 243, 196, 266, angle=-5.0)
+    paper(c, ghost, 551, 184, 266, angle=4.0)
+
+    loose_sticker(c, loose[0], 86, 462, 42, 12)
+    loose_sticker(c, loose[1], 716, 340, 42, -12)
+    loose_sticker(c, loose[2], 397, 92, 44, 6)
+
+    c.showPage()
+
+
+def write_thumb(path, strip, six, ghost, loose):
+    """Render the thumbnail page to the JPG the card list loads.
+
+    96 dpi over a landscape Letter page is 1056x816 — the exact size the other
+    five cards carry, so the row heights stay level.
+    """
+    buf = io.BytesIO()
+    c = canvas.Canvas(buf, pagesize=(THUMB_W, THUMB_H))
+    page_thumb(c, strip, six, ghost, loose)
+    c.save()
+
+    doc = pymupdf.open(stream=buf.getvalue(), filetype="pdf")
+    pix = doc[0].get_pixmap(dpi=96)
+    im = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+    doc.close()
+    im.save(path, quality=85)
+    print(f"{path}: {im.width}x{im.height}")
+
+
 def main():
     strip, six, ghost, loose = crops()
+    if "--thumb" in sys.argv:
+        write_thumb(sys.argv[sys.argv.index("--thumb") + 1], strip, six, ghost, loose)
+        return
     qr = qr_image()
     c = canvas.Canvas(OUT, pagesize=(W, H))
     c.setTitle("Bug Collection Sticker Sheets - Interval Jump")
