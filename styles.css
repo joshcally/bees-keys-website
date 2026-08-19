@@ -1206,6 +1206,29 @@ a { color: var(--leaf); }
 
 .version figcaption strong { display: block; color: var(--ink); }
 
+/* A single full-width illustration in a post, where .version-grid would strand
+   it in one of two columns. Same rim and shadow as the previews, since it sits
+   among them. */
+/* Bottom margin as well as top: `p` carries margin-bottom only, so without it
+   the caption and the next paragraph touch. */
+.post-figure { margin: 1.75rem 0 2rem; }
+
+.post-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  border: 1px solid var(--card-line);
+  background: var(--white);
+  box-shadow: 0 3px 10px var(--shadow);
+}
+
+.post-figure figcaption {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+}
+
 .post-foot {
   margin-top: 3rem;
   padding-top: 2rem;
