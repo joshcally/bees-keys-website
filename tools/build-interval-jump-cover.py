@@ -4,6 +4,7 @@
     pip install reportlab pymupdf qrcode
     python3 tools/build-interval-jump-cover.py <cover.pdf>
     python3 tools/build-interval-jump-cover.py --thumb <card.jpg>
+    python3 tools/build-interval-jump-cover.py --art <fan.png>   # transparent
 
 Same cover language as the Bees Keys printables — eyebrow, hairline rule, light
 title, a fanned preview of the real sheets, and a footer bar — with two
@@ -413,7 +414,13 @@ def page_thumb(c, strip, six, ghost, loose):
     """
     c.setFillColor(white)
     c.rect(0, 0, THUMB_W, THUMB_H, fill=1, stroke=0)
+    fan(c, strip, six, ghost, loose)
+    c.showPage()
 
+
+def fan(c, strip, six, ghost, loose):
+    """The three pieces, laid out on the landscape page. Shared by the site
+    thumbnail and the transparent art, so the two can never drift apart."""
     paper(c, strip, 396, 428, 560, angle=-2.0)
     paper(c, six, 243, 196, 266, angle=-5.0)
     paper(c, ghost, 551, 184, 266, angle=4.0)
@@ -422,7 +429,26 @@ def page_thumb(c, strip, six, ghost, loose):
     loose_sticker(c, loose[1], 716, 340, 42, -12)
     loose_sticker(c, loose[2], 397, 92, 44, 6)
 
+
+def write_art(path, strip, six, ghost, loose, dpi=150):
+    """The same fan on a transparent ground, as a PNG.
+
+    Only the page behind it is dropped — `paper()` still lays each piece on its
+    own white stock, which is what the sheets actually are. That leaves the fan
+    free to sit on any background a social or ad card wants, with its shadows
+    falling on that background instead of on a white box pasted over it.
+    """
+    buf = io.BytesIO()
+    c = canvas.Canvas(buf, pagesize=(THUMB_W, THUMB_H))
+    fan(c, strip, six, ghost, loose)
     c.showPage()
+    c.save()
+
+    doc = pymupdf.open(stream=buf.getvalue(), filetype="pdf")
+    pix = doc[0].get_pixmap(dpi=dpi, alpha=True)
+    doc.close()
+    pix.save(path)
+    print(f"{path}: {pix.width}x{pix.height} RGBA")
 
 
 def write_thumb(path, strip, six, ghost, loose):
@@ -448,6 +474,9 @@ def main():
     strip, six, ghost, loose = crops()
     if "--thumb" in sys.argv:
         write_thumb(sys.argv[sys.argv.index("--thumb") + 1], strip, six, ghost, loose)
+        return
+    if "--art" in sys.argv:
+        write_art(sys.argv[sys.argv.index("--art") + 1], strip, six, ghost, loose)
         return
     qr = qr_image()
     c = canvas.Canvas(OUT, pagesize=(W, H))

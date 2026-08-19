@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Instagram / ad card source — Interval Jump Bug Collection</title>
+<!--
+  Source for the 1080x1350 social post and paid promo for the Bug Collection
+  printable. Render it with:
+
+    python3 -m http.server 8000
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1080,1350 \
+      --virtual-time-budget=5000 \
+      --screenshot=interval-jump-bug-collection-instagram.png \
+      http://localhost:8000/tools/ig-card-interval-jump-bug-collection.html
+
+  Change --window-size alone for the square placement: 1080,1080. See the note
+  on `body` for why a 9:16 story is not just another window size.
+
+  1080x1350 is the 4:5 feed format, which is both the tallest unit Instagram
+  and Facebook will show in-feed and the aspect their ad placements accept
+  without a re-crop. Same skeleton as tools/ig-card-*.html — brand, eyebrow,
+  headline, product, then a pill and the handle — so the grid stays coherent.
+
+  Two departures, both deliberate.
+
+  **No blue sky.** The Bees Keys cards sit on the app's sky-to-meadow ground.
+  This printable is Interval Jump's, and its own artwork is the cream-and-gold
+  parchment of the collection cards, so the ground is that parchment instead.
+  It also does the ad a favour: the six bugs are saturated red, orange, purple
+  and blue, and they read harder against warm cream than against blue sky.
+
+  **The product floats.** It is the transparent fan from
+  `build-interval-jump-cover.py --art`, not the site thumbnail, so the sheets'
+  drop shadows fall on the parchment rather than sitting inside a pasted white
+  box. Regenerate it with:
+
+    python3 tools/build-interval-jump-cover.py \
+      --art images/resources/interval-jump-bug-collection-fan.png
+
+  The headline leads with the count rather than the printable's name: in a feed
+  the number is the thing that stops a scroll, and the name is one tap away.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    /* Sized from the viewport rather than pinned to 1350px, so one source
+       renders both feed placements: 1080x1350 for the 4:5 unit and 1080x1080
+       for the square one Meta's ad manager still asks for. The fan is the
+       flexible row, so what changes between them is how much ground shows
+       around the product, never the type or the crop.
+       9:16 is NOT one of them. The fan is a landscape composition capped by the
+       card's width, so it cannot grow to fill a story's height — rendering
+       1080x1920 here leaves two dead bands of ground. A story wants the pieces
+       restacked vertically, which is a different composition, not a different
+       --window-size. */
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    color: #373936;
+    /* Parchment cream and gold, from the collection cards themselves
+       (`view/common/SegmentedPicker.swift`). */
+    background:
+      radial-gradient(ellipse 70% 42% at 50% 60%, rgba(255,255,255,.95) 0%, rgba(255,255,255,.5) 34%, rgba(255,255,255,0) 72%),
+      linear-gradient(180deg, #FDF9EC 0%, #FAF2D6 42%, #F6E7B6 78%, #F0DA9C 100%);
+  }
+
+  /* Soft gold blooms, so the ground has some depth at feed size without
+     competing with the sheets. Drawn in CSS rather than from the bug art: the
+     art lives in the IntervalJump repo, and a social card should not need a
+     sibling checkout to render. */
+  .wash { position: absolute; border-radius: 50%; pointer-events: none; }
+  .wash-a {
+    width: 620px; height: 620px; top: -230px; right: -200px;
+    background: radial-gradient(circle, rgba(238,172,45,.20) 0%, rgba(238,172,45,0) 70%);
+  }
+  .wash-b {
+    width: 560px; height: 560px; bottom: -190px; left: -180px;
+    background: radial-gradient(circle, rgba(17,142,185,.16) 0%, rgba(17,142,185,0) 70%);
+  }
+
+  .inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 70px 56px 60px;
+  }
+
+  .brand { display: flex; align-items: center; gap: 13px; }
+  .brand img { width: 52px; border-radius: 11px; }
+  .brand span { font-weight: 800; font-size: 31px; letter-spacing: -.02em; }
+
+  .eyebrow {
+    margin-top: 24px;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: #8C5E2E;
+  }
+
+  h1 {
+    margin-top: 8px;
+    font-size: 86px;
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -.03em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.55);
+  }
+  h1 em { font-style: normal; color: #118EB9; }
+
+  .sub {
+    margin-top: 16px;
+    font-size: 27px;
+    font-weight: 700;
+    color: #6b6f68;
+  }
+
+  /* The fan, floating on the parchment. */
+  .stack {
+    flex: 1;
+    min-height: 0;          /* without this a flex item refuses to shrink below
+                               its content, and the square crop clips the foot */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+  }
+  .stack img { width: 1010px; max-width: 100%; max-height: 100%; height: auto; }
+
+  .foot { display: flex; align-items: center; gap: 18px; }
+
+  .free {
+    background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
+    color: #2a2208;
+    font-weight: 800;
+    font-size: 23px;
+    padding: 13px 30px;
+    border-radius: 999px;
+    border: 1px solid rgba(180,120,20,.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 14px rgba(160,110,20,.28);
+  }
+
+  .handle { font-size: 24px; font-weight: 800; color: #8C5E2E; }
+</style>
+</head>
+<body>
+
+  <div class="wash wash-a"></div>
+  <div class="wash wash-b"></div>
+
+  <div class="inner">
+    <div class="brand">
+      <img src="../images/intervaljump-icon.png" alt="" />
+      <span>Interval Jump</span>
+    </div>
+
+    <p class="eyebrow">Free printable for music teachers</p>
+    <h1><em>756</em> bug stickers</h1>
+    <p class="sub">…and 16 collection cards to fill.</p>
+
+    <div class="stack">
+      <img src="../images/resources/interval-jump-bug-collection-fan.png" alt="" />
+    </div>
+
+    <div class="foot">
+      <span class="free">Free · no sign-up</span>
+      <span class="handle">beeskeysapp.com</span>
+    </div>
+  </div>
+
+</body>
+</html>
