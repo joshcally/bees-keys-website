@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Instagram / ad card source — Bees Keys Pro (Find Every)</title>
+<!--
+  Source for the 1080x1350 Bees Keys Pro plug that runs alongside the Find
+  Every Key printable. Render it with:
+
+    python3 -m http.server 8000
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1080,1350 \
+      --virtual-time-budget=5000 \
+      --screenshot=bees-keys-pro-find-every-instagram.png \
+      http://localhost:8000/tools/ig-card-bees-keys-pro-find-every.html
+
+  Change --window-size alone for the square placement: 1080,1080.
+
+  Deliberately the same card as ig-card-find-every-key.html — same sky and
+  meadow, same type scale, same gold pill — with the studio photo of Live on a
+  real piano (images/pro-piano.webp, the cutout the site's Pro section uses)
+  where the fan of card sheets goes. The Interval Jump pair established the
+  rule: a companion keeps the free card's ground and swaps the product, so the
+  two sit together in a grid as one set.
+
+  This is the card that asks for money, so what it promises is the paywall's
+  own copy (BeesKeys/en.lproj/Localizable.strings, "BeesKeys Pro paywall"):
+  "Play on your real piano.", Any Piano — Mic · MIDI · Bluetooth, Live Games —
+  Original + Find Every, "One purchase · Yours forever · No subscription". If
+  a line changes there, change it here. Find Every is only ever played on the
+  real piano — never the touch keyboard — and the copy must keep saying so.
+
+  No price: the paywall shows StoreKit's localized displayPrice, so a hardcoded
+  number is wrong outside the US storefront.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    color: #232323;
+    background:
+      radial-gradient(ellipse 66% 40% at 50% 88%, rgba(255,255,255,.85) 0%, rgba(251,227,142,.72) 28%, rgba(251,227,142,0) 70%),
+      linear-gradient(180deg, #3f9ae6 0%, #79c4ee 30%, #b7e2f7 52%, #fbe38e 76%, #f7d067 90%);
+  }
+
+  .meadow {
+    position: absolute;
+    left: -30px; right: -30px; bottom: -20px;
+    height: 260px;
+    filter: blur(9px);
+  }
+  .meadow svg { width: 100%; height: 100%; display: block; }
+
+  .cloud { position: absolute; opacity: .7; }
+  .cloud-a { width: 170px; top: 5%;  left: 6%; }
+  .cloud-b { width: 120px; top: 13%; left: 80%; opacity: .45; }
+
+  .inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 74px 60px 62px;
+  }
+
+  .brand { display: flex; align-items: center; gap: 13px; }
+  .brand img { width: 52px; }
+  .brand span { font-weight: 800; font-size: 31px; letter-spacing: -.02em; }
+
+  .eyebrow {
+    margin-top: 26px;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: #b8651a;
+  }
+
+  h1 {
+    margin-top: 10px;
+    font-size: 74px;
+    font-weight: 900;
+    line-height: 1.03;
+    letter-spacing: -.028em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.4);
+  }
+  h1 em { font-style: normal; color: #2f6b23; }
+
+  .sub {
+    margin-top: 14px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #3c4a44;
+  }
+
+  /* The two card sheets, floating: a transparent fan so their shadows fall on
+     the sky and meadow rather than sitting in a pasted white box. */
+  .stack {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+  }
+  /* The photo is a cutout on transparency (the iPad rises above the piano's
+     top edge), so it gets a drop-shadow filter rather than a framed box, and
+     floats on the meadow the way the card fan does on its sibling. */
+  .stack img {
+    width: 860px;
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    filter: drop-shadow(0 22px 30px rgba(31,33,28,.38));
+  }
+
+  /* The paywall's own lines, as a strip rather than boxes, so the pair matches.
+     Broken by hand, two per line. */
+  .perks {
+    margin-top: 26px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #2f4a2a;
+    line-height: 1.5;
+    max-width: 900px;
+  }
+  .perks .dot { color: #b8651a; margin: 0 10px; }
+
+  .foot { margin-top: 20px; }
+
+  .foot {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .free {
+    background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
+    color: #2a2208;
+    font-weight: 800;
+    font-size: 23px;
+    padding: 13px 30px;
+    border-radius: 999px;
+    border: 1px solid rgba(180,120,20,.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 14px rgba(160,110,20,.28);
+  }
+
+  .handle {
+    font-size: 24px;
+    font-weight: 800;
+    color: #2f4a2a;
+  }
+</style>
+</head>
+<body>
+
+  <div class="meadow">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,44 C260,22 460,54 720,40 C980,26 1200,50 1440,32 L1440,150 L0,150 Z" fill="#d3ecb2" />
+      <path d="M0,64 C300,46 520,74 780,60 C1040,46 1240,68 1440,56 L1440,150 L0,150 Z" fill="#b3de8b" />
+      <path d="M0,84 C320,72 560,94 820,82 C1080,70 1260,88 1440,78 L1440,150 L0,150 Z" fill="#93cf63" />
+      <path d="M0,102 C360,94 620,110 900,100 C1140,92 1300,104 1440,98 L1440,150 L0,150 Z" fill="#7cc142" />
+    </svg>
+  </div>
+
+  <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
+  <img src="../images/cloud2.svg" alt="" class="cloud cloud-b" />
+
+  <div class="inner">
+    <div class="brand">
+      <img src="../images/bee_icon.png" alt="" />
+      <span>Bees Keys</span>
+    </div>
+
+    <p class="eyebrow">Bees Keys Pro</p>
+    <h1>Play it on your<br /><em>real piano.</em></h1>
+    <p class="sub">Find Every in the app: it listens, times the round, and keeps the best times.</p>
+
+    <div class="stack">
+      <img src="../images/pro-piano.webp" alt="" />
+    </div>
+
+    <p class="perks">
+      Any piano <span class="dot">·</span> Mic, MIDI &amp; Bluetooth<br />
+      Live games <span class="dot">·</span> Original + Find Every
+    </p>
+
+    <div class="foot">
+      <span class="free">One purchase · yours forever · no subscription</span>
+      <span class="handle">On the App Store</span>
+    </div>
+  </div>
+
+</body>
+</html>
