@@ -785,18 +785,10 @@ a { color: var(--leaf); }
 
 /* ===================== SCHOOLS ===================== */
 
-/* The one-line door to education.html inside the teaching section: a bold
-   question, a clause, and the link, centred under the lede like the lede. */
-.teacher-schools {
-  max-width: 60ch;
-  margin: 1.5rem auto 0;
-  text-align: center;
-  color: var(--ink-soft);
-  font-size: 0.98rem;
-}
-.teacher-schools strong { display: block; color: var(--ink); margin-bottom: 0.15rem; }
-.teacher-schools a { display: block; margin-top: 0.35rem; font-weight: 700; text-decoration: none; }
-.teacher-schools a:hover { text-decoration: underline; }
+/* The link line at the foot of the schools column in the teaching section. */
+.teacher-col-link { margin-top: 0.75rem; font-weight: 700; }
+.teacher-col-link a { text-decoration: none; }
+.teacher-col-link a:hover { text-decoration: underline; }
 
 /* education.html: prose width like the legal pages, fact list like the Pro
    features (bold lead, soft body), and the contact card reuses .share-band. */
