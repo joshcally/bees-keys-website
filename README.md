@@ -11,6 +11,7 @@ styles.css        all styles
 privacy.html      privacy policy (linked from the App Store listing)
 terms.html        terms of use
 resources.html    index of the free printables
+education.html    the schools & districts page: what the app does on managed devices, and how to reach us
 resources/        one page per printable, plus resources/files/*.pdf
 CNAME             custom domain, beeskeysapp.com
 robots.txt        allows everything, points at the sitemap
@@ -47,6 +48,16 @@ It has to stay **1200x630**. The cards are `summary_large_image`, which
 centre-crops anything squarer, and `og:image` has to be an absolute
 `https://beeskeysapp.com/...` URL or the scrapers won't fetch it. If you change
 the hero, re-render this so the two don't drift apart.
+
+## Schools & districts
+
+`education.html` is where an administrator who found Bees Keys in Apple School
+Manager lands. It also answers at `beeskeysapp.com/education`, since GitHub Pages
+serves `foo.html` for `/foo`. The "Talk to the developer" button is a prefilled
+`mailto:`, the same trick as the Android section on the home page — **not a
+form**. A form would need a third-party handler and a privacy-policy change; the
+mailto needs neither. The page states only what the app does today and makes no
+promises about an EDU edition.
 
 ## Free resources
 

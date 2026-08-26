@@ -75,7 +75,7 @@ h1, h2, h3 { margin: 0 0 0.4em; line-height: 1.15; }
 
 /* Every display heading: heavy Nunito, tightened tracking. */
 .logo-text, .hero-copy h1, .proof-num, .teachers h2, .apps h2,
-.android h2, .pro h2, .share-box h3, .legal h1,
+.android h2, .schools h2, .pro h2, .share-box h3, .legal h1,
 .footer-brand p, .res-head h1, .res-card h2, .post h1, .post h2 {
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -395,7 +395,7 @@ a { color: var(--leaf); }
 
 /* ===================== SHARED SECTION ===================== */
 
-.teachers, .apps, .android {
+.teachers, .apps, .android, .schools {
   max-width: var(--wrap);
   margin: 0 auto;
   padding: 5rem 1.5rem;
@@ -403,20 +403,20 @@ a { color: var(--leaf); }
 
 /* Sections that paint a full-bleed background hold their content to --wrap
    themselves, so every row on the page lines up on the same edges. */
-.apps > *, .android > * {
+.apps > *, .android > *, .schools > * {
   max-width: var(--wrap);
   margin-left: auto;
   margin-right: auto;
 }
 
-.apps, .android { max-width: none; }
+.apps, .android, .schools { max-width: none; }
 
-.teachers h2, .apps h2, .android h2, .pro h2 {
+.teachers h2, .apps h2, .android h2, .schools h2, .pro h2 {
   font-family: var(--display);
   font-size: clamp(1.85rem, 3.2vw, 2.4rem);
 }
 
-.teachers h2, .apps h2, .android h2 { text-align: center; }
+.teachers h2, .apps h2, .android h2, .schools h2 { text-align: center; }
 
 .section-lede {
   font-size: 1.08rem;
@@ -424,7 +424,7 @@ a { color: var(--leaf); }
   max-width: 60ch;
 }
 
-.teachers .section-lede, .apps .section-lede, .android .section-lede {
+.teachers .section-lede, .apps .section-lede, .android .section-lede, .schools .section-lede {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -782,6 +782,51 @@ a { color: var(--leaf); }
 .android { text-align: center; }
 .android-cta { display: flex; justify-content: center; margin: 2rem auto 1rem; }
 .android-tiny { font-size: 0.85rem; color: var(--ink-soft); opacity: 0.8; }
+
+/* ===================== SCHOOLS ===================== */
+
+/* The home-page door to education.html. It sits between the studio section
+   (sky-pale) and the apps grid (cream), so it takes the warm card panel that
+   the share band and app cards already use, with a hairline top and bottom. */
+.schools {
+  text-align: center;
+  background: var(--card);
+  border-top: 1px solid var(--card-line);
+  border-bottom: 1px solid var(--card-line);
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+.schools .teacher-more { margin-top: 1.5rem; }
+
+/* education.html: prose width like the legal pages, fact list like the Pro
+   features (bold lead, soft body), and the contact card reuses .share-band. */
+.edu {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+.edu h2 {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 1.6rem;
+  margin-top: 2.5rem;
+}
+.edu h2:first-child { margin-top: 0; }
+.edu p { color: var(--ink-soft); }
+.edu-facts { list-style: none; padding: 0; margin: 0 0 1rem; }
+.edu-facts li {
+  color: var(--ink-soft);
+  padding: 0.9rem 0;
+  border-top: 1px solid rgba(35, 35, 35, 0.13);
+}
+.edu-facts li:last-child { border-bottom: 1px solid rgba(35, 35, 35, 0.13); }
+.edu-facts li strong { display: block; color: var(--ink); margin-bottom: 0.15rem; }
+.edu-contact { margin-top: 3rem; }
+.edu-contact .android-cta { margin: 1.5rem auto 0.75rem; }
+.edu-address { font-size: 0.95rem; margin: 0; }
+.edu-address a { font-weight: 700; text-decoration: none; }
+.edu-address a:hover { text-decoration: underline; }
 
 /* ===================== FOOTER ===================== */
 
