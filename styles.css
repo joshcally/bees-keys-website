@@ -75,7 +75,7 @@ h1, h2, h3 { margin: 0 0 0.4em; line-height: 1.15; }
 
 /* Every display heading: heavy Nunito, tightened tracking. */
 .logo-text, .hero-copy h1, .proof-num, .teachers h2, .apps h2,
-.android h2, .pro h2, .share-box h3, .legal h1,
+.pro h2, .share-box h3, .legal h1,
 .footer-brand p, .res-head h1, .res-card h2, .post h1, .post h2 {
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -227,6 +227,10 @@ a { color: var(--leaf); }
   align-items: center;
 }
 
+/* Launch-day line above the headline. Forest green on the sky, not the Pro
+   section's amber, so it reads as news rather than a sales tag. */
+.hero-copy .hero-eyebrow { color: var(--leaf); margin-bottom: 0.75rem; }
+
 .hero-copy h1 {
   font-family: var(--display);
   font-size: clamp(2.3rem, 4.4vw, 3.35rem);
@@ -348,6 +352,9 @@ a { color: var(--leaf); }
 
 .note-hex svg { width: 100%; display: block; grid-area: 1 / 1; }
 
+/* Launch-day hexagon: a size up, since the robot needs more room than a letter. */
+.note-hex-android { width: 46%; left: 2%; bottom: -34%; }
+
 .note-hex-text {
   grid-area: 1 / 1;
   font-family: -apple-system, BlinkMacSystemFont, var(--ui);
@@ -395,7 +402,7 @@ a { color: var(--leaf); }
 
 /* ===================== SHARED SECTION ===================== */
 
-.teachers, .apps, .android {
+.teachers, .apps {
   max-width: var(--wrap);
   margin: 0 auto;
   padding: 5rem 1.5rem;
@@ -403,20 +410,20 @@ a { color: var(--leaf); }
 
 /* Sections that paint a full-bleed background hold their content to --wrap
    themselves, so every row on the page lines up on the same edges. */
-.apps > *, .android > * {
+.apps > * {
   max-width: var(--wrap);
   margin-left: auto;
   margin-right: auto;
 }
 
-.apps, .android { max-width: none; }
+.apps { max-width: none; }
 
-.teachers h2, .apps h2, .android h2, .pro h2 {
+.teachers h2, .apps h2, .pro h2 {
   font-family: var(--display);
   font-size: clamp(1.85rem, 3.2vw, 2.4rem);
 }
 
-.teachers h2, .apps h2, .android h2 { text-align: center; }
+.teachers h2, .apps h2 { text-align: center; }
 
 .section-lede {
   font-size: 1.08rem;
@@ -424,7 +431,7 @@ a { color: var(--leaf); }
   max-width: 60ch;
 }
 
-.teachers .section-lede, .apps .section-lede, .android .section-lede {
+.teachers .section-lede, .apps .section-lede {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -776,12 +783,11 @@ a { color: var(--leaf); }
 
 .app-link { font-weight: 700; text-decoration: none; font-size: 0.95rem; }
 .app-link:hover { text-decoration: underline; }
+/* Bees Keys is on two stores, so its card carries two links side by side. */
+.app-links { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; }
 
-/* ===================== ANDROID ===================== */
-
-.android { text-align: center; }
+/* Centred button row; used by the schools page's "Talk to the developer" box. */
 .android-cta { display: flex; justify-content: center; margin: 2rem auto 1rem; }
-.android-tiny { font-size: 0.85rem; color: var(--ink-soft); opacity: 0.8; }
 
 /* ===================== SCHOOLS ===================== */
 
@@ -877,6 +883,16 @@ a { color: var(--leaf); }
   opacity: 0.5;
   text-align: center;
 }
+
+/* Google asks for this line wherever the Android robot appears. */
+.copyright.attribution {
+  margin-top: 0.75rem;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 0.72rem;
+  opacity: 0.4;
+}
+.copyright.attribution a { color: inherit; }
 
 /* ===================== LEGAL PAGE ===================== */
 

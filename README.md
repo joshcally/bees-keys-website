@@ -54,8 +54,7 @@ the hero, re-render this so the two don't drift apart.
 `education.html` is where an administrator who found Bees Keys in Apple School
 Manager lands. It also answers at `beeskeysapp.com/education`, since GitHub Pages
 serves `foo.html` for `/foo`. The "Talk to the developer" button is a prefilled
-`mailto:`, the same trick as the Android section on the home page — **not a
-form**. A form would need a third-party handler and a privacy-policy change; the
+`mailto:` — **not a form**. A form would need a third-party handler and a privacy-policy change; the
 mailto needs neither. The page states only what the app does today and makes no
 promises about an EDU edition.
 

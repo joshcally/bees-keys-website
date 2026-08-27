@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bees Keys: The first piano lesson, as a game</title>
-  <meta name="description" content="A bee flies across the screen carrying a note name. Tap the matching piano key before it escapes. Trusted by piano teachers, with 25,000+ downloads. Free on the App Store." />
+  <meta name="description" content="A bee flies across the screen carrying a note name. Tap the matching piano key before it escapes. Trusted by piano teachers, with 25,000+ downloads. Free on the App Store and Google Play." />
 
   <link rel="canonical" href="https://beeskeysapp.com/" />
   <meta name="theme-color" content="#3f9ae6" />
@@ -98,6 +98,7 @@
 
       <div class="hero-inner">
         <div class="hero-copy">
+          <p class="eyebrow hero-eyebrow">Out today on Android</p>
           <h1>The first piano lesson,<br /><em>as a game.</em></h1>
           <p class="lede">
             A bee flies across the screen carrying a note name. Tap the matching
@@ -110,10 +111,13 @@
               <span class="btn-store-sub">Free on the</span>
               <span class="btn-store-main">App Store</span>
             </a>
-            <a class="btn-ghost" href="#reviews">Reviews</a>
+            <a class="btn-store" href="https://play.google.com/store/apps/details?id=com.beeskeysapps.beeskeys">
+              <span class="btn-store-sub">Free on</span>
+              <span class="btn-store-main">Google Play</span>
+            </a>
           </div>
 
-          <p class="hero-note">iPhone &amp; iPad · Free to play · No ads</p>
+          <p class="hero-note">iPhone, iPad &amp; Android · Free to play · No ads</p>
         </div>
 
         <div class="hero-stage" aria-hidden="true">
@@ -124,14 +128,36 @@
               <img src="images/front-wing.svg" alt="" class="bee-layer wing" />
             </div>
 
-            <!-- The note rides as its own hexagon, the way the bee carries it in-game. -->
-            <div class="note-hex">
+            <!-- Launch-day swap: the bee carries the Android robot instead of a
+                 note, matching the social post. Put the C back (see git history)
+                 once the announcement has run its course. The robot is drawn
+                 here rather than pasted in so it keeps the same black outline
+                 weight as the hexagon. Attribution for the robot is in the
+                 footer, as Google's CC BY 3.0 licence asks. -->
+            <div class="note-hex note-hex-android">
               <svg viewBox="0 0 130 110" aria-hidden="true">
                 <polygon points="65,0 121.29,27.5 121.29,82.5 65,110 8.71,82.5 8.71,27.5"
                          fill="#ffffff" stroke="#000000" stroke-width="9"
                          stroke-linejoin="round" />
+                <g transform="translate(30 15.8) scale(0.7)"
+                   fill="#c5d13d" stroke="#141414" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round">
+                  <!-- antennae -->
+                  <line x1="33" y1="24" x2="23" y2="7" />
+                  <line x1="67" y1="24" x2="77" y2="7" />
+                  <!-- legs sit behind the body -->
+                  <rect x="30" y="86" width="13" height="24" rx="6.5" />
+                  <rect x="57" y="86" width="13" height="24" rx="6.5" />
+                  <!-- arms -->
+                  <rect x="2"  y="49" width="13" height="36" rx="6.5" />
+                  <rect x="85" y="49" width="13" height="36" rx="6.5" />
+                  <!-- body and head -->
+                  <rect x="17" y="49" width="66" height="44" rx="4" />
+                  <path d="M17,44 A33,33 0 0 1 83,44 Z" />
+                  <!-- eyes -->
+                  <circle cx="38" cy="32" r="4.5" fill="#ffffff" stroke-width="3" />
+                  <circle cx="62" cy="32" r="4.5" fill="#ffffff" stroke-width="3" />
+                </g>
               </svg>
-              <span class="note-hex-text">C</span>
             </div>
           </div>
         </div>
@@ -241,12 +267,18 @@
             Play your first Live game free. Bees Keys Pro unlocks unlimited Live play.
           </p>
 
-          <!-- Pro is an in-app unlock, not its own listing, so this points at the
-               same free Bees Keys app the rest of the page does. -->
-          <a class="btn-store" href="https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053">
-            <span class="btn-store-sub">On the App Store</span>
-            <span class="btn-store-main">Get Bees Keys Pro</span>
-          </a>
+          <!-- Pro is an in-app unlock, not its own listing, so these point at the
+               same free Bees Keys app the rest of the page does, on both stores. -->
+          <div class="cta-row">
+            <a class="btn-store" href="https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053">
+              <span class="btn-store-sub">Get Bees Keys Pro on the</span>
+              <span class="btn-store-main">App Store</span>
+            </a>
+            <a class="btn-store" href="https://play.google.com/store/apps/details?id=com.beeskeysapps.beeskeys">
+              <span class="btn-store-sub">Get Bees Keys Pro on</span>
+              <span class="btn-store-main">Google Play</span>
+            </a>
+          </div>
         </div>
 
         <!-- The copy claims "put the iPad on the music desk", so the visual is
@@ -331,7 +363,7 @@
       <div class="share-band">
         <img src="images/bee_icon.png" alt="" aria-hidden="true" class="share-bee" />
         <h3>Sharing it with your studio?</h3>
-        <p>One link that explains the app and sends families to the App Store:</p>
+        <p>One link to paste. It explains the app and points families to the right store for their phone:</p>
         <p><a class="share-link" href="https://beeskeysapp.com/">beeskeysapp.com</a></p>
         <p class="share-tiny">
           Every big day this app has ever had started with a teacher posting about
@@ -359,7 +391,10 @@
               The bee game. Piano key identification for first-time students,
               built to be understood in seconds.
             </p>
-            <a class="app-link" href="https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053">View on the App Store →</a>
+            <p class="app-links">
+              <a class="app-link" href="https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053">View on the App Store →</a>
+              <a class="app-link" href="https://play.google.com/store/apps/details?id=com.beeskeysapps.beeskeys">View on Google Play →</a>
+            </p>
           </div>
         </article>
 
@@ -378,20 +413,6 @@
       </div>
     </section>
 
-    <!-- ===================== ANDROID ===================== -->
-    <section class="android" id="android">
-      <h2>Bees Keys is coming to Android</h2>
-      <p class="section-lede">
-        It's in the works. If you'd like a note the day it's out, just say so.
-      </p>
-      <p class="android-cta">
-        <a class="btn-store" href="mailto:beeskeysapp@gmail.com?subject=Tell%20me%20when%20Bees%20Keys%20lands%20on%20Android&amp;body=Send%20me%20a%20note%20when%20Bees%20Keys%20is%20out%20on%20Android.">
-          <span class="btn-store-sub">Email us</span>
-          <span class="btn-store-main">Keep me posted</span>
-        </a>
-      </p>
-      <p class="android-tiny">Opens your mail app. No list, no marketing. Just a reply when there's news.</p>
-    </section>
 
   </main>
 
@@ -407,6 +428,7 @@
           <li><a href="resources.html">Free resources</a></li>
           <li><a href="education.html">Schools &amp; districts</a></li>
           <li><a href="https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053">Bees Keys on the App Store</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.beeskeysapps.beeskeys">Bees Keys on Google Play</a></li>
           <li><a href="https://apps.apple.com/us/app/interval-jump-read-music-fast/id6736377103">Interval Jump on the App Store</a></li>
           <li><a href="https://www.instagram.com/beeskeysapp/">Instagram: @beeskeysapp</a></li>
           <li><a href="mailto:beeskeysapp@gmail.com">Support</a></li>
@@ -419,6 +441,11 @@
       </nav>
     </div>
     <p class="copyright">© 2026 Bees Keys. Made for piano students and the people who teach them.</p>
+    <p class="copyright attribution">
+      The Android robot is reproduced or modified from work created and shared by Google
+      and used according to terms described in the
+      <a href="https://creativecommons.org/licenses/by/3.0/">Creative Commons 3.0 Attribution License</a>.
+    </p>
   </footer>
 
 </body>
