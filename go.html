@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get the apps: Bees Keys and Interval Jump</title>
+  <meta name="description" content="Download Bees Keys and Interval Jump from the App Store and Google Play." />
+
+  <!-- This is the page the printed QR code points at (business cards, the
+       conference poster). The QR encodes https://beeskeysapp.com/go and
+       nothing else, so anything about what it lands on can change here
+       without reprinting. Keep it to one phone screen with no scrolling,
+       and keep it self-contained: it does not load styles.css, so a redesign
+       of the main site can't accidentally break it. -->
+
+  <!-- The home page is the one that should rank; this is a doorway. -->
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://beeskeysapp.com/go" />
+  <meta name="theme-color" content="#3f9ae6" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="180x180" href="images/favicon.png" />
+  <link rel="apple-touch-icon" href="images/favicon.png" />
+
+  <meta property="og:site_name" content="Bees Keys" />
+  <meta property="og:title" content="Get the apps: Bees Keys and Interval Jump" />
+  <meta property="og:description" content="Download Bees Keys and Interval Jump from the App Store and Google Play." />
+  <meta property="og:image" content="https://beeskeysapp.com/images/og-card.png" />
+  <meta property="og:url" content="https://beeskeysapp.com/go" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --sky-top: #3f9ae6;
+      --sky:     #79c4ee;
+      --sun:     #fbe38e;
+      --meadow:  #7cb342;
+      --comb:    #f5c842;
+      --ink:     #232323;
+      --ink-soft:#55565a;
+      --white:   #ffffff;
+      --ui: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: var(--ui);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      /* The App Store creative: sky into sunrise into meadow. */
+      background: linear-gradient(180deg,
+        var(--sky-top) 0%, var(--sky) 38%, var(--sun) 74%, var(--meadow) 100%);
+      background-attachment: fixed;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(0.75rem, 3vh, 1.5rem) 1rem;
+      padding-top: max(clamp(0.75rem, 3vh, 1.5rem), env(safe-area-inset-top));
+      padding-bottom: max(clamp(0.75rem, 3vh, 1.5rem), env(safe-area-inset-bottom));
+    }
+
+    main {
+      width: 100%;
+      max-width: 22rem;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.5rem, 1.6vh, 0.9rem);
+    }
+
+    .brand {
+      text-align: center;
+      color: var(--white);
+      text-shadow: 0 1px 3px rgba(20, 50, 90, 0.35);
+    }
+
+    .brand h1 {
+      font-size: clamp(1.3rem, 5.5vw, 1.55rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    .brand p {
+      font-size: 0.85rem;
+      font-weight: 600;
+      opacity: 0.92;
+      margin-top: 0.15rem;
+    }
+
+    .app {
+      background: rgba(255, 253, 247, 0.94);
+      border-radius: 1.15rem;
+      padding: clamp(0.8rem, 2.2vh, 1.1rem) clamp(0.85rem, 4vw, 1.1rem);
+      box-shadow: 0 8px 24px rgba(31, 33, 28, 0.16),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .app-head {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: clamp(0.55rem, 1.6vh, 0.8rem);
+    }
+
+    .app-icon {
+      width: clamp(3.1rem, 15vw, 3.75rem);
+      height: auto;
+      border-radius: 22%;
+      box-shadow: 0 2px 6px rgba(31, 33, 28, 0.18);
+      flex: none;
+    }
+
+    .app-head h2 {
+      font-size: 1.2rem;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+
+    .app-head p {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      font-weight: 600;
+      margin-top: 0.1rem;
+    }
+
+    .stores {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+    }
+
+    .stores.one { grid-template-columns: 1fr; }
+
+    .btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: 0.45rem 0.6rem;
+      border-radius: 999px;
+      text-decoration: none;
+      text-align: center;
+      line-height: 1.15;
+      background: linear-gradient(180deg, #fde08a 0%, var(--comb) 46%, #eda92a 100%);
+      color: #2a2208;
+      border: 1px solid rgba(180, 120, 20, 0.35);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7),
+                  0 4px 10px rgba(160, 110, 20, 0.24);
+    }
+
+    .btn:active { transform: translateY(1px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7); }
+
+    .btn-sub  { font-size: 0.68rem; font-weight: 600; opacity: 0.72; }
+    .btn-main { font-size: 1rem; font-weight: 800; }
+
+    .soon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: 0.45rem 0.6rem;
+      border-radius: 999px;
+      text-align: center;
+      line-height: 1.15;
+      color: var(--ink-soft);
+      border: 1px dashed rgba(85, 86, 90, 0.4);
+    }
+
+    .soon .btn-sub  { opacity: 0.85; }
+    .soon .btn-main { font-weight: 700; opacity: 0.8; }
+
+    .more {
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .more a {
+      color: #1e3f14;
+      text-decoration: underline;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 0.15em;
+    }
+
+    .more span { color: #1e3f14; opacity: 0.55; margin: 0 0.4rem; }
+
+    /* Short phones in landscape: put the two apps side by side so nothing scrolls. */
+    @media (max-height: 30rem) and (min-width: 40rem) {
+      main { max-width: 44rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .brand, .more { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <header class="brand">
+      <h1>Get the apps</h1>
+      <p>Free to play on iPhone, iPad &amp; Android</p>
+    </header>
+
+    <section class="app" aria-labelledby="bk">
+      <div class="app-head">
+        <img src="images/appicon.png" alt="" class="app-icon" width="1024" height="1024" />
+        <div>
+          <h2 id="bk">Bees Keys</h2>
+          <p>The first piano lesson, as a game</p>
+        </div>
+      </div>
+      <div class="stores">
+        <a class="btn" href="https://apps.apple.com/us/app/bees-keys-first-piano-lesson/id1608004053">
+          <span class="btn-sub">Free on the</span>
+          <span class="btn-main">App Store</span>
+        </a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.beeskeysapps.beeskeys">
+          <span class="btn-sub">Free on</span>
+          <span class="btn-main">Google Play</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="app" aria-labelledby="ij">
+      <div class="app-head">
+        <img src="images/intervaljump-icon.png" alt="" class="app-icon" width="1024" height="1024" />
+        <div>
+          <h2 id="ij">Interval Jump</h2>
+          <p>Read music fast</p>
+        </div>
+      </div>
+      <!-- When Interval Jump ships on Google Play: replace the .soon div with
+           a .btn link, same as Bees Keys above. -->
+      <div class="stores">
+        <a class="btn" href="https://apps.apple.com/us/app/interval-jump-read-music-fast/id6736377103">
+          <span class="btn-sub">Free on the</span>
+          <span class="btn-main">App Store</span>
+        </a>
+        <div class="soon" aria-label="Google Play version coming soon">
+          <span class="btn-sub">Google Play</span>
+          <span class="btn-main">Coming soon</span>
+        </div>
+      </div>
+    </section>
+
+    <p class="more">
+      <a href="resources.html">Free printables for teachers</a>
+      <span>·</span>
+      <a href="./">beeskeysapp.com</a>
+    </p>
+  </main>
+
+</body>
+</html>

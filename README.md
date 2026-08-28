@@ -12,6 +12,7 @@ privacy.html      privacy policy (linked from the App Store listing)
 terms.html        terms of use
 resources.html    index of the free printables
 education.html    the schools & districts page: what the app does on managed devices, and how to reach us
+go.html           the QR-code landing page (beeskeysapp.com/go): store links for both apps, one phone screen
 resources/        one page per printable, plus resources/files/*.pdf
 CNAME             custom domain, beeskeysapp.com
 robots.txt        allows everything, points at the sitemap
@@ -21,6 +22,7 @@ tools/og-card.html           source for the link-preview image
 tools/og-card-<slug>.html    same, one per printable page
 tools/ig-card-<slug>.html    source for the Instagram post, rendered the same way
 tools/combine-printable.py   joins a printable's cover onto its worksheets
+tools/make-go-qr.py          renders the printed QR code into tools/qr/
 tools/trace-cutout-edge.py   draws a gold edge along a cutout's alpha boundary
 ```
 
@@ -57,6 +59,25 @@ serves `foo.html` for `/foo`. The "Talk to the developer" button is a prefilled
 `mailto:` — **not a form**. A form would need a third-party handler and a privacy-policy change; the
 mailto needs neither. The page states only what the app does today and makes no
 promises about an EDU edition.
+
+## The QR code and `/go`
+
+The QR code on the business cards and the conference poster encodes
+`https://beeskeysapp.com/go` and nothing else. That address is permanent; the
+page it lands on, `go.html`, is not. When Interval Jump ships on Google Play,
+or an app is added or retired, edit `go.html` and the printed cards keep
+working.
+
+`go.html` is deliberately self-contained (inline CSS, no JavaScript, no
+`styles.css`) so a redesign of the main site can't break it, and it is sized to
+fit an iPhone SE screen without scrolling. It is `noindex`: the home page is
+the one that should rank.
+
+The QR files live in `tools/qr/`. `beeskeysapp-go.svg` is the one to hand a
+printer; the PNG is for tools that only take a bitmap. Regenerate with
+`python3 tools/make-go-qr.py` (needs `pip install qrcode pillow`). Error
+correction is level H, so it survives small print and scuffed cards; keep the
+white quiet zone around it and print it at least 2 cm wide.
 
 ## Free resources
 
