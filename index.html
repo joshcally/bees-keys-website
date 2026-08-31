@@ -98,7 +98,7 @@
 
       <div class="hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow hero-eyebrow">Out today on Android</p>
+          <p class="eyebrow hero-eyebrow">Practice Through Play</p>
           <h1>The first piano lesson,<br /><em>as a game.</em></h1>
           <p class="lede">
             A bee flies across the screen carrying a note name. Tap the matching
@@ -128,36 +128,14 @@
               <img src="images/front-wing.svg" alt="" class="bee-layer wing" />
             </div>
 
-            <!-- Launch-day swap: the bee carries the Android robot instead of a
-                 note, matching the social post. Put the C back (see git history)
-                 once the announcement has run its course. The robot is drawn
-                 here rather than pasted in so it keeps the same black outline
-                 weight as the hexagon. Attribution for the robot is in the
-                 footer, as Google's CC BY 3.0 licence asks. -->
-            <div class="note-hex note-hex-android">
+            <!-- The note rides as its own hexagon, the way the bee carries it in-game. -->
+            <div class="note-hex">
               <svg viewBox="0 0 130 110" aria-hidden="true">
                 <polygon points="65,0 121.29,27.5 121.29,82.5 65,110 8.71,82.5 8.71,27.5"
                          fill="#ffffff" stroke="#000000" stroke-width="9"
                          stroke-linejoin="round" />
-                <g transform="translate(30 15.8) scale(0.7)"
-                   fill="#c5d13d" stroke="#141414" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round">
-                  <!-- antennae -->
-                  <line x1="33" y1="24" x2="23" y2="7" />
-                  <line x1="67" y1="24" x2="77" y2="7" />
-                  <!-- legs sit behind the body -->
-                  <rect x="30" y="86" width="13" height="24" rx="6.5" />
-                  <rect x="57" y="86" width="13" height="24" rx="6.5" />
-                  <!-- arms -->
-                  <rect x="2"  y="49" width="13" height="36" rx="6.5" />
-                  <rect x="85" y="49" width="13" height="36" rx="6.5" />
-                  <!-- body and head -->
-                  <rect x="17" y="49" width="66" height="44" rx="4" />
-                  <path d="M17,44 A33,33 0 0 1 83,44 Z" />
-                  <!-- eyes -->
-                  <circle cx="38" cy="32" r="4.5" fill="#ffffff" stroke-width="3" />
-                  <circle cx="62" cy="32" r="4.5" fill="#ffffff" stroke-width="3" />
-                </g>
               </svg>
+              <span class="note-hex-text">C</span>
             </div>
           </div>
         </div>
@@ -441,11 +419,6 @@
       </nav>
     </div>
     <p class="copyright">© 2026 Bees Keys. Made for piano students and the people who teach them.</p>
-    <p class="copyright attribution">
-      The Android robot is reproduced or modified from work created and shared by Google
-      and used according to terms described in the
-      <a href="https://creativecommons.org/licenses/by/3.0/">Creative Commons 3.0 Attribution License</a>.
-    </p>
   </footer>
 
 </body>

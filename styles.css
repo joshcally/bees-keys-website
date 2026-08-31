@@ -352,9 +352,6 @@ a { color: var(--leaf); }
 
 .note-hex svg { width: 100%; display: block; grid-area: 1 / 1; }
 
-/* Launch-day hexagon: a size up, since the robot needs more room than a letter. */
-.note-hex-android { width: 46%; left: 2%; bottom: -34%; }
-
 .note-hex-text {
   grid-area: 1 / 1;
   font-family: -apple-system, BlinkMacSystemFont, var(--ui);
@@ -883,16 +880,6 @@ a { color: var(--leaf); }
   opacity: 0.5;
   text-align: center;
 }
-
-/* Google asks for this line wherever the Android robot appears. */
-.copyright.attribution {
-  margin-top: 0.75rem;
-  padding-top: 0;
-  border-top: 0;
-  font-size: 0.72rem;
-  opacity: 0.4;
-}
-.copyright.attribution a { color: inherit; }
 
 /* ===================== LEGAL PAGE ===================== */
 
