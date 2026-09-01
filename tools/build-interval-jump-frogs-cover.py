@@ -189,8 +189,8 @@ def fan(c, circle, write_in_ink):
     the printer-friendly write-in behind it - one of each version, one of
     each style. Shared by the cover page and the transparent art so they
     never drift."""
-    paper(c, write_in_ink, 300, 328, 415, angle=-3.5)
-    paper(c, circle, 478, 305, 445, angle=1.8)
+    paper(c, write_in_ink, 296, 318, 390, angle=-3.5)
+    paper(c, circle, 474, 298, 430, angle=1.8)
 
 
 def flat_fan(circle, write_in_ink):
@@ -241,10 +241,10 @@ def page_one(c, circle, write_in_ink):
 
     c.setFillColor(INK)
     c.setFont("Nunito", 12)
-    c.drawCentredString(W / 2, 106, "4 staff worksheets for reading repeat, step, and skip")
+    c.drawCentredString(W / 2, 100, "4 staff worksheets for reading repeat, step, and skip")
     c.setFillColor(CERULEAN)
     c.setFont("Nunito", 8.3)
-    c.drawCentredString(W / 2, 87, "Circle the answer or write it in. Full-color and ink-friendly versions included.")
+    c.drawCentredString(W / 2, 82, "Circle the answer or write it in. Full-color and ink-friendly versions included.")
 
     footer(c)
     c.showPage()
