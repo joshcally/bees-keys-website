@@ -163,23 +163,6 @@
     .btn-sub  { font-size: 0.68rem; font-weight: 600; opacity: 0.72; }
     .btn-main { font-size: 1rem; font-weight: 800; }
 
-    .soon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 3rem;
-      padding: 0.45rem 0.6rem;
-      border-radius: 999px;
-      text-align: center;
-      line-height: 1.15;
-      color: var(--ink-soft);
-      border: 1px dashed rgba(85, 86, 90, 0.4);
-    }
-
-    .soon .btn-sub  { opacity: 0.85; }
-    .soon .btn-main { font-weight: 700; opacity: 0.8; }
-
     .more {
       text-align: center;
       font-size: 0.85rem;
@@ -239,17 +222,15 @@
           <p>Read music fast</p>
         </div>
       </div>
-      <!-- When Interval Jump ships on Google Play: replace the .soon div with
-           a .btn link, same as Bees Keys above. -->
       <div class="stores">
         <a class="btn" href="https://apps.apple.com/us/app/interval-jump-read-music-fast/id6736377103">
           <span class="btn-sub">Free on the</span>
           <span class="btn-main">App Store</span>
         </a>
-        <div class="soon" aria-label="Google Play version coming soon">
-          <span class="btn-sub">Google Play</span>
-          <span class="btn-main">Coming soon</span>
-        </div>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.joshuacallahan.intervaljump">
+          <span class="btn-sub">Free on</span>
+          <span class="btn-main">Google Play</span>
+        </a>
       </div>
     </section>
 

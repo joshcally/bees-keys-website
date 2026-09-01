@@ -64,9 +64,8 @@ promises about an EDU edition.
 
 The QR code on the business cards and the conference poster encodes
 `https://beeskeysapp.com/go` and nothing else. That address is permanent; the
-page it lands on, `go.html`, is not. When Interval Jump ships on Google Play,
-or an app is added or retired, edit `go.html` and the printed cards keep
-working.
+page it lands on, `go.html`, is not. When an app is added, retired, or reaches
+a new store, edit `go.html` and the printed cards keep working.
 
 `go.html` is deliberately self-contained (inline CSS, no JavaScript, no
 `styles.css`) so a redesign of the main site can't break it, and it is sized to
