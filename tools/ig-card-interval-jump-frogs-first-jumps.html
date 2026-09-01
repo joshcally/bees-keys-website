@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>IG card source — Frog's First Jumps</title>
+<!--
+  The 1080x1350 social card for the Frog's First Jumps printable. The PNG is
+  not committed - render it into output/ with:
+
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1080,1350 \
+      --virtual-time-budget=5000 \
+      --screenshot=output/interval-jump-frogs-first-jumps-ig.png \
+      "file://$PWD/tools/ig-card-interval-jump-frogs-first-jumps.html"
+
+  Rendered over file:// rather than a local server because the frog mascot is
+  pulled straight from the IntervalJump repo by absolute path (it is not a
+  site asset); everything else is the OG card's river branding turned portrait.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    color: #232323;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 70% 30% at 50% 92%, rgba(255,255,255,.7) 0%, rgba(120,206,240,.6) 26%, rgba(120,206,240,0) 68%),
+      linear-gradient(180deg, #3f9ae6 0%, #79c4ee 26%, #b7e2f7 48%, #6fd0f2 74%, #15b8f1 88%);
+  }
+
+  .bank {
+    position: absolute;
+    left: -30px; right: -30px; bottom: -30px;
+    height: 260px;
+    filter: blur(9px);
+  }
+  .bank svg { width: 100%; height: 100%; display: block; }
+
+  .cloud { position: absolute; opacity: .75; }
+  .cloud-a { width: 170px; top: 4%; left: 6%; }
+  .cloud-b { width: 120px; top: 9%; left: 78%; opacity: .5; }
+
+  .inner { position: relative; z-index: 2; padding-top: 64px; }
+
+  .brand { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 26px; }
+  .brand img { width: 54px; border-radius: 12px; }
+  .brand span { font-weight: 800; font-size: 32px; letter-spacing: -.02em; }
+
+  .eyebrow {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #b8651a;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 84px;
+    font-weight: 900;
+    line-height: 1.02;
+    letter-spacing: -.025em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.4);
+  }
+
+  h1 em { font-style: normal; color: #0d5f7d; }
+
+  .sub {
+    margin-top: 14px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #24424e;
+  }
+
+  .free {
+    display: inline-block;
+    margin-top: 24px;
+    background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
+    color: #2a2208;
+    font-weight: 800;
+    font-size: 27px;
+    padding: 14px 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(180,120,20,.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 14px rgba(160,110,20,.28);
+  }
+
+  .stack { position: relative; height: 660px; margin-top: 40px; }
+
+  .stack img {
+    position: absolute;
+    width: 780px;
+    left: 50%;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,.12);
+    background: #fff;
+    box-shadow: 0 16px 38px rgba(31,33,28,.32);
+  }
+
+  .sheet-back  { top: 0;    margin-left: -352px; transform: rotate(4deg); }
+  .sheet-front { top: 64px; margin-left: -420px; transform: rotate(-3deg); }
+
+  /* Outside .stack so the sheet styling (width, white card, border) can't
+     reach it: it is the mascot, not a page. */
+  .frog {
+    position: absolute;
+    z-index: 4;
+    width: 230px;
+    top: 548px;
+    left: 782px;
+    transform: rotate(6deg);
+    filter: drop-shadow(0 10px 14px rgba(31,33,28,.25));
+  }
+
+  .site {
+    position: absolute;
+    z-index: 3;
+    left: 0; right: 0; bottom: 44px;
+    font-weight: 800;
+    font-size: 30px;
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(31,63,20,.45);
+  }
+</style>
+</head>
+<body>
+
+  <div class="bank">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,44 C260,22 460,54 720,40 C980,26 1200,50 1440,32 L1440,150 L0,150 Z" fill="#bfe6a8" />
+      <path d="M0,64 C300,46 520,74 780,60 C1040,46 1240,68 1440,56 L1440,150 L0,150 Z" fill="#9ed986" />
+      <path d="M0,84 C320,72 560,94 820,82 C1080,70 1260,88 1440,78 L1440,150 L0,150 Z" fill="#7cc95f" />
+      <path d="M0,102 C360,94 620,110 900,100 C1140,92 1300,104 1440,98 L1440,150 L0,150 Z" fill="#5fb841" />
+    </svg>
+  </div>
+
+  <img src="../images/cloud1.svg" alt="" class="cloud cloud-a" />
+  <img src="../images/cloud2.svg" alt="" class="cloud cloud-b" />
+
+  <div class="inner">
+    <div class="brand">
+      <img src="../images/intervaljump-icon.png" alt="" />
+      <span>Interval Jump</span>
+    </div>
+
+    <p class="eyebrow">New free printable</p>
+    <h1>Frog&rsquo;s first<br /><em>jumps</em></h1>
+    <p class="sub">Repeat · Step · Skip</p>
+    <span class="free">4 worksheets, free!</span>
+
+    <div class="stack">
+      <img class="sheet-back"  src="../images/resources/interval-jump-frogs-first-jumps-write-in-ink.jpg" alt="" />
+      <img class="sheet-front" src="../images/resources/interval-jump-frogs-first-jumps-circle.jpg" alt="" />
+    </div>
+  </div>
+
+  <img class="frog" src="file:///Users/josh/Repos/IntervalJump/printables/art/frog-happy.png" alt="" />
+
+  <p class="site">beeskeysapp.com</p>
+
+</body>
+</html>

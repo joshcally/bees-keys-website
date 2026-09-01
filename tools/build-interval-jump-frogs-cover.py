@@ -11,11 +11,11 @@ bug-collection cover this one is landscape and follows the Bees Keys cover
 grid directly - eyebrow, hairline rule, light title, a fan of whole sheets,
 centred caption, footer bar.
 
-The fan shows three of the four sheets whole (a worksheet is used whole, so
-whole pages, not crops): the full-colour circle sheet in front, with the
-write-in sheet and an ink-friendly sheet behind it - one of each version and
-one of each style, so the caption's "full-colour and ink-friendly" claim is
-visible rather than asserted.
+The fan shows two of the four sheets whole (a worksheet is used whole, so
+whole pages, not crops): the full-colour circle sheet in front with the
+printer-friendly write-in behind it - one of each version and one of each
+style, so the caption's "full-colour and ink-friendly" claim is visible
+rather than asserted.
 
 Page two's claims come from the app, not imagination (`model/Game.swift`,
 `view/settings/Settings.swift`): verbose notation is the default and its three
@@ -184,15 +184,16 @@ def footer(c):
 
 # ---------------------------------------------------------------- pages
 
-def fan(c, circle, write_in, ink):
-    """Three whole sheets fanned: one of each version, one of each style.
-    Shared by the cover page and the transparent art so they never drift."""
-    paper(c, write_in, 242, 342, 348, angle=-4.0)
-    paper(c, ink, 556, 338, 348, angle=3.4)
-    paper(c, circle, 398, 288, 384, angle=-0.9)
+def fan(c, circle, write_in_ink):
+    """Two whole sheets fanned, per Josh: the full-colour circle sheet on top,
+    the printer-friendly write-in behind it - one of each version, one of
+    each style. Shared by the cover page and the transparent art so they
+    never drift."""
+    paper(c, write_in_ink, 300, 328, 415, angle=-3.5)
+    paper(c, circle, 478, 305, 445, angle=1.8)
 
 
-def flat_fan(circle, write_in, ink):
+def flat_fan(circle, write_in_ink):
     """The fan pre-flattened to one axis-aligned bitmap on the page's white.
 
     Drawing the sheets rotated in the PDF left every viewer to rasterize the
@@ -204,7 +205,7 @@ def flat_fan(circle, write_in, ink):
     c = canvas.Canvas(buf, pagesize=(W, H))
     c.setFillColor(white)
     c.rect(0, 0, W, H, fill=1, stroke=0)
-    fan(c, circle, write_in, ink)
+    fan(c, circle, write_in_ink)
     c.showPage()
     c.save()
 
@@ -215,10 +216,10 @@ def flat_fan(circle, write_in, ink):
     return im.resize((pix.width // 2, pix.height // 2), Image.LANCZOS)
 
 
-def page_one(c, circle, write_in, ink):
+def page_one(c, circle, write_in_ink):
     # The flattened fan carries the page's white ground, so it goes down first
     # and everything else draws over it.
-    c.drawImage(ImageReader(jpeg(flat_fan(circle, write_in, ink), quality=80)),
+    c.drawImage(ImageReader(jpeg(flat_fan(circle, write_in_ink), quality=80)),
                 0, 0, W, H)
 
     c.setFillColor(MUTED)
@@ -314,7 +315,7 @@ def page_two(c, qr_ios, qr_play):
     c.showPage()
 
 
-def write_art(path, circle, write_in, ink, dpi=150):
+def write_art(path, circle, write_in_ink, dpi=150):
     """The fan alone on a transparent ground, for the OG and social cards.
 
     Rendered at 4x and downsampled: a straight render leaves the rotated
@@ -322,7 +323,7 @@ def write_art(path, circle, write_in, ink, dpi=150):
     until it was supersampled the same way)."""
     buf = io.BytesIO()
     c = canvas.Canvas(buf, pagesize=(W, H))
-    fan(c, circle, write_in, ink)
+    fan(c, circle, write_in_ink)
     c.showPage()
     c.save()
 
@@ -337,17 +338,16 @@ def write_art(path, circle, write_in, ink, dpi=150):
 
 def main():
     circle = sheet_page("interval-jump-frogs-first-frog-jumps.pdf")
-    write_in = sheet_page("interval-jump-frogs-first-frog-jumps-write-in.pdf")
-    ink = sheet_page("interval-jump-frogs-first-frog-jumps-no-background.pdf")
+    write_in_ink = sheet_page("interval-jump-frogs-first-frog-jumps-write-in-no-background.pdf")
 
     if "--art" in sys.argv:
-        write_art(sys.argv[sys.argv.index("--art") + 1], circle, write_in, ink)
+        write_art(sys.argv[sys.argv.index("--art") + 1], circle, write_in_ink)
         return
 
     c = canvas.Canvas(OUT, pagesize=(W, H))
     c.setTitle("Frog's First Jumps - Interval Jump")
     c.setAuthor("Bees Keys")
-    page_one(c, circle, write_in, ink)
+    page_one(c, circle, write_in_ink)
     page_two(c, qr_image(APP_STORE), qr_image(PLAY_STORE))
     c.save()
 
