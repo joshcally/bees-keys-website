@@ -260,10 +260,10 @@ def page_two(c, qr_ios, qr_play):
     c.setFillColor(MUTED)
     c.setFont("Nunito", 9.5)
     c.drawString(45, H - 80, "Interval practice that feels like a game.")
-    draw(c, Image.open(ICON), W - 96, H - 96, 48, 48)
 
-    # ---- the game
+    # ---- the game (the whole panel is one big link to the /go landing page)
     panel(c, 44, 78, 490, 440, Color(1, 0.985, 0.89, alpha=0.66), GOLD)
+    c.linkURL(f"{SITE_URL}/go", (44, 78, 534, 518), relative=0, thickness=0)
     c.setFillColor(INK)
     c.setFont("Nunito", 13)
     c.drawString(66, 488, "Choose the jump. Cross the river.")
