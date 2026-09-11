@@ -5,10 +5,11 @@
     python3 tools/build-interval-jump-ladybug-hunt-cover.py <cover.pdf>
     python3 tools/build-interval-jump-ladybug-hunt-cover.py --art <fan.png>   # transparent
 
-The Key Jumps cover (`build-interval-jump-key-jumps-cover.py`) with one sheet
-instead of a fan: Ladybug Hunt is a single page (cut-out frogs and ladybugs,
-a dice key, and how to play), so the cover shows that one page whole, a
-little larger and barely tilted, with the frog and a ladybug beside it.
+The Key Jumps cover (`build-interval-jump-key-jumps-cover.py`) with a photo
+and one sheet instead of a fan: Ladybug Hunt is a single page (cut-out frogs
+and ladybugs, a dice key, and how to play), so the cover shows that page
+whole on the right and Josh's photo of the cut-outs on his piano on the
+left, both on the same white rim the sheets get.
 Page two is unchanged. The output carries live store links as real PDF
 annotations, which is why `tools/combine-printable.py` must merge it.
 """
@@ -34,6 +35,7 @@ FONT = f"{IJ}/IntervalJump/assets/font/Nunito-VariableFont_wght.ttf"
 ICON = f"{SITE}/images/intervaljump-icon.png"
 FROG = f"{IJ}/printables/art/frog-happy.png"
 LADYBUG = f"{IJ}/printables/art/ladybug.png"
+PHOTO = f"{IJ}/printables/art/ladybug-hunt-piano.jpg"
 SHOT = f"{IJ}/printables/art/game-screenshot.png"
 SHEETS = f"{IJ}/printables"
 
@@ -170,13 +172,25 @@ def footer(c):
 
 # ---------------------------------------------------------------- pages
 
+def piano_photo():
+    """Josh's photo of the cut-outs on his piano (IMG_6511, Sep 11 2026),
+    cropped to 3:2 from the bottom so the dice and the tokens fill it."""
+    im = Image.open(PHOTO).convert("RGB")
+    h = int(im.width * 2 / 3)
+    return im.crop((0, im.height - h, im.width, im.height))
+
+
 def fan(c, sheet, spare=None):
-    """The one sheet, whole, barely tilted, with a ladybug crawling onto its
-    corner. Shared by the cover page and the transparent art so they never
-    drift. (`spare` keeps the two-sheet call shape of the sibling builders.)"""
-    paper(c, sheet, W / 2 + 30, 300, 440, angle=-1.6)
+    """The sheet on the right and the piano photo on the left, both on the
+    white rim, leaning gently toward each other; a ladybug crawls onto the
+    sheet's corner. The photo shows the game being played, so the sheet no
+    longer has to carry that on its own. Shared by the cover page and the
+    transparent art so they never drift. (`spare` keeps the two-sheet call
+    shape of the sibling builders.)"""
+    paper(c, piano_photo(), 214, 292, 304, angle=-3.2)
+    paper(c, sheet, 540, 302, 384, angle=1.6)
     bug = Image.open(LADYBUG).convert("RGBA").rotate(-32, expand=True, resample=Image.BICUBIC)
-    draw(c, bug, W / 2 + 218, 440, 34)
+    draw(c, bug, 706, 432, 34)
 
 
 def flat_fan(circle, write_in_ink=None):
