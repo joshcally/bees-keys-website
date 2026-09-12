@@ -75,7 +75,7 @@ h1, h2, h3 { margin: 0 0 0.4em; line-height: 1.15; }
 
 /* Every display heading: heavy Nunito, tightened tracking. */
 .logo-text, .hero-copy h1, .proof-num, .teachers h2, .apps h2,
-.pro h2, .share-box h3, .legal h1,
+.pro h2, .faq h2, .share-box h3, .legal h1,
 .footer-brand p, .res-head h1, .res-card h2, .post h1, .post h2 {
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -415,7 +415,7 @@ a { color: var(--leaf); }
 
 .apps { max-width: none; }
 
-.teachers h2, .apps h2, .pro h2 {
+.teachers h2, .apps h2, .pro h2, .faq h2 {
   font-family: var(--display);
   font-size: clamp(1.85rem, 3.2vw, 2.4rem);
 }
@@ -670,6 +670,82 @@ a { color: var(--leaf); }
   mask-composite: intersect;
   -webkit-mask-composite: source-in;
 }
+
+/* ===================== FAQ ===================== */
+
+/* Heading left, accordion right, after the pattern of noterush.app/#faq. The
+   section sits on the body cream between the dusk Pro gradient and the pale
+   blue teachers band, so it paints no background of its own. */
+.faq { padding: 5rem 1.5rem; }
+
+.faq-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+/* The copy column is short and the accordion is tall, so the heading rides
+   along instead of leaving a blank column behind the later questions. */
+.faq-copy { position: sticky; top: 5.5rem; }
+
+.faq h2 em { font-style: normal; color: var(--honey-deep); }
+
+.faq-contact { margin: 0; font-weight: 700; }
+
+/* Rows are divided by the same hairline as .teacher-col: no cards, so the
+   section stays distinct from the honeycomb list above and the boxed app
+   cards further down. */
+.faq-list details { border-top: 1px solid rgba(35, 35, 35, 0.13); }
+.faq-list details:last-child { border-bottom: 1px solid rgba(35, 35, 35, 0.13); }
+
+.faq-list summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  padding: 1.1rem 2.75rem 1.1rem 0;
+  font-weight: 800;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.faq-list summary::-webkit-details-marker { display: none; }
+
+/* The marker is a plus drawn from two bars, which turns into a cross when the
+   row is open. Both bars rotate so the change reads as one motion. */
+.faq-list summary::before,
+.faq-list summary::after {
+  content: "";
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  width: 16px;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 2px;
+  background: var(--honey-deep);
+  transition: transform 0.25s ease;
+}
+
+.faq-list summary::after { transform: rotate(90deg); }
+
+.faq-list details[open] summary::before { transform: rotate(45deg); }
+.faq-list details[open] summary::after { transform: rotate(-45deg); }
+
+.faq-list summary:hover { color: var(--honey-dark); }
+
+.faq-list summary:focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.faq-answer { padding: 0 2.75rem 1.25rem 0; color: var(--ink-soft); }
+.faq-answer p { margin: 0 0 0.6em; }
+.faq-answer p:last-child { margin-bottom: 0; }
+.faq-answer strong { color: var(--ink); }
 
 /* ===================== TEACHERS ===================== */
 
@@ -926,6 +1002,8 @@ a { color: var(--leaf); }
 
 @media (max-width: 880px) {
   .hero-inner, .pro-inner { grid-template-columns: 1fr; }
+  .faq-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .faq-copy { position: static; }
   .hero { padding-top: 3rem; }
   .hero-copy { text-align: center; }
   .lede { margin-left: auto; margin-right: auto; }
