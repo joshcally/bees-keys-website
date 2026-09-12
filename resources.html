@@ -71,10 +71,23 @@
       </p>
     </div>
 
+    <!-- Topic filter. CSS only: the radios are the state, and :has() rules in
+         styles.css hide every card whose data-topics doesn't carry the checked
+         one. Vocabulary: intervals, key-names, games, rewards. A new card needs
+         a data-topics value on its <li> plus a matching .res-topics chip row. -->
+    <fieldset class="res-filters">
+      <legend>Show</legend>
+      <label><input type="radio" name="topic" id="topic-all" checked /><span>All</span></label>
+      <label><input type="radio" name="topic" id="topic-intervals" /><span>Intervals</span></label>
+      <label><input type="radio" name="topic" id="topic-key-names" /><span>Key names</span></label>
+      <label><input type="radio" name="topic" id="topic-games" /><span>Games</span></label>
+      <label><input type="radio" name="topic" id="topic-rewards" /><span>Rewards</span></label>
+    </fieldset>
+
     <!-- Newest first. Most visitors arrive from a link to the latest printable
          shared in a teacher group, so the new one leads. -->
     <ul class="res-list">
-      <li>
+      <li data-topics="intervals games">
         <article class="res-card">
           <div class="res-shot">
             <img src="images/resources/interval-jump-ladybug-hunt-cover.jpg"
@@ -91,6 +104,7 @@
               <li>3-page PDF</li>
               <li>US Letter</li>
             </ul>
+            <ul class="res-topics"><li>Intervals</li><li>Games</li></ul>
 
             <p>
               A cut-out piano game for repeat, step, and skip. Scatter the
@@ -105,7 +119,7 @@
           </div>
         </article>
       </li>
-      <li>
+      <li data-topics="intervals">
         <article class="res-card">
           <div class="res-shot">
             <img src="images/resources/interval-jump-frogs-first-key-jumps-cover.jpg"
@@ -122,6 +136,7 @@
               <li>6-page PDF</li>
               <li>US Letter</li>
             </ul>
+            <ul class="res-topics"><li>Intervals</li></ul>
 
             <p>
               Repeat, step, and skip, found on the piano keys. Frog sits on
@@ -136,7 +151,7 @@
           </div>
         </article>
       </li>
-      <li>
+      <li data-topics="intervals">
         <article class="res-card">
           <div class="res-shot">
             <img src="images/resources/interval-jump-frogs-first-jumps-cover.jpg"
@@ -153,6 +168,7 @@
               <li>6-page PDF</li>
               <li>US Letter</li>
             </ul>
+            <ul class="res-topics"><li>Intervals</li></ul>
 
             <p>
               Repeat, step, and skip, read straight off the staff. The notes
@@ -168,7 +184,7 @@
           </div>
         </article>
       </li>
-      <li>
+      <li data-topics="key-names games">
         <article class="res-card">
           <div class="res-shot">
             <!-- The pages are portrait, so the card uses a landscape composition
@@ -188,6 +204,7 @@
               <li>10-page PDF</li>
               <li>US Letter</li>
             </ul>
+            <ul class="res-topics"><li>Key names</li><li>Games</li></ul>
 
             <p>
               A card game for the piano bench. Flip a card, and the student
@@ -203,7 +220,7 @@
           </div>
         </article>
       </li>
-      <li>
+      <li data-topics="rewards">
         <article class="res-card">
           <div class="res-shot">
             <!-- The sheets are portrait, so the card uses a landscape crop of the
@@ -223,6 +240,7 @@
               <li>12-page PDF</li>
               <li>US Letter</li>
             </ul>
+            <ul class="res-topics"><li>Rewards</li></ul>
 
             <p>
               Seven sheets of bug stickers and three kinds of collection card to
@@ -237,7 +255,7 @@
           </div>
         </article>
       </li>
-      <li>
+      <li data-topics="key-names">
         <article class="res-card">
           <div class="res-shot">
             <img src="images/resources/which-key-is-mine-cover.jpg"
@@ -254,6 +272,7 @@
               <li>6-page PDF</li>
               <li>US Letter</li>
             </ul>
+            <ul class="res-topics"><li>Key names</li></ul>
 
             <p>
               Eight bees, each carrying a letter above its own little slice of
@@ -268,7 +287,7 @@
           </div>
         </article>
       </li>
-      <li>
+      <li data-topics="key-names">
         <article class="res-card">
           <div class="res-shot">
             <img src="images/resources/bees-color-garden-cover.jpg"
@@ -285,6 +304,7 @@
               <li>6-page PDF</li>
               <li>US Letter</li>
             </ul>
+            <ul class="res-topics"><li>Key names</li></ul>
 
             <p>
               A garden of lettered flowers, and keyboard diagrams that pair
@@ -299,7 +319,7 @@
           </div>
         </article>
       </li>
-      <li>
+      <li data-topics="key-names">
         <article class="res-card">
           <div class="res-shot">
             <img src="images/resources/help-the-bees-find-their-keys-cover.jpg"
@@ -316,6 +336,7 @@
               <li>4-page PDF</li>
               <li>US Letter</li>
             </ul>
+            <ul class="res-topics"><li>Key names</li></ul>
 
             <p>
               Seven bees, each carrying a letter from A to G, and a keyboard
@@ -330,7 +351,7 @@
           </div>
         </article>
       </li>
-      <li>
+      <li data-topics="key-names">
         <article class="res-card">
           <div class="res-shot">
             <img src="images/resources/groups-of-black-keys-cover.jpg"
@@ -347,6 +368,7 @@
               <li>6-page PDF</li>
               <li>US Letter</li>
             </ul>
+            <ul class="res-topics"><li>Key names</li></ul>
 
             <p>
               The first piano lesson: keyboard geography. Students trace the
@@ -361,7 +383,7 @@
           </div>
         </article>
       </li>
-      <li>
+      <li data-topics="key-names">
         <article class="res-card">
           <div class="res-shot">
             <img src="images/resources/meet-the-piano-keys-cover.jpg"
@@ -378,6 +400,7 @@
               <li>16-page PDF</li>
               <li>US Letter</li>
             </ul>
+            <ul class="res-topics"><li>Key names</li></ul>
 
             <p>
               Trace, write, find, and color your way through the white keys A

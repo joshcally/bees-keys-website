@@ -1042,10 +1042,89 @@ a { color: var(--leaf); }
 .res-head h1 em { font-style: normal; color: var(--leaf); }
 .res-head p { color: var(--ink-soft); margin-bottom: 0; }
 
+/* ---- Topic filter ----
+   CSS only, like the mobile nav: the radios hold the state, and the :has() rules
+   below hide every card whose data-topics doesn't carry the checked topic. If a
+   browser lacks :has() nothing breaks; every card stays visible and the pills
+   still colour, because the checked look uses input:checked + span. */
+.res-filters {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 2.25rem 1.5rem 0;
+  border: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* A legend sits in the fieldset's border box, not its flex flow; float pulls it
+   back into the row so "Show" reads as the eyebrow before the pills. */
+.res-filters legend {
+  float: left;
+  padding: 0;
+  margin-right: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+/* Visually hidden, not display:none, so keyboard focus and the arrow keys that
+   move between radios keep working. */
+.res-filters input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.res-filters label { cursor: pointer; }
+
+.res-filters span {
+  display: inline-block;
+  padding: 0.42rem 1rem;
+  border-radius: 999px;
+  background: var(--white);
+  border: 1px solid var(--card-line);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.res-filters label:hover span { border-color: var(--comb-mid); }
+
+.res-filters input:checked + span {
+  background: var(--comb);
+  border-color: var(--comb-mid);
+  color: #2a2208;
+}
+
+.res-filters input:focus-visible + span {
+  outline: 3px solid var(--leaf);
+  outline-offset: 3px;
+}
+
+main:has(#topic-intervals:checked) .res-list > li:not([data-topics~="intervals"]),
+main:has(#topic-key-names:checked) .res-list > li:not([data-topics~="key-names"]),
+main:has(#topic-games:checked)     .res-list > li:not([data-topics~="games"]),
+main:has(#topic-rewards:checked)   .res-list > li:not([data-topics~="rewards"]) {
+  display: none;
+}
+
 .res-list {
   max-width: var(--wrap);
   margin: 0 auto;
-  padding: 3.5rem 1.5rem 0;
+  padding: 2rem 1.5rem 0;
   display: grid;
   gap: 1.75rem;
   list-style: none;
@@ -1100,6 +1179,27 @@ a { color: var(--leaf); }
 
 .res-meta li { list-style: none; }
 .res-meta li + li::before { content: '·'; margin-right: 0.45rem; opacity: 0.5; }
+
+/* The card's topics, so a teacher can see why it matched the filter. Quieter
+   than the filter pills: the card still reads title, facts, chips, copy, link. */
+.res-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+  list-style: none;
+}
+
+.res-topics li {
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  background: var(--sky-pale);
+  border: 1px solid var(--sky-light);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
 
 .res-go { font-weight: 700; text-decoration: none; font-size: 0.95rem; }
 
