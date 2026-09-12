@@ -1195,7 +1195,7 @@ a { color: var(--leaf); }
 main:has(#topic-intervals:checked) .res-list > li:not([data-topics~="intervals"]),
 main:has(#topic-key-names:checked) .res-list > li:not([data-topics~="key-names"]),
 main:has(#topic-games:checked)     .res-list > li:not([data-topics~="games"]),
-main:has(#topic-rewards:checked)   .res-list > li:not([data-topics~="rewards"]) {
+main:has(#topic-studio-tools:checked) .res-list > li:not([data-topics~="studio-tools"]) {
   display: none;
 }
 
