@@ -12,13 +12,17 @@
       --headless=new --disable-gpu --hide-scrollbars --window-size=1224,1584 \
       --force-device-scale-factor=2 --virtual-time-budget=5000 \
       --screenshot=sound-garden-instructions.png \
-      "http://localhost:8000/tools/sound-garden-instructions.html"
+      "http://localhost:8765/tools/sound-garden-instructions.html"
 
   Built from tools/find-every-instructions.html, but this deck has no app
-  tie-in, so the Pro/QR pivot is replaced by a "more ways to play" panel.
-  Palette is the card deck's own (tools/card-sound-garden.html): green is
-  the garden accent, and HIGH/LOW are set in the accent the way the card
-  subtitles set them.
+  tie-in, so the Pro/QR pivot is replaced by the two-decks panel.
+
+  The copy is Josh's own, matching resources/sound-garden-adventure-cards.html
+  line for line. Two things that page settled and this one must not undo:
+  the last step is an instruction, NOT "the only rule", and there is no
+  no-wrong-notes box any more. Palette is the card deck's own
+  (tools/card-sound-garden.html): green is the garden accent, and the
+  highs/lows are set in the accent the way the card subtitles set them.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -41,14 +45,14 @@
     color: var(--ink);
   }
 
-  .page { width: 1224px; height: 1584px; padding: 84px 100px 70px; display: flex; flex-direction: column; }
+  .page { width: 1224px; height: 1584px; padding: 90px 100px 76px; display: flex; flex-direction: column; }
 
   .brand-row { display: flex; align-items: center; gap: 14px; }
   .brand-row img { width: 44px; }
   .brand-row span { font-weight: 800; font-size: 28px; letter-spacing: -.02em; }
 
   .title {
-    margin-top: 26px;
+    margin-top: 30px;
     font-weight: 900;
     font-size: 78px;
     line-height: 1;
@@ -57,17 +61,22 @@
     color: var(--green);
   }
   .tagline {
-    margin-top: 14px;
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 1.35;
-    color: rgba(43,43,43,.78);
-    max-width: 880px;
+    margin-top: 18px;
+    font-size: 33px;
+    font-weight: 800;
+    color: var(--deep-green);
   }
-  .tagline b { color: var(--deep-green); font-weight: 800; }
+  .intro {
+    margin-top: 16px;
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: rgba(43,43,43,.8);
+    max-width: 940px;
+  }
 
   .materials {
-    margin-top: 20px;
+    margin-top: 22px;
     font-size: 26px;
     font-weight: 700;
     color: rgba(43,43,43,.65);
@@ -79,73 +88,62 @@
   .materials .mat-label { font-weight: 800; color: var(--deep-green); }
   .materials li + li::before { content: "·  "; color: rgba(43,43,43,.45); }
 
+  h2.section {
+    margin-top: 52px;
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: rgba(43,43,43,.5);
+  }
+
   ol.steps {
-    margin-top: 44px;
+    margin-top: 26px;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 30px;
   }
   ol.steps li {
     display: flex;
     gap: 24px;
     align-items: flex-start;
-    font-size: 28px;
+    font-size: 30px;
     line-height: 1.45;
   }
   ol.steps li strong { font-weight: 800; }
   ol.steps li .hi { color: var(--green); font-weight: 900; }
   .step-num {
     flex: 0 0 auto;
-    width: 56px; height: 56px;
+    width: 58px; height: 58px;
     border-radius: 999px;
     background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
     border: 1px solid rgba(180,120,20,.35);
     color: #2a2208;
     font-weight: 900;
-    font-size: 30px;
+    font-size: 31px;
     display: flex; align-items: center; justify-content: center;
     margin-top: 2px;
   }
 
-  .rule {
-    margin-top: 46px;
-    background: #f1f8e8;
-    border: 2px solid rgba(108,179,63,.45);
-    border-radius: 18px;
-    padding: 26px 32px;
+  .decks {
+    margin-top: auto;
+    background: #fcf5db;
+    border: 2px solid rgba(184,122,26,.32);
+    border-radius: 20px;
+    padding: 32px 36px;
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 28px;
   }
-  .rule img { width: 56px; flex: 0 0 auto; }
-  .rule p { font-size: 28px; line-height: 1.45; }
-  .rule p strong { font-weight: 900; color: var(--deep-green); }
-
-  .ways { margin-top: auto; padding-top: 44px; }
-  .ways h2 {
+  .decks img { width: 62px; flex: 0 0 auto; }
+  .decks h3 {
     font-size: 30px;
     font-weight: 900;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    color: rgba(43,43,43,.5);
+    color: #b87a1a;
+    margin-bottom: 8px;
   }
-  .ways ul {
-    margin-top: 20px;
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  .ways li {
-    flex: 1;
-    background: #fcf5db;
-    border: 2px solid rgba(184,122,26,.3);
-    border-radius: 16px;
-    padding: 22px 24px;
-    font-size: 23px;
-    line-height: 1.42;
-  }
-  .ways li strong { display: block; font-weight: 900; color: #b87a1a; font-size: 25px; margin-bottom: 6px; }
+  .decks p { font-size: 25px; line-height: 1.45; }
 
   .footer {
     margin-top: 34px;
@@ -165,9 +163,12 @@
   </div>
 
   <h1 class="title">Bee's Sound Garden</h1>
-  <p class="tagline">
-    Eighteen little stories from the garden. Draw a card, then play it on the
-    piano. <b>There are no wrong notes.</b>
+  <p class="tagline">Explore improvisation right at the beginning!</p>
+  <p class="intro">
+    Bee's Sound Garden is a way for students to imagine what different sounds
+    in the real world could sound like at the piano. Choose pre-illustrated
+    cards, illustrate your own cards, or let your students have fun creating
+    sounds and drawings to match.
   </p>
   <ul class="materials">
     <span class="mat-label">Materials needed:</span>
@@ -176,52 +177,37 @@
     <li>Scissors</li>
   </ul>
 
+  <h2 class="section">Ways to play</h2>
+
   <ol class="steps">
     <li>
       <span class="step-num">1</span>
-      <span><strong>Cut out the cards</strong> and shuffle them. Place the deck face down on the music stand.</span>
+      <span>Print your cards, leave it as a sheet or cut them out and pick at random.</span>
     </li>
     <li>
       <span class="step-num">2</span>
-      <span><strong>Draw a card.</strong> Read the title, then the little line underneath. That line is the shape of your sound.</span>
+      <span><strong>Tell a story!</strong> Let your imagination take you through one card, or a series of cards.</span>
     </li>
     <li>
       <span class="step-num">3</span>
-      <span><strong>Play the story.</strong> Use any keys you like, as many as you like, for as long as you like. The only thing to follow is the shape: if the card says <span class="hi">HIGH</span>, play up at the thin end of the piano; if it says <span class="hi">LOW</span>, play down at the fat end.</span>
+      <span>Draw your own story, then play it at the piano.</span>
     </li>
     <li>
       <span class="step-num">4</span>
-      <span><strong>Play it again, differently.</strong> Louder, softer, faster, slower, with one finger or a whole handful. Same card, brand new adventure.</span>
+      <span>Pay attention to the <span class="hi">highs</span>/<span class="hi">lows</span> on the card!</span>
     </li>
   </ol>
 
-  <div class="rule">
+  <div class="decks">
     <img src="../images/bee_icon.png" alt="" />
-    <p>
-      <strong>The one rule:</strong> there are no wrong notes in the garden.
-      If it sounds like the story, it is right.
-    </p>
-  </div>
-
-  <div class="ways">
-    <h2>More ways to play</h2>
-    <ul>
-      <li>
-        <strong>Guess my card</strong>
-        The teacher draws a card and plays it. The student guesses which
-        creature it was, then swaps places.
-      </li>
-      <li>
-        <strong>Play it together</strong>
-        On the two-voice cards, one player takes the HIGH voice and the other
-        takes the LOW voice at the same time.
-      </li>
-      <li>
-        <strong>Draw your own</strong>
-        The second deck leaves the picture blank. Students color in their own
-        garden, then play what they drew.
-      </li>
-    </ul>
+    <div>
+      <h3>Two decks in one download</h3>
+      <p>
+        Use the pre-illustrated cards, or come up with your own illustrations
+        on the blank cards. Drawing the card first, then playing it is often
+        the part that unlocks a shy improviser.
+      </p>
+    </div>
   </div>
 
   <p class="footer">Bees Keys · beeskeysapp.com · Free to print and share with your students</p>
