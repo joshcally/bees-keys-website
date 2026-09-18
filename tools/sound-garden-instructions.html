@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Instructions sheet source — Bee's Sound Garden</title>
+<!--
+  Source for the Bee's Sound Garden how-to-play sheet, US Letter portrait.
+  One page. Render it with:
+
+    python3 -m http.server 8000
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1224,1584 \
+      --force-device-scale-factor=2 --virtual-time-budget=5000 \
+      --screenshot=sound-garden-instructions.png \
+      "http://localhost:8000/tools/sound-garden-instructions.html"
+
+  Built from tools/find-every-instructions.html, but this deck has no app
+  tie-in, so the Pro/QR pivot is replaced by a "more ways to play" panel.
+  Palette is the card deck's own (tools/card-sound-garden.html): green is
+  the garden accent, and HIGH/LOW are set in the accent the way the card
+  subtitles set them.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #2b2b2b;
+    --green: #6cb33f;
+    --yellow: #f5b81f;
+    --deep-green: #2f6b23;
+  }
+
+  body {
+    width: 1224px;
+    height: 1584px;
+    background: #ffffff;
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+  }
+
+  .page { width: 1224px; height: 1584px; padding: 84px 100px 70px; display: flex; flex-direction: column; }
+
+  .brand-row { display: flex; align-items: center; gap: 14px; }
+  .brand-row img { width: 44px; }
+  .brand-row span { font-weight: 800; font-size: 28px; letter-spacing: -.02em; }
+
+  .title {
+    margin-top: 26px;
+    font-weight: 900;
+    font-size: 78px;
+    line-height: 1;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .tagline {
+    margin-top: 14px;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: rgba(43,43,43,.78);
+    max-width: 880px;
+  }
+  .tagline b { color: var(--deep-green); font-weight: 800; }
+
+  .materials {
+    margin-top: 20px;
+    font-size: 26px;
+    font-weight: 700;
+    color: rgba(43,43,43,.65);
+    list-style: none;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .materials .mat-label { font-weight: 800; color: var(--deep-green); }
+  .materials li + li::before { content: "·  "; color: rgba(43,43,43,.45); }
+
+  ol.steps {
+    margin-top: 44px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  ol.steps li {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    font-size: 28px;
+    line-height: 1.45;
+  }
+  ol.steps li strong { font-weight: 800; }
+  ol.steps li .hi { color: var(--green); font-weight: 900; }
+  .step-num {
+    flex: 0 0 auto;
+    width: 56px; height: 56px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
+    border: 1px solid rgba(180,120,20,.35);
+    color: #2a2208;
+    font-weight: 900;
+    font-size: 30px;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+
+  .rule {
+    margin-top: 46px;
+    background: #f1f8e8;
+    border: 2px solid rgba(108,179,63,.45);
+    border-radius: 18px;
+    padding: 26px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .rule img { width: 56px; flex: 0 0 auto; }
+  .rule p { font-size: 28px; line-height: 1.45; }
+  .rule p strong { font-weight: 900; color: var(--deep-green); }
+
+  .ways { margin-top: auto; padding-top: 44px; }
+  .ways h2 {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: rgba(43,43,43,.5);
+  }
+  .ways ul {
+    margin-top: 20px;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  .ways li {
+    flex: 1;
+    background: #fcf5db;
+    border: 2px solid rgba(184,122,26,.3);
+    border-radius: 16px;
+    padding: 22px 24px;
+    font-size: 23px;
+    line-height: 1.42;
+  }
+  .ways li strong { display: block; font-weight: 900; color: #b87a1a; font-size: 25px; margin-bottom: 6px; }
+
+  .footer {
+    margin-top: 34px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(43,43,43,.55);
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="brand-row">
+    <img src="../images/bee_icon.png" alt="" />
+    <span>Bees Keys</span>
+  </div>
+
+  <h1 class="title">Bee's Sound Garden</h1>
+  <p class="tagline">
+    Eighteen little stories from the garden. Draw a card, then play it on the
+    piano. <b>There are no wrong notes.</b>
+  </p>
+  <ul class="materials">
+    <span class="mat-label">Materials needed:</span>
+    <li>Piano</li>
+    <li>Cards</li>
+    <li>Scissors</li>
+  </ul>
+
+  <ol class="steps">
+    <li>
+      <span class="step-num">1</span>
+      <span><strong>Cut out the cards</strong> and shuffle them. Place the deck face down on the music stand.</span>
+    </li>
+    <li>
+      <span class="step-num">2</span>
+      <span><strong>Draw a card.</strong> Read the title, then the little line underneath. That line is the shape of your sound.</span>
+    </li>
+    <li>
+      <span class="step-num">3</span>
+      <span><strong>Play the story.</strong> Use any keys you like, as many as you like, for as long as you like. The only thing to follow is the shape: if the card says <span class="hi">HIGH</span>, play up at the thin end of the piano; if it says <span class="hi">LOW</span>, play down at the fat end.</span>
+    </li>
+    <li>
+      <span class="step-num">4</span>
+      <span><strong>Play it again, differently.</strong> Louder, softer, faster, slower, with one finger or a whole handful. Same card, brand new adventure.</span>
+    </li>
+  </ol>
+
+  <div class="rule">
+    <img src="../images/bee_icon.png" alt="" />
+    <p>
+      <strong>The one rule:</strong> there are no wrong notes in the garden.
+      If it sounds like the story, it is right.
+    </p>
+  </div>
+
+  <div class="ways">
+    <h2>More ways to play</h2>
+    <ul>
+      <li>
+        <strong>Guess my card</strong>
+        The teacher draws a card and plays it. The student guesses which
+        creature it was, then swaps places.
+      </li>
+      <li>
+        <strong>Play it together</strong>
+        On the two-voice cards, one player takes the HIGH voice and the other
+        takes the LOW voice at the same time.
+      </li>
+      <li>
+        <strong>Draw your own</strong>
+        The second deck leaves the picture blank. Students color in their own
+        garden, then play what they drew.
+      </li>
+    </ul>
+  </div>
+
+  <p class="footer">Bees Keys · beeskeysapp.com · Free to print and share with your students</p>
+</div>
+
+</body>
+</html>

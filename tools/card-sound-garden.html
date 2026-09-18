@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Card source: Bee's Sound Garden adventure cards</title>
+<!--
+  Source for the Bee's Sound Garden adventure cards. Same 5:7 poker shape as
+  Find Every Key (1080x1512 px, 2.5x3.5 in at 432 dpi) so both decks cut and
+  stack together, but a warmer, doodlier background because this deck is an
+  improv tool, not a drill.
+
+  Two decks come out of the same source:
+    deck=art    one simple scene per card, composed from the real app art
+                (Bees Keys bee, Interval Jump bugs/frog/plants in
+                sound-garden-art/) plus a few flat
+                SVG creatures drawn here for the ones the apps don't have.
+    deck=color  the same card with a blank white square for the student to
+                draw and color their own scene.
+
+  Scene rules (Josh, Aug 26 2026): app art is used as-is, never re-outlined;
+  nothing floats, creatures stand on the meadow or on a mound raised to meet
+  them; only things that fly or fall are in the air.
+
+  Query params:
+    ?n=3&t=Spider%20Climbs%20Her%20Web&s=Creep%20HIGHER...&c=purple&deck=art
+      n     card number; picks the scene (never printed)
+      t     title
+      s     subtitle: one short line giving the shape; HIGH and LOW in caps
+            get the accent color
+      c     accent: yellow | pink | green | blue | purple
+      deck  art | color (default art)
+      art   optional image path; overrides the built-in scene
+      src   directory for the scene images (default sound-garden-art/)
+    ?back=1   the shared deck back
+
+  Rendered by tools/make-sound-garden-cards.py (headless Chrome, then pymupdf).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
+
+  :root {
+    --ink: #232323;
+    --yellow: #f5b81f;
+    --pink: #e8528c;
+    --green: #6cb33f;
+    --blue: #3f9ae6;
+    --purple: #8a66ad;
+    --accent: var(--blue);
+    --accent-soft: rgba(63,154,230,.16);
+  }
+  .c-yellow { --accent: var(--yellow); --accent-soft: rgba(245,184,31,.20); }
+  .c-pink   { --accent: var(--pink);   --accent-soft: rgba(232,82,140,.16); }
+  .c-green  { --accent: var(--green);  --accent-soft: rgba(108,179,63,.18); }
+  .c-blue   { --accent: var(--blue);   --accent-soft: rgba(63,154,230,.16); }
+  .c-purple { --accent: var(--purple); --accent-soft: rgba(138,102,173,.16); }
+
+  body {
+    width: 1080px;
+    height: 1512px;
+    overflow: hidden;
+    background: #fff;
+    font-family: 'Nunito', 'Avenir Next', 'Arial Rounded MT Bold', sans-serif;
+    color: var(--ink);
+  }
+
+  .card {
+    position: relative;
+    width: 1080px;
+    height: 1512px;
+    overflow: hidden;
+    border-radius: 44px;
+    background:
+      radial-gradient(1200px 700px at 50% -260px, #fff9e3 0%, rgba(255,249,227,0) 70%),
+      linear-gradient(180deg, #fefefe 0%, #eef7fd 55%, #dbeffb 100%);
+  }
+
+  /* Faint inner frame, same as the Find Every Key cards. */
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border-radius: 30px;
+    border: 3px solid var(--accent-soft);
+    pointer-events: none;
+    z-index: 9;
+  }
+
+  /* ---- background doodles ---- */
+  .doodles { position: absolute; inset: 0; z-index: 0; }
+  .doodles svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .flight { fill: none; stroke: var(--accent); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 2 26; opacity: .75; }
+  .spark { fill: var(--accent); opacity: .55; }
+  .hex { fill: none; stroke: var(--accent); stroke-width: 5; opacity: .22; }
+  .hill-back { fill: #cfe9a4; }
+  .hill-front { fill: #b3dc7f; }
+  .grass { fill: none; stroke: #6cb33f; stroke-width: 6; stroke-linecap: round; opacity: .8; }
+
+  /* Underground cards: the meadow gives way to a turf line about three
+     quarters down, with a brown dirt layer below it for the diggers. */
+  .digs { display: none; }
+  .underground .digs { display: block; }
+  .underground .meadow, .underground .spark.low { display: none; }
+  .dirt { fill: #9b6a3c; }
+  .pebble { fill: #6f4a28; opacity: .45; }
+  .underground .brand { color: #fff; text-shadow: 0 2px 0 rgba(58,36,16,.45); }
+
+  /* ---- foreground ---- */
+  .inner { position: relative; z-index: 2; height: 100%; }
+
+  .title {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 190px;
+    text-align: center;
+    font-size: 118px;
+    font-weight: 900;
+    line-height: 1.02;
+    letter-spacing: -.015em;
+    color: var(--ink);
+    text-shadow: 0 2px 0 rgba(255,255,255,.7);
+  }
+  .title.long { font-size: 100px; }
+  .title.xlong { font-size: 86px; }
+
+  .subtitle {
+    position: absolute;
+    left: 90px; right: 90px;
+    top: 460px;
+    text-align: center;
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #4a4a4a;
+  }
+  .subtitle b { color: var(--accent); font-weight: 900; }
+
+  /* The scene box: 860 wide, from under the subtitle down onto the meadow
+     (card y 625..1325). Ground line for feet is GROUND (690) in box coords,
+     which lands on the back hill of the meadow. */
+  .art {
+    position: absolute;
+    left: 110px; top: 625px;
+    width: 860px; height: 700px;
+    display: grid; place-items: center;
+  }
+  .art img.single { max-width: 100%; max-height: 100%; }
+
+  .art .layer { position: absolute; transform-origin: center; }
+  /* Scenes with a tree: clip at the top edge so the trunk reads as continuing
+     up without running into the subtitle. */
+  .art.clip { overflow: hidden; }
+  .art .layer img, .art .layer svg { display: block; width: 100%; height: 100%; }
+
+  /* Color-your-own deck: a clean white square, no label. */
+  .art.blank {
+    height: 640px;
+    background: #fff;
+    border: 5px solid var(--accent-soft);
+    border-radius: 36px;
+    box-shadow: 0 6px 0 rgba(0,0,0,.05);
+  }
+
+  .brand {
+    position: absolute;
+    left: 0; right: 0; bottom: 74px;
+    text-align: center;
+    font-size: 60px; font-weight: 900; line-height: .95;
+    letter-spacing: -.01em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  }
+
+  /* ---- night cards: dusk sky, pale doodles, moon and stars carry the scene ---- */
+  .night {
+    background:
+      radial-gradient(900px 500px at 50% -200px, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 70%),
+      linear-gradient(180deg, #5f83c9 0%, #8fb0e4 52%, #c6daf4 100%);
+  }
+  .night .spark, .night .hex { stroke: #fff; fill: #fff; opacity: .55; }
+  .night .flight { display: none; }   /* white on dusk reads as a smear, not a path */
+  .night .spark { stroke: none; }
+  .night .hex { fill: none; }
+  .night .title { text-shadow: 0 2px 0 rgba(255,255,255,.35); }
+  .night .subtitle { color: #2f3a4d; }
+  .night.c-green .subtitle b { color: #fff; }   /* Sleepy Frog: LOW in white, not green */
+
+  /* ---- deck back ---- */
+  .back .title { top: 560px; font-size: 150px; line-height: 1; }
+  .back .kicker {
+    position: absolute; left: 0; right: 0; top: 1060px;
+    text-align: center;
+    font-size: 64px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .back .bee { position: absolute; left: 50%; top: 170px; width: 330px; transform: translateX(-50%) rotate(-10deg); }
+  .back .flight-back { display: block; }
+  .flight-back { display: none; }
+  .back .flight { stroke-width: 8; }
+
+  /* ---- drawn creatures: flat fills, dark outline, same weight as the frog ---- */
+  .cr { stroke: #232323; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  .cr:not([fill]) { fill: none; }
+</style>
+</head>
+<body>
+
+<!-- Creature symbols, each in a 200x200 box. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="spider" viewBox="0 0 200 200">
+      <g class="cr">
+        <path d="M78 120 C 50 110, 30 120, 14 100"/><path d="M78 130 C 50 135, 30 150, 18 165"/>
+        <path d="M80 140 C 60 160, 50 175, 48 190"/><path d="M75 112 C 55 90, 40 80, 30 60"/>
+        <path d="M122 120 C 150 110, 170 120, 186 100"/><path d="M122 130 C 150 135, 170 150, 182 165"/>
+        <path d="M120 140 C 140 160, 150 175, 152 190"/><path d="M125 112 C 145 90, 160 80, 170 60"/>
+      </g>
+      <ellipse class="cr" cx="100" cy="135" rx="34" ry="40" fill="#8a66ad"/>
+      <circle class="cr" cx="100" cy="88" r="22" fill="#8a66ad"/>
+      <circle cx="92" cy="84" r="5" fill="#232323"/><circle cx="108" cy="84" r="5" fill="#232323"/>
+      <circle cx="100" cy="135" r="9" fill="#b89bd6"/>
+    </symbol>
+
+    <!-- A web strung between two anchors: stretched to fit its box. -->
+    <!-- Orb web: spokes stop at the outer ring, and every strand that leaves the
+         ring ends on the trunk or the branch, so nothing dangles in mid air. -->
+    <symbol id="web" viewBox="0 0 200 200" preserveAspectRatio="none">
+      <g fill="none" stroke="#232323" stroke-width="2.5" opacity=".55" vector-effect="non-scaling-stroke">
+        <path d="M42 70 L 0 0 M158 70 L 200 0 M33.88 128 L 0 118 M42 186 L 0 200 M42 70 L 0 44 M33.88 128 L 0 158"/>
+        <path d="M100 128 L 166.12 128 M100 128 L 33.88 128 M100 128 L 100 194.12 M100 128 L 100 61.88 M100 128 L 158 186 M100 128 L 42 186 M100 128 L 158 70 M100 128 L 42 70"/>
+        <path d="M78 106 Q 100 99.84, 122 106 Q 128.16 128, 122 150 Q 100 156.16, 78 150 Q 71.84 128, 78 106"/>
+        <path d="M60 88 Q 100 76.8, 140 88 Q 151.2 128, 140 168 Q 100 179.2, 60 168 Q 48.8 128, 60 88"/>
+        <path d="M42 70 Q 100 53.76, 158 70 Q 174.24 128, 158 186 Q 100 202.24, 42 186 Q 25.76 128, 42 70"/>
+      </g>
+    </symbol>
+
+    <symbol id="ant" viewBox="0 0 200 200">
+      <g class="cr">
+        <path d="M70 110 L 40 140 M78 118 L 55 160 M92 122 L 85 160"/>
+        <path d="M120 122 L 128 160 M130 118 L 150 155 M140 110 L 170 135"/>
+        <path d="M150 88 L 170 60 M158 92 L 185 75"/>
+      </g>
+      <ellipse class="cr" cx="60" cy="110" rx="34" ry="24" fill="#232323"/>
+      <ellipse class="cr" cx="108" cy="108" rx="22" ry="18" fill="#232323"/>
+      <circle class="cr" cx="148" cy="100" r="22" fill="#232323"/>
+      <circle cx="156" cy="94" r="5" fill="#fff"/>
+    </symbol>
+
+    <symbol id="snail" viewBox="0 0 200 200">
+      <path class="cr" d="M20 150 C 30 120, 70 118, 110 130 L 170 130 C 185 130, 185 155, 170 155 L 30 155 C 20 155, 15 152, 20 150 Z" fill="#c9d95a"/>
+      <circle class="cr" cx="85" cy="105" r="52" fill="#f5b81f"/>
+      <path class="cr" d="M85 105 m -30 0 a 30 30 0 1 1 30 30 a 18 18 0 1 1 18 -18 a 8 8 0 1 1 -8 8" stroke-width="5"/>
+      <path class="cr" d="M160 130 L 166 100 M178 130 L 186 104"/>
+      <circle class="cr" cx="166" cy="96" r="8" fill="#fff"/><circle class="cr" cx="187" cy="100" r="8" fill="#fff"/>
+      <circle cx="167" cy="96" r="3.5" fill="#232323"/><circle cx="188" cy="100" r="3.5" fill="#232323"/>
+    </symbol>
+
+    <symbol id="worm" viewBox="0 0 200 200">
+      <path d="M20 140 C 40 80, 70 80, 90 120 S 140 160, 160 110 C 170 88, 185 80, 190 90" fill="none" stroke="#232323" stroke-width="42" stroke-linecap="round"/>
+      <path d="M20 140 C 40 80, 70 80, 90 120 S 140 160, 160 110 C 170 88, 185 80, 190 90" fill="none" stroke="#f08db4" stroke-width="30" stroke-linecap="round"/>
+      <g fill="none" stroke="#232323" stroke-width="3" opacity=".5"><path d="M50 100 l 6 14 M70 94 l 0 16 M110 138 l 8 -10 M135 140 l 6 -14"/></g>
+      <circle cx="180" cy="86" r="5" fill="#232323"/>
+    </symbol>
+
+    <symbol id="caterpillar" viewBox="0 0 200 200">
+      <g class="cr"><path d="M150 90 L 160 60 M165 95 L 182 72"/></g>
+      <g class="cr" stroke-width="5"><path d="M30 150 l -4 14 M50 150 l 4 14 M64 145 l -4 14 M82 145 l 4 14 M98 142 l -4 14 M116 142 l 4 14 M132 143 l -4 14 M150 143 l 4 14"/></g>
+      <circle class="cr" cx="40" cy="130" r="22" fill="#6cb33f"/>
+      <circle class="cr" cx="72" cy="122" r="24" fill="#6cb33f"/>
+      <circle class="cr" cx="106" cy="118" r="25" fill="#6cb33f"/>
+      <circle class="cr" cx="140" cy="118" r="26" fill="#6cb33f"/>
+      <circle class="cr" cx="160" cy="110" r="28" fill="#8fd05f"/>
+      <circle cx="166" cy="104" r="5" fill="#232323"/><circle cx="152" cy="104" r="5" fill="#232323"/>
+      <path class="cr" d="M152 120 Q 160 126, 168 120" stroke-width="4"/>
+    </symbol>
+
+    <!-- Side view, facing right. Cricket and grasshopper share one build:
+         hind leg (thigh + shin), body, head, antennae swept back. -->
+    <symbol id="cricket" viewBox="0 0 200 200">
+      <g class="cr"><path d="M150 92 C 135 60, 110 40, 70 34"/><path d="M158 96 C 150 62, 130 44, 100 36"/></g>
+      <path class="cr" d="M96 122 L 150 88 L 162 104 L 108 136 Z" fill="#3d7a2a"/>
+      <path class="cr" d="M156 96 L 184 150 L 176 176" stroke-width="7"/>
+      <path class="cr" d="M62 150 L 48 178 M84 152 L 92 178" />
+      <ellipse class="cr" cx="92" cy="128" rx="58" ry="28" fill="#4f8f30"/>
+      <path class="cr" d="M46 118 C 80 104, 120 106, 142 122" stroke-width="4" opacity=".6"/>
+      <circle class="cr" cx="146" cy="112" r="21" fill="#4f8f30"/>
+      <circle cx="152" cy="106" r="6" fill="#fff"/><circle cx="153" cy="106" r="3" fill="#232323"/>
+    </symbol>
+
+    <symbol id="grasshopper" viewBox="0 0 200 200">
+      <g class="cr"><path d="M156 84 C 145 55, 120 40, 80 40"/><path d="M164 90 C 160 60, 140 46, 110 44"/></g>
+      <path class="cr" d="M92 118 L 152 72 L 168 90 L 106 134 Z" fill="#6cb33f"/>
+      <path class="cr" d="M162 82 L 192 140 L 184 172" stroke-width="7"/>
+      <path class="cr" d="M60 148 L 44 176 M86 150 L 92 178"/>
+      <path class="cr" d="M14 128 C 30 100, 110 98, 148 116 L 148 136 C 110 150, 30 150, 14 136 Z" fill="#8fd05f"/>
+      <path class="cr" d="M30 122 C 70 112, 110 112, 140 122" stroke-width="4" opacity=".6"/>
+      <circle class="cr" cx="154" cy="106" r="22" fill="#8fd05f"/>
+      <circle cx="161" cy="100" r="6" fill="#fff"/><circle cx="162" cy="100" r="3" fill="#232323"/>
+    </symbol>
+
+    <symbol id="sprout" viewBox="0 0 200 200">
+      <path class="cr" d="M100 170 L 100 90"/>
+      <path class="cr" d="M100 110 C 70 110, 50 90, 50 65 C 80 65, 100 85, 100 110 Z" fill="#6cb33f"/>
+      <path class="cr" d="M100 95 C 130 95, 150 75, 150 50 C 120 50, 100 70, 100 95 Z" fill="#8fd05f"/>
+    </symbol>
+
+    <symbol id="seed" viewBox="0 0 200 200">
+      <ellipse class="cr" cx="100" cy="100" rx="40" ry="28" transform="rotate(-25 100 100)" fill="#9b6a3c"/>
+    </symbol>
+
+    <!-- A soft puffball: pale disc, fine hairs, tufts on the ends. -->
+    <symbol id="dandelion" viewBox="0 0 200 200">
+      <path class="cr" d="M100 198 L 100 118"/>
+      <path class="cr" d="M100 190 C 82 186, 62 172, 50 148 C 68 156, 86 168, 100 178 Z" fill="#6cb33f"/>
+      <path class="cr" d="M100 196 C 118 190, 140 178, 154 156 C 136 162, 116 174, 100 184 Z" fill="#6cb33f"/>
+      <circle cx="100" cy="68" r="54" fill="#fff" opacity=".8"/>
+      <g fill="none" stroke="#8d9aa5" stroke-width="2.2">
+        <path d="M100 68 L100 14 M100 68 L128 21 M100 68 L147 41 M100 68 L154 68 M100 68 L147 95 M100 68 L128 115 M100 68 L100 122 M100 68 L72 115 M100 68 L53 95 M100 68 L46 68 M100 68 L53 41 M100 68 L72 21"/>
+        <path d="M100 68 L114 16 M100 68 L139 30 M100 68 L152 54 M100 68 L152 82 M100 68 L139 106 M100 68 L114 120 M100 68 L86 120 M100 68 L61 106 M100 68 L48 82 M100 68 L48 54 M100 68 L61 30 M100 68 L86 16"/>
+      </g>
+      <g fill="#fff" stroke="#232323" stroke-width="2.5">
+        <circle cx="100" cy="14" r="5"/><circle cx="128" cy="21" r="5"/><circle cx="147" cy="41" r="5"/><circle cx="154" cy="68" r="5"/><circle cx="147" cy="95" r="5"/><circle cx="128" cy="115" r="5"/>
+        <circle cx="100" cy="122" r="5"/><circle cx="72" cy="115" r="5"/><circle cx="53" cy="95" r="5"/><circle cx="46" cy="68" r="5"/><circle cx="53" cy="41" r="5"/><circle cx="72" cy="21" r="5"/>
+        <circle cx="114" cy="16" r="4"/><circle cx="139" cy="30" r="4"/><circle cx="152" cy="54" r="4"/><circle cx="152" cy="82" r="4"/><circle cx="139" cy="106" r="4"/><circle cx="114" cy="120" r="4"/>
+        <circle cx="86" cy="120" r="4"/><circle cx="61" cy="106" r="4"/><circle cx="48" cy="82" r="4"/><circle cx="48" cy="54" r="4"/><circle cx="61" cy="30" r="4"/><circle cx="86" cy="16" r="4"/>
+      </g>
+      <circle class="cr" cx="100" cy="68" r="11" fill="#c9d95a"/>
+    </symbol>
+
+    <!-- One seed drifting away: brown seed, thin stalk, a fan of tufts. -->
+    <symbol id="puff" viewBox="0 0 200 200">
+      <path d="M100 170 L 100 96" stroke="#8d9aa5" stroke-width="3.5" fill="none"/>
+      <g fill="none" stroke="#8d9aa5" stroke-width="3.5"><path d="M100 96 L 52 62 M100 96 L 72 44 M100 96 L 100 36 M100 96 L 128 44 M100 96 L 148 62"/></g>
+      <g fill="#fff" stroke="#232323" stroke-width="3"><circle cx="52" cy="62" r="8"/><circle cx="72" cy="44" r="8"/><circle cx="100" cy="36" r="8"/><circle cx="128" cy="44" r="8"/><circle cx="148" cy="62" r="8"/></g>
+      <ellipse class="cr" cx="100" cy="176" rx="8" ry="12" fill="#9b6a3c"/>
+    </symbol>
+
+    <symbol id="leaf" viewBox="0 0 200 200">
+      <path class="cr" d="M30 170 C 30 90, 90 30, 175 25 C 175 110, 120 170, 30 170 Z" fill="#f08a2a"/>
+      <path class="cr" d="M40 160 C 80 120, 120 80, 165 35" stroke-width="5"/>
+    </symbol>
+
+    <symbol id="bigleaf" viewBox="0 0 200 200">
+      <path class="cr" d="M10 150 C 40 70, 120 60, 195 100 C 150 165, 70 175, 10 150 Z" fill="#6cb33f"/>
+      <path class="cr" d="M20 148 C 80 120, 130 110, 190 100" stroke-width="5"/>
+    </symbol>
+
+    <symbol id="drop" viewBox="0 0 200 200">
+      <path class="cr" d="M100 20 C 130 80, 160 100, 160 135 A 60 60 0 0 1 40 135 C 40 100, 70 80, 100 20 Z" fill="#3f9ae6"/>
+      <path d="M70 140 A 30 30 0 0 0 90 165" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+    </symbol>
+
+    <symbol id="moon" viewBox="0 0 200 200">
+      <path class="cr" d="M120 20 A 80 80 0 1 0 120 180 A 100 100 0 0 1 120 20 Z" fill="#fefc60" transform="translate(-10 0)"/>
+    </symbol>
+
+    <symbol id="star" viewBox="0 0 200 200">
+      <path d="M100 20 l 22 58 l 62 4 l -48 38 l 16 60 l -52 -34 l -52 34 l 16 -60 l -48 -38 l 62 -4 z" fill="#fefc60" stroke="#232323" stroke-width="5" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- A low mound of soil that sits on the meadow. -->
+    <symbol id="soil" viewBox="0 0 200 200" preserveAspectRatio="none">
+      <path class="cr" d="M6 190 C 10 120, 50 96, 100 96 S 190 120, 194 190 C 150 199, 50 199, 6 190 Z" fill="#9b6a3c" vector-effect="non-scaling-stroke"/>
+      <g fill="#7a5230"><circle cx="50" cy="155" r="6"/><circle cx="120" cy="170" r="7"/><circle cx="160" cy="150" r="5"/></g>
+    </symbol>
+
+    <symbol id="zzz" viewBox="0 0 200 200">
+      <text x="20" y="150" font-family="Nunito, sans-serif" font-weight="900" font-size="70" fill="#3f9ae6">z</text>
+      <text x="70" y="105" font-family="Nunito, sans-serif" font-weight="900" font-size="90" fill="#3f9ae6">z</text>
+      <text x="130" y="60" font-family="Nunito, sans-serif" font-weight="900" font-size="110" fill="#3f9ae6">z</text>
+    </symbol>
+
+    <symbol id="arc" viewBox="0 0 200 200" preserveAspectRatio="none">
+      <path d="M10 170 C 40 40, 160 40, 190 170" fill="none" stroke="#3f9ae6" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 24" vector-effect="non-scaling-stroke"/>
+    </symbol>
+
+
+    <!-- Friends-style face parts: big white eyes, black pupils, highlight. -->
+    <symbol id="eye" viewBox="0 0 40 40">
+      <circle class="cr" cx="20" cy="20" r="16" fill="#fff" stroke-width="4"/>
+      <circle cx="22" cy="21" r="9" fill="#232323"/>
+      <circle cx="19" cy="17" r="3.5" fill="#fff"/>
+    </symbol>
+
+    <symbol id="butterfly2" viewBox="0 0 200 200">
+      <!-- lower wings -->
+      <path class="cr" d="M96 110 C 60 120, 30 160, 50 180 C 70 195, 92 170, 98 140 Z" fill="#f5a623"/>
+      <path class="cr" d="M104 110 C 140 120, 170 160, 150 180 C 130 195, 108 170, 102 140 Z" fill="#f5a623"/>
+      <!-- upper wings -->
+      <path class="cr" d="M96 100 C 60 60, 10 40, 12 80 C 14 115, 70 128, 96 112 Z" fill="#f7b733"/>
+      <path class="cr" d="M104 100 C 140 60, 190 40, 188 80 C 186 115, 130 128, 104 112 Z" fill="#f7b733"/>
+      <g fill="#fde3a0"><ellipse cx="45" cy="82" rx="14" ry="10"/><ellipse cx="155" cy="82" rx="14" ry="10"/><circle cx="64" cy="160" r="7"/><circle cx="136" cy="160" r="7"/></g>
+      <!-- antennae -->
+      <g class="cr" stroke-width="5"><path d="M92 46 C 80 30, 66 22, 56 18"/><path d="M108 46 C 120 30, 134 22, 144 18"/></g>
+      <circle cx="55" cy="17" r="6" fill="#232323"/><circle cx="145" cy="17" r="6" fill="#232323"/>
+      <!-- body and head -->
+      <path class="cr" d="M100 62 C 112 62, 114 90, 112 130 C 110 160, 104 182, 100 182 C 96 182, 90 160, 88 130 C 86 90, 88 62, 100 62 Z" fill="#8a5a3c"/>
+      <circle class="cr" cx="100" cy="52" r="27" fill="#8a5a3c"/>
+      <svg x="72" y="34" width="28" height="28" viewBox="0 0 40 40"><use href="#eye"/></svg>
+      <svg x="100" y="34" width="28" height="28" viewBox="0 0 40 40"><use href="#eye"/></svg>
+      <path class="cr" d="M93 68 Q 100 74, 107 68" stroke-width="4"/>
+    </symbol>
+
+    <symbol id="grasshopper2" viewBox="0 0 200 200">
+      <!-- antennae -->
+      <g class="cr" stroke-width="5"><path d="M150 82 C 140 50, 118 32, 90 26"/><path d="M158 86 C 156 54, 142 36, 118 30"/></g>
+      <circle cx="88" cy="25" r="6" fill="#232323"/><circle cx="116" cy="29" r="6" fill="#232323"/>
+      <!-- far legs -->
+      <g class="cr" stroke-width="7" stroke="#3e7a25" fill="none"><path d="M120 130 L 154 104 L 172 146"/><path d="M62 146 L 50 172"/></g>
+      <!-- body -->
+      <path class="cr" d="M12 122 C 26 98, 100 92, 140 108 L 142 134 C 100 150, 26 150, 12 138 Z" fill="#8fd05f"/>
+      <path class="cr" d="M22 116 C 60 106, 110 106, 138 116" stroke-width="4" opacity=".5"/>
+      <path d="M34 128 L 34 142 M56 126 L 56 144 M78 124 L 78 145" stroke="#232323" stroke-width="3" opacity=".35" fill="none"/>
+      <!-- near hind leg: thigh and shin -->
+      <path class="cr" d="M96 126 L 148 84 L 164 100 L 110 140 Z" fill="#6cb33f"/>
+      <path class="cr" d="M154 90 L 190 144 L 182 178 L 172 176 L 178 148 L 146 102 Z" fill="#6cb33f"/>
+      <path class="cr" d="M176 178 L 196 180" stroke-width="7"/>
+      <!-- near front legs -->
+      <g class="cr" stroke-width="7"><path d="M70 146 L 58 176 L 44 178"/><path d="M96 148 L 100 176 L 116 178"/></g>
+      <!-- head -->
+      <circle class="cr" cx="152" cy="104" r="29" fill="#8fd05f"/>
+      <svg x="128" y="82" width="32" height="32" viewBox="0 0 40 40"><use href="#eye"/></svg>
+      <svg x="154" y="84" width="30" height="30" viewBox="0 0 40 40"><use href="#eye"/></svg>
+      <path class="cr" d="M156 124 Q 164 130, 172 122" stroke-width="4"/>
+    </symbol>
+
+    <!-- soft ground shadow for pale art -->
+    <symbol id="shadow" viewBox="0 0 200 200" preserveAspectRatio="none">
+      <ellipse cx="100" cy="100" rx="96" ry="40" fill="#232323" opacity=".12"/>
+    </symbol>
+
+
+    <!-- The Bee's Color Garden daisy, redrawn from Josh's flower: 8 fat petals
+         around a big round center, thin stem, two long leaves at the base.
+         Petal color comes from the layer's `fill`. -->
+    <symbol id="daisy" viewBox="0 0 200 262">
+      <path class="cr" d="M100 148 L 100 256" stroke-width="8"/>
+      <path class="cr" d="M96 244 C 80 206, 51 186, 10 184 C 26 222, 55 242, 96 244 Z" fill="#6cb33f"/>
+      <path class="cr" d="M104 244 C 120 206, 149 186, 190 184 C 174 222, 145 242, 104 244 Z" fill="#6cb33f"/>
+      <path d="M92 241 C 70 226, 45 205, 17 188 M108 241 C 130 226, 155 205, 183 188"
+            fill="none" stroke="#3d7a25" stroke-width="4" opacity=".7"/>
+      <g class="cr" fill="currentColor">
+        <ellipse cx="100" cy="37" rx="19" ry="32"/>
+        <ellipse cx="100" cy="163" rx="19" ry="32"/>
+        <ellipse cx="37" cy="100" rx="32" ry="19"/>
+        <ellipse cx="163" cy="100" rx="32" ry="19"/>
+        <ellipse cx="55.5" cy="55.5" rx="19" ry="32" transform="rotate(-45 55.5 55.5)"/>
+        <ellipse cx="144.5" cy="55.5" rx="19" ry="32" transform="rotate(45 144.5 55.5)"/>
+        <ellipse cx="55.5" cy="144.5" rx="19" ry="32" transform="rotate(45 55.5 144.5)"/>
+        <ellipse cx="144.5" cy="144.5" rx="19" ry="32" transform="rotate(-45 144.5 144.5)"/>
+      </g>
+      <circle class="cr" cx="100" cy="100" r="26" fill="#f5b81f"/>
+    </symbol>
+
+    <symbol id="bee" viewBox="0 0 394.178 331.977">
+      <image href="sound-garden-art/back-wing.svg" width="394.178" height="331.977"/>
+      <image href="sound-garden-art/bee-body.svg" width="394.178" height="331.977"/>
+      <image href="sound-garden-art/front-wing.svg" width="394.178" height="331.977"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="card c-blue" id="card">
+  <div class="doodles">
+    <svg viewBox="0 0 1080 1512" preserveAspectRatio="none" aria-hidden="true">
+      <!-- meadow -->
+      <path class="hill-back meadow" d="M-20 1330 C 200 1250, 420 1300, 560 1280 S 900 1200, 1100 1290 L1100 1540 L-20 1540 Z"/>
+      <path class="hill-front meadow" d="M-20 1400 C 160 1340, 380 1380, 540 1360 S 880 1310, 1100 1390 L1100 1540 L-20 1540 Z"/>
+      <path class="grass meadow" d="M120 1400 l 8 -46 M150 1405 l 14 -40 M700 1370 l 6 -44 M730 1372 l 16 -38 M960 1410 l 6 -46 M990 1412 l 14 -40"/>
+      <!-- loop-de-loop flight path -->
+      <path class="flight" d="M-40 1120 C 120 1010, 220 1090, 300 990 C 360 910, 260 850, 230 930 C 200 1010, 330 1040, 420 950 C 560 800, 700 860, 800 760 C 900 660, 980 720, 1120 620"/>
+      <path class="flight" d="M-30 330 C 120 260, 200 360, 330 300"/>
+      <path class="flight flight-back" d="M1120 300 C 980 380, 900 240, 780 320 C 700 380, 760 470, 830 420 C 900 370, 820 300, 760 360"/>
+      <path class="flight flight-back" d="M-40 560 C 100 500, 140 640, 260 580 C 340 540, 300 460, 240 500 C 180 540, 260 620, 360 560"/>
+      <!-- sparkles and faint hexes -->
+      <g class="spark">
+        <path d="M960 120 l 10 28 l 28 10 l -28 10 l -10 28 l -10 -28 l -28 -10 l 28 -10 z"/>
+        <circle cx="860" cy="90" r="10"/>
+        <circle cx="120" cy="560" r="8"/>
+        <circle cx="1000" cy="880" r="7"/>
+      </g>
+      <g class="spark low">
+        <path d="M150 1230 l 7 20 l 20 7 l -20 7 l -7 20 l -7 -20 l -20 -7 l 20 -7 z"/>
+        <path d="M980 1060 l 8 22 l 22 8 l -22 8 l -8 22 l -8 -22 l -22 -8 l 22 -8 z"/>
+      </g>
+      <g class="hex">
+        <path d="M1010 420 l 40 23 l 0 46 l -40 23 l -40 -23 l 0 -46 z"/>
+        <path d="M60 760 l 34 20 l 0 40 l -34 20 l -34 -20 l 0 -40 z"/>
+      </g>
+      <!-- underground cards only: turf line at ~75% height, dirt below -->
+      <g class="digs">
+        <path class="hill-back"  d="M-20 715 C 200 635, 420 685, 560 665 S 900 585, 1100 675 L1100 1540 L-20 1540 Z"/>
+        <path class="hill-front" d="M-20 785 C 160 725, 380 765, 540 745 S 880 695, 1100 775 L1100 1540 L-20 1540 Z"/>
+        <path class="grass" d="M165 793 l 7 -40 M185 795 l 12 -34 M615 777 l 6 -38 M635 779 l 13 -32 M925 785 l 6 -40 M945 787 l 12 -34"/>
+        <path class="dirt" d="M-20 840 C 160 780, 380 820, 540 800 S 880 750, 1100 830 L1100 1540 L-20 1540 Z"/>
+        <g class="pebble">
+          <ellipse cx="140" cy="995" rx="29" ry="19"/>
+          <ellipse cx="955" cy="957" rx="23" ry="15"/>
+          <ellipse cx="88" cy="1124" rx="26" ry="17"/>
+          <ellipse cx="884" cy="1150" rx="30" ry="20"/>
+          <ellipse cx="300" cy="1232" rx="22" ry="15"/>
+          <ellipse cx="724" cy="1272" rx="28" ry="19"/>
+          <ellipse cx="168" cy="1402" rx="24" ry="16"/>
+          <ellipse cx="932" cy="1420" rx="26" ry="17"/>
+          <circle cx="520" cy="1332" r="12"/>
+          <circle cx="424" cy="1470" r="15"/>
+          <circle cx="640" cy="1462" r="13"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="inner">
+    <h2 class="title" id="title">Bee Takes Flight</h2>
+    <p class="subtitle" id="subtitle"></p>
+    <div class="art" id="art"></div>
+    <img class="bee" id="bee" src="../images/bee_icon.png" alt="" hidden />
+    <p class="kicker" id="kicker" hidden>Adventure Cards</p>
+    <div class="brand">Bees Keys</div>
+  </div>
+</div>
+
+<script>
+  // One scene per card, in the scene box's 860x700 coordinates.
+  //   img: file in the scene image dir (width given, height from the image)
+  //   sym: a symbol above (w and h given)
+  //   y: top edge, or b: baseline (bottom edge). G is the ground line.
+  //   r: rotation in degrees; flip: mirror so the creature faces right.
+  const G = 690;
+  const SCENES = {
+    // Bee follows the dotted path up and to the right.
+    1: [ {img:'river-flowers-1.png', x:580, b:G+34, w:260},
+         {sym:'bee', x:10, y:110, w:460, h:387, r:-12, flip:true} ],
+    2: [ {img:'sprout.png', x:200, b:G+24, w:470} ],
+    // Long-branch tree on the left, web in the crook under the branch, spider in
+    // the middle of it. Sized so the leaf on top of the branch stays on the card.
+    3: [ {clip:true},
+         {img:'tree-long.png', x:-54, b:G+24, w:810},
+         {sym:'web', x:198, y:150, w:407, h:330},
+         {img:'spider.png', x:261, y:279, w:280} ],
+    4: [          {img:'ant.png', x:0,   b:G+8, w:280},
+         {img:'ant.png', x:270, b:G+8, w:280},
+         {img:'ant.png', x:540, b:G+8, w:280} ],
+    // Josh's drawing: bloom, puffball and three seeds already flying, all in one.
+    5: [ {img:'dandelion-scene.png', x:70, b:G+20, w:720} ],
+    6: [ {img:'river-rock-cluster-1.png', x:580, b:G+6, w:260},
+         {sym:'arc', x:150, b:G-40, w:600, h:430},
+         {img:'grasshopper.png', x:0, b:G+10, w:580} ],
+    // Bee heading down and to the right, toward the hive on the ground.
+    // Hive hangs from a branch that runs off the right edge; sized so the hive
+    // body and both leaves stay on the card and only the branch tip is cut.
+    7: [ {clip:true},
+         {img:'beehive.png', x:410, y:118, w:470},
+         {sym:'bee', x:20, y:120, w:440, h:371, r:30, flip:true} ],
+    8: [ {img:'leaf-orange.png', x:120, y:0,   w:200, r:-30},
+         {img:'leaf-green.png',  x:520, y:60,  w:180, r:35},
+         {img:'leaf-orange.png', x:300, y:230, w:190, r:80},
+         {img:'leaf-green.png',  x:620, y:330, w:180, r:-60},
+         {img:'leaf-orange.png', x:330, b:G+20, w:210, r:100} ],
+    // Short-branch tree on the right, clipped tall; snail tilted up at its base.
+    9: [ {clip:true},
+         {img:'tree-short.png', x:370, b:G+24, w:480},
+         {img:'snail-drawn.png', x:254, b:G-74, w:340, r:-50} ],
+    10: [ {img:'river-flowers-2.png', x:40, b:G+34, w:280},
+          {sym:'arc', x:200, b:G-40, w:520, h:380},
+          {img:'ladybug.png', x:400, b:G+10, w:460} ],
+    11: [ {img:'worm-drawn.png', x:210, y:220, w:440} ],
+    12: [ {sym:'moon', x:40, y:0, w:150, h:150},
+          {sym:'star', x:560, y:30, w:50, h:50}, {sym:'star', x:780, y:120, w:40, h:40},
+          {img:'frog-sleeping.svg', x:230, b:G+34, w:420},
+          {sym:'zzz', x:600, y:150, w:220, h:220} ],
+    // 11 and 13 are underground: the diggers sit below the dirt line, so the
+    // ground line G is unused on those two.
+    13: [ {img:'river-rock-cluster-1.png', x:60,  b:130, w:150},
+          {img:'river-rock-3.png',         x:700, b:104, w:80},
+          {img:'beetle-drawn.png', x:245, y:220, w:370} ],
+    14: [ {sym:'moon', x:660, y:0, w:170, h:170},
+          {sym:'star', x:90, y:20, w:60, h:60}, {sym:'star', x:560, y:150, w:45, h:45},
+          {img:'river-reeds-1.png', x:40, b:G+10, w:280},
+          {img:'firefly.png', x:200, y:20, w:400, r:-15},
+          {img:'firefly.png', x:520, y:250, w:330, r:15} ],
+    15: [ {img:'frog-seated.svg', x:500, b:G+16, w:360},
+          {img:'caterpillar.png', x:-10, b:G+10, w:520} ],
+    16: [ {sym:'moon', x:60, y:0, w:150, h:150},
+          {sym:'star', x:400, y:20, w:50, h:50}, {sym:'star', x:760, y:70, w:60, h:60},
+          {img:'river-reeds-2.png', x:610, b:G+10, w:230},
+          {img:'cricket-legs.png', x:60, b:G+10, w:560} ],
+    // Just rain: one size of drop, spread over the whole scene.
+    17: [ {sym:'drop', x:90, y:60, w:78, h:78},
+          {sym:'drop', x:420, y:30, w:84, h:84},
+          {sym:'drop', x:730, y:90, w:74, h:74},
+          {sym:'drop', x:200, y:250, w:72, h:72},
+          {sym:'drop', x:560, y:250, w:82, h:82},
+          {sym:'drop', x:80, y:470, w:70, h:70},
+          {sym:'drop', x:390, y:470, w:76, h:76},
+          {sym:'drop', x:690, y:500, w:74, h:74} ],
+    18: [ {img:'river-flowers-1.png', x:520, b:G+34, w:320},
+          {img:'butterfly.png', x:120, y:40, w:560} ],
+  };
+
+  const q = new URLSearchParams(location.search);
+  const ART = q.get('src') || 'sound-garden-art/';
+  const card = document.getElementById('card');
+  const title = document.getElementById('title');
+  const art = document.getElementById('art');
+  const color = q.get('c') || 'blue';
+  card.className = 'card c-' + color;
+
+  function place(layer) {
+    const el = document.createElement('div');
+    el.className = 'layer';
+    el.style.left = layer.x + 'px';
+    if (layer.b !== undefined) el.style.bottom = (700 - layer.b) + 'px';
+    else el.style.top = layer.y + 'px';
+    el.style.width = layer.w + 'px';
+    const t = [];
+    if (layer.r) t.push('rotate(' + layer.r + 'deg)');
+    if (layer.flip) t.push('scaleX(-1)');
+    el.style.transform = t.join(' ');
+    if (layer.img) {
+      const img = document.createElement('img');
+      img.src = ART + layer.img;
+      el.appendChild(img);
+    } else {
+      el.style.height = layer.h + 'px';
+      const vb = layer.sym === 'bee' ? '0 0 394.178 331.977' : layer.sym === 'daisy' ? '0 0 200 262' : '0 0 200 200';
+      const par = ['web', 'soil', 'arc', 'shadow'].includes(layer.sym) ? ' preserveAspectRatio="none"' : '';
+      const color = layer.fill ? ' style="color:' + layer.fill + '"' : '';
+      el.innerHTML = '<svg viewBox="' + vb + '"' + par + color + '><use href="#' + layer.sym + '"/></svg>';
+    }
+    art.appendChild(el);
+  }
+
+  if (q.get('back')) {
+    card.classList.add('back');
+    art.hidden = true;
+    document.getElementById('subtitle').hidden = true;
+    title.innerHTML = "Bee's<br>Sound<br>Garden";
+    document.getElementById('bee').hidden = false;
+    document.getElementById('kicker').hidden = false;
+  } else {
+    const n = q.get('n') || '1';
+    if (['12', '14', '16'].includes(n)) card.classList.add('night');
+    if (['11', '13'].includes(n)) card.classList.add('underground');
+    const t = q.get('t') || 'Bee Takes Flight';
+    title.textContent = t;
+    const longest = Math.max(...t.split(' ').map(w => w.length));
+    if (t.length > 22 || longest > 10) title.classList.add('long');
+    if (t.length > 30 || longest > 12) title.classList.add('xlong');
+    const s = q.get('s') || '';
+    document.getElementById('subtitle').innerHTML =
+      s.replace(/[<>&]/g, '').replace(/\b(HIGH(?:ER|EST)?|LOW(?:ER|EST)?)\b/g, '<b>$1</b>');
+
+    const deck = q.get('deck') || 'art';
+    const src = q.get('art');
+    if (deck === 'color') {
+      art.classList.add('blank');
+    } else if (src) {
+      const img = document.createElement('img');
+      img.className = 'single';
+      img.src = src;
+      art.appendChild(img);
+    } else {
+      const layers = SCENES[n] || [];
+      if (layers.some(l => l.clip)) art.classList.add('clip');
+      layers.filter(l => !l.clip).forEach(place);
+    }
+  }
+</script>
+</body>
+</html>
