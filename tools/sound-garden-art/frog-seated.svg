@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" role="img" aria-labelledby="title desc">
+  <title id="title">Interval Jump frog traced from seated reference</title>
+  <desc id="desc">Isolated seated green frog with modular body, limbs, belly, eyes, pupils, nose, mouth, brows, and cheeks.</desc>
+  <defs>
+    <linearGradient id="green-main" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#aee20a"/><stop offset=".62" stop-color="#91d100"/><stop offset="1" stop-color="#69ad08"/>
+    </linearGradient>
+    <linearGradient id="green-limb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b5e824"/><stop offset="1" stop-color="#7fc30a"/>
+    </linearGradient>
+    <linearGradient id="belly-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5f29a"/><stop offset=".55" stop-color="#edf07c"/><stop offset="1" stop-color="#b4d94f"/>
+    </linearGradient>
+  </defs>
+
+  <g id="frog" stroke-linecap="round" stroke-linejoin="round">
+    <g id="body">
+      <g id="rear-legs">
+        <g id="rear-feet">
+          <path id="rear-leg-left" transform="translate(-6 0)" d="M157 288 C132 259 91 257 66 280 C40 303 43 340 67 366 C84 385 107 394 128 389 C124 399 115 407 104 412 C85 414 66 419 58 427 C50 435 55 444 64 444 C74 444 82 436 91 429 C83 441 87 452 96 454 C106 456 114 445 120 435 C117 450 125 459 135 458 C146 457 151 442 153 429 C158 439 167 445 175 439 C184 432 177 420 169 409 C160 394 162 372 166 351 C175 334 180 316 175 303 C172 297 166 292 157 288 Z" fill="url(#green-limb)" stroke="#2c5b12" stroke-width="9"/>
+          <path id="rear-leg-right" transform="translate(6 0)" d="M363 288 C388 259 429 257 454 280 C480 303 477 340 453 366 C436 385 413 394 392 389 C396 399 405 407 416 412 C435 414 454 419 462 427 C470 435 465 444 456 444 C446 444 438 436 429 429 C437 441 433 452 424 454 C414 456 406 445 400 435 C403 450 395 459 385 458 C374 457 369 442 367 429 C362 439 353 445 345 439 C336 432 343 420 351 409 C360 394 358 372 354 351 C345 334 340 316 345 303 C348 297 354 292 363 288 Z" fill="url(#green-limb)" stroke="#2c5b12" stroke-width="9"/>
+          <path id="rear-foot-highlight-left" transform="translate(-6 0)" d="M69 427 C87 418 108 416 125 412" fill="none" stroke="#c8ed49" stroke-width="7" opacity=".45"/>
+          <path id="rear-foot-highlight-right" transform="translate(6 0)" d="M451 427 C433 418 412 416 395 412" fill="none" stroke="#c8ed49" stroke-width="7" opacity=".45"/>
+        </g>
+        <path id="knee-line-left" transform="translate(-6 0)" d="M87 326 C109 340 125 355 137 373" fill="none" stroke="#5f9e0c" stroke-width="7"/>
+        <path id="knee-line-right" transform="translate(6 0)" d="M433 326 C411 340 395 355 383 373" fill="none" stroke="#5f9e0c" stroke-width="7"/>
+        <ellipse id="knee-highlight-left" cx="91" cy="296" rx="27" ry="13" fill="#d0f159" opacity=".42" transform="rotate(-22 91 296)"/>
+        <ellipse id="knee-highlight-right" cx="429" cy="296" rx="27" ry="13" fill="#d0f159" opacity=".42" transform="rotate(22 429 296)"/>
+      </g>
+
+      <g id="torso">
+        <path id="torso-shape" d="M153 246 C161 222 185 205 217 199 C245 194 275 194 303 199 C335 205 359 222 367 246 C378 279 374 337 360 374 C343 420 311 443 260 444 C209 443 177 420 160 374 C146 337 142 279 153 246 Z" fill="url(#green-main)" stroke="#2c5b12" stroke-width="9"/>
+        <path id="torso-highlight" d="M161 260 C166 235 185 222 205 218 C186 251 181 311 190 353 C196 382 184 390 170 372 C151 346 150 296 161 260 Z" fill="#c2ed43" opacity=".45"/>
+      </g>
+
+      <g id="belly">
+        <path id="belly-shape" d="M195 263 C215 248 305 248 325 263 C333 300 331 352 319 384 C309 411 289 424 260 425 C231 424 211 411 201 384 C189 352 187 300 195 263 Z" fill="url(#belly-fill)" stroke="#5f9516" stroke-width="7"/>
+        <path id="belly-band-upper" d="M195 310 C228 327 292 327 325 310" fill="none" stroke="#dfe56b" stroke-width="12" opacity=".55"/>
+        <path id="belly-band-lower" d="M198 361 C229 381 291 381 322 361" fill="none" stroke="#92bf39" stroke-width="13" opacity=".45"/>
+      </g>
+
+      <g id="front-arms">
+        <path id="arm-left" transform="translate(-18 0)" d="M171 262 C161 293 162 332 168 363 C173 387 168 399 151 410 C143 415 137 424 142 432 C147 439 157 435 166 429 C157 440 158 451 166 455 C175 459 183 449 189 438 C185 453 192 463 201 462 C212 461 214 447 215 435 C219 450 229 456 237 451 C246 446 239 430 231 419 C216 399 211 375 210 339 C209 302 202 271 189 258 Z" fill="url(#green-limb)"/>
+        <path id="arm-right" transform="translate(18 0)" d="M349 262 C359 293 358 332 352 363 C347 387 352 399 369 410 C377 415 383 424 378 432 C373 439 363 435 354 429 C363 440 362 451 354 455 C345 459 337 449 331 438 C335 453 328 463 319 462 C308 461 306 447 305 435 C301 450 291 456 283 451 C274 446 281 430 289 419 C304 399 309 375 310 339 C311 302 318 271 331 258 Z" fill="url(#green-limb)"/>
+        <g id="arm-outlines" fill="none" stroke="#2c5b12" stroke-width="9">
+          <path id="arm-outline-left" transform="translate(-18 0)" d="M171 262 C161 293 162 332 168 363 C173 387 168 399 151 410 C143 415 137 424 142 432 C147 439 157 435 166 429 C157 440 158 451 166 455 C175 459 183 449 189 438 C185 453 192 463 201 462 C212 461 214 447 215 435 C219 450 229 456 237 451 C246 446 239 430 231 419 C216 399 211 375 210 339 C210 326 209 314 207 304"/>
+          <path id="arm-outline-right" transform="translate(18 0)" d="M349 262 C359 293 358 332 352 363 C347 387 352 399 369 410 C377 415 383 424 378 432 C373 439 363 435 354 429 C363 440 362 451 354 455 C345 459 337 449 331 438 C335 453 328 463 319 462 C308 461 306 447 305 435 C301 450 291 456 283 451 C274 446 281 430 289 419 C304 399 309 375 310 339 C310 326 311 314 313 304"/>
+        </g>
+        <path id="arm-highlight-left" transform="translate(-18 0)" d="M179 278 C170 310 173 359 184 382" fill="none" stroke="#c7ee4a" stroke-width="10" opacity=".48"/>
+        <path id="arm-highlight-right" transform="translate(18 0)" d="M341 278 C350 310 347 359 336 382" fill="none" stroke="#c7ee4a" stroke-width="10" opacity=".48"/>
+      </g>
+
+      <g id="head">
+        <path id="head-shape" d="M116 126 C111 98 123 62 151 39 C176 19 206 18 227 39 C246 34 274 34 293 39 C314 18 344 19 369 39 C397 62 409 98 404 126 C427 144 440 168 435 194 C429 226 398 251 359 264 C331 274 299 279 260 279 C221 279 189 274 161 264 C122 251 91 226 85 194 C80 168 93 144 116 126 Z" fill="url(#green-main)" stroke="#2c5b12" stroke-width="10"/>
+        <path id="muzzle-highlight" d="M96 181 C116 151 161 139 260 141 C359 139 404 151 424 181 C438 203 418 228 390 242 C357 259 313 266 260 266 C207 266 163 259 130 242 C102 228 82 203 96 181 Z" fill="#b6e72a" opacity=".58"/>
+        <path id="head-lower-shadow" d="M119 229 C156 255 202 265 260 266 C318 265 364 255 401 229 C388 251 342 273 260 275 C178 273 132 251 119 229 Z" fill="#5eaa0b" opacity=".28"/>
+        <ellipse id="temple-highlight-left" cx="124" cy="164" rx="18" ry="10" fill="#d4f45b" opacity=".38" transform="rotate(-35 124 164)"/>
+        <ellipse id="temple-highlight-right" cx="396" cy="164" rx="18" ry="10" fill="#d4f45b" opacity=".32" transform="rotate(35 396 164)"/>
+      </g>
+
+      <g id="body-spots" style="display:none" fill="#fff369" stroke="#2c5b12" stroke-width="5">
+        <ellipse id="spot-1" cx="152" cy="238" rx="8" ry="12"/><ellipse id="spot-2" cx="170" cy="247" rx="6" ry="9"/><ellipse id="spot-3" cx="368" cy="238" rx="8" ry="12"/>
+      </g>
+    </g>
+
+    <g id="face">
+      <g id="eyes">
+        <g id="eye-whites">
+          <ellipse id="eye-white-left" cx="183" cy="101" rx="43" ry="58" fill="#fff" stroke="#355d1c" stroke-width="8"/>
+          <ellipse id="eye-white-right" cx="337" cy="101" rx="43" ry="58" fill="#fff" stroke="#355d1c" stroke-width="8"/>
+        </g>
+        <g id="pupils">
+          <ellipse id="pupil-left" cx="190" cy="111" rx="27" ry="40" fill="#070707"/>
+          <ellipse id="pupil-right" cx="344" cy="111" rx="27" ry="40" fill="#070707"/>
+          <ellipse id="glint-left" cx="183" cy="95" rx="9" ry="13" fill="#fff"/>
+          <ellipse id="glint-right" cx="337" cy="95" rx="9" ry="13" fill="#fff"/>
+          <circle id="glint-left-small" cx="199" cy="126" r="5" fill="#fff" opacity=".8"/>
+          <circle id="glint-right-small" cx="353" cy="126" r="5" fill="#fff" opacity=".8"/>
+        </g>
+      </g>
+      <g id="nose" fill="#31560e"><ellipse id="nostril-left" cx="240" cy="169" rx="6" ry="8"/><ellipse id="nostril-right" cx="280" cy="169" rx="6" ry="8"/></g>
+      <g id="mouth" fill="none" stroke="#31560e" stroke-width="8">
+        <path id="mouth-shape" d="M137 188 C166 222 211 234 260 234 C309 234 354 222 383 188"/>
+        <path id="mouth-corner-left" d="M137 188 L126 198"/><path id="mouth-corner-right" d="M383 188 L394 198"/>
+      </g>
+      <g id="brows" fill="none" stroke="#31560e" stroke-width="7"/>
+      <g id="cheeks" style="display:none" fill="#ef966e" opacity=".3"><ellipse id="cheek-left" cx="126" cy="190" rx="23" ry="10"/><ellipse id="cheek-right" cx="394" cy="190" rx="23" ry="10"/></g>
+    </g>
+  </g>
+</svg>

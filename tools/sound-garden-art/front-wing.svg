@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 394.178 331.977" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<linearGradient gradientTransform="matrix(-34.969 124.521 -180.172 -11.0266 261.337 65.8546)" gradientUnits="userSpaceOnUse" id="LinearGradient" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0" stop-color="#ffffff"/>
+<stop offset="0.747917" stop-color="#f3ffff"/>
+<stop offset="1" stop-color="#cefffd"/>
+<stop offset="1" stop-color="#000000"/>
+</linearGradient>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="140.547" id="Filter" width="184.895" x="189.59" y="60.8506">
+<feGaussianBlur in="SourceGraphic" result="Blur" stdDeviation="3.36066"/>
+</filter>
+<linearGradient gradientTransform="matrix(-79.3788 -35.0824 -35.0824 79.3788 315.58 146.423)" gradientUnits="userSpaceOnUse" id="LinearGradient_2" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0" stop-color="#ffffff"/>
+<stop offset="0.747917" stop-color="#f3ffff"/>
+<stop offset="1" stop-color="#cefffd"/>
+<stop offset="1" stop-color="#000000"/>
+</linearGradient>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="102.916" id="Filter_2" width="143.609" x="194.087" y="90.4142">
+<feGaussianBlur in="SourceGraphic" result="Blur" stdDeviation="3.36066"/>
+</filter>
+</defs>
+<g id="Front-wing">
+<path d="M347.073 76.9961C372.092 88.8936 366.112 122.467 333.717 151.984C301.322 181.501 284.152 157.99 229.76 183.887C175.368 209.785 210.721 138.416 243.116 108.899C275.511 79.3821 322.054 65.0985 347.073 76.9961Z" fill="url(#LinearGradient)" fill-rule="nonzero" filter="url(#Filter)" opacity="0.969262" stroke="#cfe1e1" stroke-linecap="round" stroke-linejoin="round" stroke-width="7.10059"/>
+<path d="M204.621 182.796L233.786 157.101C261.262 132.894 292.899 113.869 327.162 100.948L327.162 100.948" fill="url(#LinearGradient_2)" fill-rule="nonzero" filter="url(#Filter_2)" opacity="0.969262" stroke="#cfe1e1" stroke-linecap="butt" stroke-linejoin="round" stroke-width="4.26479"/>
+</g>
+</svg>
