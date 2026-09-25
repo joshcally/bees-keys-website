@@ -74,13 +74,14 @@
 
     <!-- Topic filter. CSS only: the radios are the state, and :has() rules in
          styles.css hide every card whose data-topics doesn't carry the checked
-         one. Vocabulary: intervals, key-names, games, studio-tools. A new card needs
+         one. Vocabulary: intervals, key-names, high-low, games, studio-tools. A new card needs
          a data-topics value on its <li> plus a matching .res-topics chip row. -->
     <fieldset class="res-filters">
       <legend>Show</legend>
       <label><input type="radio" name="topic" id="topic-all" checked /><span>All</span></label>
       <label><input type="radio" name="topic" id="topic-intervals" /><span>Intervals</span></label>
       <label><input type="radio" name="topic" id="topic-key-names" /><span>Key Names</span></label>
+      <label><input type="radio" name="topic" id="topic-high-low" /><span>High &amp; Low</span></label>
       <label><input type="radio" name="topic" id="topic-games" /><span>Games</span></label>
       <label><input type="radio" name="topic" id="topic-studio-tools" /><span>Studio Tools</span></label>
     </fieldset>
@@ -88,6 +89,37 @@
     <!-- Newest first. Most visitors arrive from a link to the latest printable
          shared in a teacher group, so the new one leads. -->
     <ul class="res-list">
+      <li data-topics="high-low">
+        <article class="res-card">
+          <div class="res-shot">
+            <img src="images/resources/higher-or-lower-cover.jpg"
+                 alt="Cover of the Higher or Lower? printable: two worksheets fanned out, each with six small keyboards and a bee and a frog sitting on the keys."
+                 width="1056" height="816" />
+          </div>
+
+          <div class="res-card-body">
+            <p class="app-tag">Free printable</p>
+            <h2>Higher or Lower?</h2>
+
+            <ul class="res-meta">
+              <li>2 worksheets</li>
+              <li>6-page PDF</li>
+              <li>US Letter</li>
+            </ul>
+            <ul class="res-topics"><li>High &amp; Low</li></ul>
+
+            <p>
+              A bee and a frog sit on two keys of the keyboard. Students circle
+              the one on the higher key, then the one on the lower key. White
+              pages plus full-color meadow studio copies to laminate.
+            </p>
+
+            <a class="res-go" href="resources/higher-or-lower.html">
+              Get the free printable →
+            </a>
+          </div>
+        </article>
+      </li>
       <li data-topics="games studio-tools">
         <article class="res-card">
           <div class="res-shot">
