@@ -17,7 +17,10 @@
   feed format, matching the Pro ad so the two posts sit together in a grid. The
   headline leads, the worksheets sit underneath, and the handle is legible at
   feed thumbnail size. Copied from tools/ig-card-which-key-is-mine.html;
-  Josh wanted the big bee and arrows in front, with the prompt card sheet behind it.
+  Josh wanted the big bee and arrows, no subtitle, and three prompt cards
+  scattered around the board as if they had just been cut out, so the post
+  doesn't look so uniform. The cut-outs are card renders with transparent
+  rounded corners, in tools/higher-lower-art/.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -83,30 +86,29 @@
   }
   h1 em { font-style: normal; color: #2f6b23; }
 
-  .sub {
-    margin-top: 14px;
-    font-size: 26px;
-    font-weight: 700;
-    color: #3c4a44;
-  }
 
-  /* The worksheets, fanned the way the cover fans them. */
-  .stack { position: relative; flex: 1; width: 100%; margin-top: 18px; }
+  /* The board, with three cut-out cards tossed around it. */
+  .stack { position: relative; flex: 1; width: 100%; margin-top: 30px; }
 
-  .stack img {
+  .board {
     position: absolute;
-    width: 640px;
-    top: 50%;
-    left: 50%;
+    left: 170px; top: 230px;
+    width: 720px;
     border-radius: 12px;
     border: 1px solid rgba(0,0,0,.12);
     background: #fff;
     box-shadow: 0 18px 40px rgba(31,33,28,.32);
+    transform: rotate(3deg);
   }
 
-  /* Spread wider than Which Key Is Mine's fan so the back sheet reads too. */
-  .sheet-back  { transform: translate(-64%, -82%) rotate(-5deg); }
-  .sheet-front { transform: translate(-36%, -20%) rotate(4deg); }
+  .cut {
+    position: absolute;
+    width: 300px;
+    filter: drop-shadow(0 12px 18px rgba(31,33,28,.30));
+  }
+  .cut-a { left: 10px;  top: 40px;  transform: rotate(-10deg); }
+  .cut-b { left: 640px; top: 0;     transform: rotate(7deg); }
+  .cut-c { left: 40px;  top: 650px; transform: rotate(-4deg); }
 
   .foot {
     display: flex;
@@ -154,11 +156,12 @@
 
     <p class="eyebrow">Free printable</p>
     <h1>Left or <em>Right?</em></h1>
-    <p class="sub">Higher · Lower · Left · Right</p>
 
     <div class="stack">
-      <img class="sheet-back"  src="../images/resources/left-or-right-cards.jpg" alt="" />
-      <img class="sheet-front" src="../images/resources/left-or-right-studio.jpg" alt="" />
+      <img class="board" src="../images/resources/left-or-right-studio.jpg" alt="" />
+      <img class="cut cut-a" src="higher-lower-art/card-go-higher.png" alt="" />
+      <img class="cut cut-b" src="higher-lower-art/card-find-the-middle.png" alt="" />
+      <img class="cut cut-c" src="higher-lower-art/card-move-down.png" alt="" />
     </div>
 
     <div class="foot">
