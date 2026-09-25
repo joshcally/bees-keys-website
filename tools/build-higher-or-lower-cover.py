@@ -8,7 +8,7 @@
 
 Landscape, like the sheets. Page one is the house cover grid (eyebrow +
 hairline rule, light title, colored kicker, a fan of whole sheets, centered
-caption + colored subline, footer bar). Per Josh's standing fan rule it shows
+caption + colored subline, footer bar). Per Kristianna's standing fan rule it shows
 two sheets, one of each version: the studio (meadow) Higher sheet in front,
 the white Lower sheet behind it.
 

@@ -13,7 +13,7 @@ The prompt cards that go with sheet 1 are their own deck:
 tools/make-left-or-right-cards.py.
 
 Each sheet comes in two copies: the printer-friendly white page with a
-black frame, and a full-color "studio" copy (Josh's name for it) on the
+black frame, and a full-color "studio" copy (Kristianna's name for it) on the
 app's own meadow background (BeesKeys background.png), for laminating.
 
     python3 tools/make-higher-lower-sheets.py [out_dir]
