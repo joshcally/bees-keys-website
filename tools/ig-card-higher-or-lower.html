@@ -2,24 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Instagram card source — Left or Right? + Higher or Lower?</title>
+<title>Instagram card source — Higher or Lower?</title>
 <!--
-  Source for the one 1080x1350 Instagram post for two printables posted the
-  same day (Sep 25 2026), Left or Right? and Higher or Lower?, the way Frog's
-  First Key Jumps and Ladybug Hunt shared a post. Render it with:
+  Source for the 1080x1350 Instagram post for the printable. Render it with:
 
     python3 -m http.server 8000
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
       --headless=new --disable-gpu --hide-scrollbars --window-size=1080,1350 \
       --virtual-time-budget=5000 \
-      --screenshot=output/left-or-right-higher-or-lower-instagram.png \
-      http://localhost:8000/tools/ig-card-left-or-right-higher-or-lower.html
+      --screenshot=output/higher-or-lower-ig.png \
+      http://localhost:8000/tools/ig-card-higher-or-lower.html
 
   Same ground and type as tools/og-card-*.html, restacked for 4:5 — the taller
   feed format, matching the Pro ad so the two posts sit together in a grid. The
   headline leads, the worksheets sit underneath, and the handle is legible at
-  feed thumbnail size. Copied from tools/ig-card-which-key-is-mine.html: two
-  titles instead of one, and one studio sheet from each printable in the fan.
+  feed thumbnail size. Copied from tools/ig-card-which-key-is-mine.html;
+  one white sheet and one studio (meadow) sheet, per Josh.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -77,7 +75,7 @@
 
   h1 {
     margin-top: 10px;
-    font-size: 70px;
+    font-size: 74px;
     font-weight: 900;
     line-height: 1.03;
     letter-spacing: -.028em;
@@ -97,7 +95,7 @@
 
   .stack img {
     position: absolute;
-    width: 620px;
+    width: 640px;
     top: 50%;
     left: 50%;
     border-radius: 12px;
@@ -106,10 +104,9 @@
     box-shadow: 0 18px 40px rgba(31,33,28,.32);
   }
 
-  /* Two different printables, so both sheets need to read: spread wider
-     than the single-printable fan. */
-  .sheet-back  { transform: translate(-66%, -84%) rotate(-5deg); }
-  .sheet-front { transform: translate(-34%, -18%) rotate(4deg); }
+  /* Spread wider than Which Key Is Mine's fan so the back sheet reads too. */
+  .sheet-back  { transform: translate(-64%, -82%) rotate(-5deg); }
+  .sheet-front { transform: translate(-36%, -20%) rotate(4deg); }
 
   .foot {
     display: flex;
@@ -155,13 +152,13 @@
       <span>Bees Keys</span>
     </div>
 
-    <p class="eyebrow">Two free printables</p>
-    <h1>Left or Right?<br /><em>Higher or Lower?</em></h1>
-    <p class="sub">A game board, prompt cards &amp; worksheets</p>
+    <p class="eyebrow">Free printable</p>
+    <h1>Higher or <em>Lower?</em></h1>
+    <p class="sub">Listen · Circle · Sort</p>
 
     <div class="stack">
-      <img class="sheet-back"  src="../images/resources/higher-or-lower-studio.jpg" alt="" />
-      <img class="sheet-front" src="../images/resources/left-or-right-studio.jpg" alt="" />
+      <img class="sheet-back"  src="../images/resources/higher-or-lower-printer.jpg" alt="" />
+      <img class="sheet-front" src="../images/resources/higher-or-lower-studio.jpg" alt="" />
     </div>
 
     <div class="foot">
