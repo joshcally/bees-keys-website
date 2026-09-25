@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Card source: Left or Right? prompt cards</title>
+<!--
+  Source for the Left or Right? prompt cards. Landscape poker size
+  (1512x1080 px = 3.5x2.5 in at 432 dpi) so nine fill a landscape US Letter
+  page and the packet never rotates.
+
+  Josh's calls (Sep 24 2026): clean, simple yellow fronts (white, a thick
+  honey border, a small bee in the corner, the prompt in black), and one
+  cute shared back (honey background, faint honeycomb, the bee between the
+  big board's two arrows, the title, no kicker). No Sound Garden sky, flight paths or meadow.
+
+  Query params:
+    ?t=Go%20higher   the prompt
+    ?back=1          the shared deck back
+
+  Rendered by tools/make-left-or-right-cards.py (headless Chrome, then pymupdf).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
+
+  :root {
+    --ink: #232323;
+    --yellow: #f5b81f;
+    --honey: #F2C238;
+    --blue: #3B82D6;
+    --red: #E5483F;
+  }
+
+  body {
+    width: 1512px;
+    height: 1080px;
+    overflow: hidden;
+    background: #fff;
+    font-family: 'Nunito', 'Avenir Next', 'Arial Rounded MT Bold', sans-serif;
+    color: var(--ink);
+  }
+
+  .card {
+    position: relative;
+    width: 1512px;
+    height: 1080px;
+    overflow: hidden;
+    border-radius: 44px;
+    background: #fff;
+  }
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 60px;
+    border-radius: 72px;
+    border: 18px solid var(--honey);
+    pointer-events: none;
+    z-index: 9;
+  }
+
+  /* ---- front: the prompt, a small bee in the corner ---- */
+  .corner-bee {
+    position: absolute;
+    left: 100px; top: 100px;
+    width: 220px; height: 185px;
+  }
+  .corner-bee img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .prompt {
+    position: absolute;
+    left: 90px; right: 90px;
+    top: 54%;
+    transform: translateY(-50%);
+    text-align: center;
+    font-size: 146px;
+    font-weight: 900;
+    line-height: 1.02;
+    white-space: nowrap;
+    letter-spacing: -.015em;
+  }
+
+  /* ---- back ---- */
+  .back {
+    background:
+      radial-gradient(900px 620px at 50% 42%, #fffaf0 0%, rgba(255,250,240,0) 75%),
+      #fde9a6;
+  }
+  .back::after { inset: 28px; border-radius: 34px; border: 8px solid rgba(255,255,255,.75); }
+  .combs { position: absolute; inset: 0; }
+  .combs path { fill: none; stroke: #f5b81f; stroke-width: 6; opacity: .35; }
+  .bee {
+    position: absolute;
+    left: 50%; top: 150px;
+    width: 340px; height: 286px;
+    transform: translateX(-50%) rotate(-6deg);
+  }
+  .bee img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .arrow { position: absolute; top: 205px; width: 330px; height: 200px; }
+  .arrow.left { left: 170px; }
+  .arrow.right { right: 170px; }
+  .arrow path { stroke: var(--ink); stroke-width: 12; stroke-linejoin: round; }
+  .title {
+    position: absolute; left: 0; right: 0; top: 560px;
+    text-align: center;
+    font-size: 150px; font-weight: 900; line-height: 1; letter-spacing: -.015em;
+  }
+  .brand {
+    position: absolute; left: 0; right: 0; bottom: 84px;
+    text-align: center;
+    font-size: 52px; font-weight: 900; letter-spacing: -.01em;
+  }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="corner-bee" id="cornerBee">
+    <img src="sound-garden-art/back-wing.svg" alt="" />
+    <img src="sound-garden-art/bee-body.svg" alt="" />
+    <img src="sound-garden-art/front-wing.svg" alt="" />
+  </div>
+  <p class="prompt" id="prompt"></p>
+  <div id="back" hidden>
+    <svg class="combs" viewBox="0 0 1512 1080" aria-hidden="true">
+      <path d="M110 110 l 52 30 l 0 60 l -52 30 l -52 -30 l 0 -60 z"/>
+      <path d="M214 170 l 52 30 l 0 60 l -52 30 l -52 -30 l 0 -60 z"/>
+      <path d="M110 230 l 52 30 l 0 60 l -52 30 l -52 -30 l 0 -60 z"/>
+      <path d="M1402 760 l 52 30 l 0 60 l -52 30 l -52 -30 l 0 -60 z"/>
+      <path d="M1298 820 l 52 30 l 0 60 l -52 30 l -52 -30 l 0 -60 z"/>
+      <path d="M1402 880 l 52 30 l 0 60 l -52 30 l -52 -30 l 0 -60 z"/>
+      <path d="M1380 110 l 40 23 l 0 46 l -40 23 l -40 -23 l 0 -46 z"/>
+      <path d="M130 820 l 40 23 l 0 46 l -40 23 l -40 -23 l 0 -46 z"/>
+    </svg>
+    <svg class="arrow left" viewBox="0 0 330 200">
+      <path d="M318 62 L 150 62 L 150 12 L 12 100 L 150 188 L 150 138 L 318 138 Z" style="fill: var(--blue)"/>
+    </svg>
+    <svg class="arrow right" viewBox="0 0 330 200">
+      <path d="M12 62 L 180 62 L 180 12 L 318 100 L 180 188 L 180 138 L 12 138 Z" style="fill: var(--red)"/>
+    </svg>
+    <div class="bee">
+      <img src="sound-garden-art/back-wing.svg" alt="" />
+      <img src="sound-garden-art/bee-body.svg" alt="" />
+      <img src="sound-garden-art/front-wing.svg" alt="" />
+    </div>
+    <p class="title">Left or Right?</p>
+    <p class="brand">Bees Keys</p>
+  </div>
+</div>
+<script>
+  const q = new URLSearchParams(location.search);
+  const card = document.getElementById('card');
+  const prompt = document.getElementById('prompt');
+  if (q.get('back')) {
+    card.classList.add('back');
+    prompt.hidden = true;
+    document.getElementById('cornerBee').hidden = true;
+    document.getElementById('back').hidden = false;
+  } else {
+    prompt.textContent = q.get('t') || 'Go higher';
+  }
+</script>
+</body>
+</html>

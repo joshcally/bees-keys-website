@@ -1452,6 +1452,10 @@ main:has(#topic-studio-tools:checked) .res-list > li:not([data-topics~="studio-t
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(43, 33, 24, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
 }
 
 .post-back { font-weight: 700; text-decoration: none; }
