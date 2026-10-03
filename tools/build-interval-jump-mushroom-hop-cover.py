@@ -175,7 +175,7 @@ def footer(c):
     c.setFillColor(AZUL)
     c.drawCentredString(W / 2, 25, "beeskeysapp.com")
     c.setFillColor(MUTED)
-    c.drawRightString(W - 52, 25, "Made for playful music lessons")
+    c.drawRightString(W - 52, 25, "Practice Through Play")
     c.linkURL(SITE_URL, (W / 2 - 55, 14, W / 2 + 55, 36), relative=0, thickness=0)
 
 
