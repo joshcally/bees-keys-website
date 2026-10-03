@@ -232,7 +232,7 @@ def page_one(c, circle, write_in_ink):
     c.drawString(42, H - 92, "Frog’s Mushroom Hop")
     c.setFillColor(AZUL)
     c.setFont("Nunito", 9.5)
-    c.drawString(43, H - 111, "COLOR BY INTERVAL  •  REPEAT  •  STEP  •  SKIP")
+    c.drawString(43, H - 111, "COLOR BY INTERVAL")
 
     # The frog takes the masthead slot the bee holds on the Bees Keys covers.
     draw(c, Image.open(FROG), W - 116, H - 116, 62)
