@@ -74,26 +74,6 @@
       gap: clamp(0.5rem, 1.6vh, 0.9rem);
     }
 
-    .brand {
-      text-align: center;
-      color: var(--white);
-      text-shadow: 0 1px 3px rgba(20, 50, 90, 0.35);
-    }
-
-    .brand h1 {
-      font-size: clamp(1.3rem, 5.5vw, 1.55rem);
-      font-weight: 900;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-    }
-
-    .brand p {
-      font-size: 0.85rem;
-      font-weight: 600;
-      opacity: 0.92;
-      margin-top: 0.15rem;
-    }
-
     .card {
       background: rgba(255, 253, 247, 0.94);
       border-radius: 1.15rem;
@@ -102,7 +82,7 @@
                   inset 0 1px 0 rgba(255, 255, 255, 0.9);
     }
 
-    .card h2 {
+    .card h1 {
       font-size: 1.2rem;
       font-weight: 900;
       line-height: 1.15;
@@ -169,15 +149,10 @@
 <body>
 
   <main>
-    <header class="brand">
-      <h1>Free piano printables, by email</h1>
-      <p>Plus app updates + new releases</p>
-    </header>
-
     <!-- No backend (static GitHub Pages), so this opens the reader's mail
          app, the same as the button on every resource page. -->
     <section class="card" aria-labelledby="list">
-      <h2 id="list">Join the email list</h2>
+      <h1 id="list">Join the email list</h1>
       <p>Get new free printables, app updates, and occasional product news.</p>
       <a class="btn" href="mailto:beeskeysapp@gmail.com?subject=Send%20me%20new%20Bees%20Keys%20freebies&amp;body=Please%20let%20me%20know%20when%20there%20are%20new%20free%20printables%20and%20resources.">
         <span class="btn-main">Send me the freebies!</span>
