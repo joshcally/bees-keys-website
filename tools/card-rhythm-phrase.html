@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Card source: Rhythm Phrase Builders</title>
+<!--
+  Source for the Rhythm Phrase Builders cards. Same 5:7 poker shape as Find
+  Every Key and Sound Garden (1080x1512 px, 2.5x3.5 in at 432 dpi) so the
+  decks cut and stack together.
+
+  Four categories, nine cards each: Creature / Action / Path / Place. Lay one
+  of each in a row and you get a real sentence and a two-bar rhythm. Each
+  card is one word (or short phrase) in the category color, the rhythm big
+  and black underneath (the star of the card), and above it a small group of
+  Kristianna's creatures, one of her place illustrations, or a geometric
+  doodle for actions. Path cards carry no art.
+
+  Query params:
+    ?w=Spiders&s=Spi-ders&r=QQ&cat=creature&c=yellow&art=spider.png&src=...
+      w     the word, printed big
+      s     syllables, hyphen-separated, one per note (rests get none)
+      r     rhythm code: Q quarter, E eighth (beamed in pairs), H half,
+            R quarter rest, _ ties the notes either side of it (EE_EE).
+            Two beats per card.
+      cat   creature | action | path | place (eyebrow label)
+      c     accent: yellow | pink | green | blue | purple
+      art   image file, relative to src/ (or "bee" for the stacked app bee SVGs)
+      g     a group of copies for plural cards: x,y,w,h[,f];... (f=1 mirrors)
+      doodle  loop | humps | hover | arc | chevrons | zigzag | burst | wave | spiral
+      src   directory the art paths are relative to (default sound-garden-art/;
+            the place tiles live in ../rhythm-phrase-art/)
+    ?back=1&cat=creature&c=yellow   the deck back for one category
+    &bw=1   printer-friendly: white card, thin gray border, black word, the
+            category name as a small label, line-art creatures and places
+            (tools/rhythm-phrase-art/bw/), so students can color them
+
+  Rendered by tools/make-rhythm-phrase-cards.py (headless Chrome, then pymupdf).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
+
+  :root {
+    --ink: #232323;
+    --yellow: #f5b81f;
+    --pink: #e8528c;
+    --green: #6cb33f;
+    --blue: #3f9ae6;
+    --purple: #8a66ad;
+    --orange: #f0862e;
+    --accent: var(--blue);
+    --accent-ink: #2f7fc4;
+    --accent-soft: rgba(63,154,230,.16);
+    --accent-tint: #eef6fd;
+  }
+  .c-yellow { --accent: var(--yellow); --accent-ink: #d2960a; --accent-soft: rgba(245,184,31,.22); --accent-tint: #fff8e4; }
+  .c-pink   { --accent: var(--pink);   --accent-ink: #d63b78; --accent-soft: rgba(232,82,140,.16); --accent-tint: #fdeef4; }
+  .c-green  { --accent: var(--green);  --accent-ink: #4f9a2a; --accent-soft: rgba(108,179,63,.18); --accent-tint: #eff8e6; }
+  .c-blue   { --accent: var(--blue);   --accent-soft: rgba(63,154,230,.16); --accent-tint: #eef6fd; }
+  .c-purple { --accent: var(--purple); --accent-soft: rgba(138,102,173,.16); --accent-tint: #f3eef8; }
+  .c-orange { --accent: var(--orange); --accent-ink: #e0701a; --accent-soft: rgba(240,134,46,.20); --accent-tint: #fff2e6; }
+
+  body {
+    width: 1080px; height: 1512px; overflow: hidden;
+    background: #fff;
+    font-family: 'Nunito', 'Avenir Next', 'Arial Rounded MT Bold', sans-serif;
+    color: var(--ink);
+  }
+  .card {
+    position: relative; width: 1080px; height: 1512px; overflow: hidden;
+    border-radius: 44px;
+    background: linear-gradient(180deg, #ffffff 0%, var(--accent-tint) 100%);
+  }
+  .card::after {
+    content: ""; position: absolute; inset: 18px; border-radius: 30px;
+    border: 6px solid var(--accent); opacity: .55; pointer-events: none; z-index: 9;
+  }
+
+  /* ---- eyebrow: the category ---- */
+  .cat {
+    display: none;
+    position: absolute; left: 0; right: 0; top: 78px;
+    text-align: center;
+    font-size: 40px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ---- art slot: creatures and places get a picture, actions and paths a doodle ---- */
+  .art {
+    position: absolute; left: 190px; top: 110px; width: 700px; height: 370px;
+  }
+  .art img, .art svg.bee { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .art .few { position: absolute; }
+  .art .few img, .art .few svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .art svg.doodle { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .doodle .line { fill: none; stroke: var(--accent); stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+  .doodle .dotted { stroke-dasharray: 2 34; }
+  .doodle .dot { fill: var(--accent); }
+
+  /* ---- the word ---- */
+  .word {
+    position: absolute; left: 60px; right: 60px; top: 500px; height: 220px;
+    display: grid; place-items: center;
+    text-align: center;
+    font-size: 180px; font-weight: 900; line-height: 1;
+    letter-spacing: -.015em;
+    color: var(--accent-ink);
+    white-space: nowrap;
+  }
+
+  /* ---- the rhythm ---- */
+  .rhythm {
+    position: absolute; left: 50px; right: 50px; top: 730px; height: 600px;
+  }
+  .rhythm svg { width: 100%; height: 100%; overflow: visible; }
+  .note { fill: var(--ink); }
+  .note.hollow { fill: #fff; stroke: var(--ink); stroke-width: 20; }
+  .stem { stroke: var(--ink); stroke-width: 21; stroke-linecap: round; }
+  .stem.beamed { stroke-linecap: butt; }
+  .beam { fill: var(--ink); }
+  .rest { fill: var(--ink); }
+  .tie { fill: var(--ink); }
+  .syl { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 50px; fill: #555; text-anchor: middle; }
+
+  /* ---- brand ---- */
+  .brand {
+    position: absolute; left: 0; right: 0; bottom: 70px;
+    text-align: center;
+    font-size: 56px; font-weight: 900; line-height: .95; letter-spacing: -.01em;
+    color: var(--accent);
+  }
+
+  /* ---- printer-friendly ---- */
+  .bw { background: #fff; }
+  .bw::after { border-color: #9a9a9a; opacity: 1; border-width: 5px; }
+  .bw .cat { display: block; color: #6b6b6b; letter-spacing: .2em; }
+  .bw .word { color: var(--ink); }
+  .bw .brand { color: #6b6b6b; }
+  .bw .doodle .line { stroke: var(--ink); }
+  .bw .doodle .dot { fill: var(--ink); }
+
+  /* ---- deck back ---- */
+  .back .word { top: 520px; height: 300px; font-size: 190px; color: var(--accent-ink); text-transform: uppercase; letter-spacing: .02em; }
+  .back .cat { display: block; top: 880px; font-size: 48px; color: #6b6b6b; letter-spacing: .12em; }
+  .back .bg { position: absolute; inset: 0; }
+  .back .bg svg { width: 100%; height: 100%; }
+  .back .bg .note { fill: var(--accent); opacity: .22; }
+  .back .bg .stem { stroke: var(--accent); opacity: .22; }
+  .back .bg .beam { fill: var(--accent); opacity: .22; }
+</style>
+</head>
+<body>
+<div class="card c-yellow" id="card">
+  <div class="cat" id="cat">Creature</div>
+  <div class="art" id="art"></div>
+  <div class="word" id="word"><span id="wordspan">Spiders</span></div>
+  <div class="rhythm" id="rhythm"></div>
+  <div class="brand">Bees Keys</div>
+</div>
+
+<script>
+(function () {
+  const q = new URLSearchParams(location.search);
+  const card = document.getElementById('card');
+  const color = q.get('c') || 'yellow';
+  card.className = 'card c-' + color;
+  const cat = q.get('cat') || 'creature';
+  document.getElementById('cat').textContent = cat;
+  const bw = q.get('bw') === '1';
+  if (bw) card.classList.add('bw');
+  const src = q.get('src') || 'sound-garden-art/';
+
+  // ---- art ----
+  const art = document.getElementById('art');
+  const BEE = ['back-wing.svg', 'bee-body.svg', 'front-wing.svg'].map(f =>
+    `<image href="${src}${f}" width="394.178" height="331.977"/>`).join('');
+  const DOODLES = {
+    loop:     '<path class="line" d="M40 300 C 150 60, 330 60, 400 215 S 560 380, 640 215 S 820 60, 920 300"/>',
+    humps:    '<path class="line" d="M40 330 C 120 120, 250 120, 330 330 C 400 180, 500 180, 560 330 C 640 120, 770 120, 920 330"/>',
+    hover:    '<g><path class="line" d="M140 190 C 260 150, 380 150, 480 190 S 700 230, 820 190"/><path class="line dotted" d="M140 290 C 260 250, 380 250, 480 290 S 700 330, 820 290"/></g>',
+    arc:      '<g><path class="line dotted" stroke-width="12" d="M80 380 Q 480 -140, 880 380"/><circle class="dot" cx="80" cy="380" r="22"/><circle class="dot" cx="880" cy="380" r="22"/></g>',
+    chevrons: '<path class="line" d="M110 110 L 230 215 L 110 320 M370 110 L 490 215 L 370 320 M630 110 L 750 215 L 630 320"/>',
+    zigzag:   '<path class="line" d="M40 320 L 200 110 L 360 320 L 520 110 L 680 320 L 840 110 L 920 215"/>',
+    burst:    '<g class="line"><path d="M480 215 L 480 60 M480 215 L 480 370 M480 215 L 325 215 M480 215 L 635 215 M480 215 L 370 105 M480 215 L 590 325 M480 215 L 370 325 M480 215 L 590 105"/><circle class="dot" cx="140" cy="130" r="22"/><circle class="dot" cx="820" cy="300" r="22"/><circle class="dot" cx="200" cy="330" r="14"/><circle class="dot" cx="790" cy="110" r="14"/></g>',
+    wave:     '<path class="line" d="M40 215 C 100 100, 160 100, 220 215 S 340 330, 400 215 S 520 100, 580 215 S 700 330, 760 215 S 880 100, 920 215"/>',
+    spiral:   '<path class="line" transform="translate(480 230)" d="M0 0 a 22 22 0 1 1 -44 0 a 48 48 0 1 1 96 0 a 78 78 0 1 1 -156 0 a 108 108 0 1 1 216 0 a 138 138 0 1 1 -276 0 a 168 168 0 1 1 336 0"/>',
+  };
+
+  const img = q.get('art');
+  const doodle = q.get('doodle');
+  // In bw mode every image comes from the line-art folder, bee included.
+  const bwSrc = (f) => `${src}../rhythm-phrase-art/bw/${(f === 'bee' ? 'bee.png' : f).split('/').pop()}`;
+  const one = bw && img ? `<img src="${bwSrc(img)}" alt="">`
+    : img === 'bee' ? `<svg viewBox="0 0 394.178 331.977">${BEE}</svg>` : `<img src="${src}${img}" alt="">`;
+  // A group of the creature (plural cards): g=x,y,w,h[,f];x,y,w,h[,f];...
+  // boxes in the 700x370 art box, f=1 mirrors that copy so it faces left.
+  const group = (q.get('g') || '').split(';').filter(Boolean).map(t => t.split(',').map(Number));
+  if (img && group.length) {
+    art.innerHTML = group.map(([x, y, w, h, f]) =>
+      `<div class="few" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;${f ? 'transform:scaleX(-1);' : ''}">${one}</div>`).join('');
+  } else if (img) {
+    art.innerHTML = img === 'bee' ? `<svg class="bee" viewBox="0 0 394.178 331.977">${BEE}</svg>` : one;
+  } else if (doodle && DOODLES[doodle]) {
+    art.innerHTML = `<svg class="doodle" viewBox="0 0 960 430">${DOODLES[doodle]}</svg>`;
+  }
+
+  // ---- word, shrunk to fit ----
+  const word = document.getElementById('word');
+  const span = document.getElementById('wordspan');
+  span.textContent = q.get('w') || 'Spiders';
+  const fit = () => {
+    let size = 180;
+    word.style.fontSize = size + 'px';
+    while (span.getBoundingClientRect().width > 940 && size > 70) {
+      size -= 4; word.style.fontSize = size + 'px';
+    }
+  };
+  fit();
+  document.fonts.ready.then(fit);
+
+  // ---- rhythm ----
+  // Two beats per card, drawn without a staff. Q quarter, E eighth (pairs
+  // beamed), H half, R quarter rest.
+  const code = (q.get('r') || 'QQ').toUpperCase();
+  const syl = (q.get('s') || '').split('-').filter(Boolean);
+  const W = 980, BEAT = 440, X0 = (W - 2 * BEAT) / 2;
+  const HEAD_Y = 440, STEM = 330, RX = 72, RY = 52;
+  let out = [], beat = 0, si = 0, i = 0, heads = [], ties = [], tied = false;
+  const head = (x, hollow) =>
+    `<ellipse class="note${hollow ? ' hollow' : ''}" cx="${x}" cy="${HEAD_Y}" rx="${RX}" ry="${RY}" transform="rotate(-22 ${x} ${HEAD_Y})"/>`;
+  const stem = (x, beamed) => `<line class="stem${beamed ? ' beamed' : ''}" x1="${x + RX - 11}" y1="${HEAD_Y - 14}" x2="${x + RX - 11}" y2="${HEAD_Y - STEM}"/>`;
+  const text = (x, s) => s ? `<text class="syl" x="${x}" y="${HEAD_Y + 120}">${s}</text>` : '';
+  // A tied-to note carries no new syllable.
+  const nextSyl = () => { if (tied) { tied = false; return ''; } return syl[si++]; };
+  while (i < code.length) {
+    const ch = code[i];
+    const cx = X0 + beat * BEAT + BEAT / 2;
+    if (ch === 'Q') {
+      heads.push(cx); out.push(stem(cx), head(cx), text(cx, nextSyl())); beat += 1; i += 1;
+    } else if (ch === 'H') {
+      const hx = X0 + beat * BEAT + BEAT;   // centered on the two beats it fills
+      heads.push(hx); out.push(stem(hx), head(hx, true), text(hx, nextSyl())); beat += 2; i += 1;
+    } else if (ch === 'R') {
+      // Quarter rest: the restQuarter outline from Bravura (Steinberg, SIL
+      // Open Font License), font units with y up, so the y scale is negative.
+      // Engraved proportion: the rest is three staff spaces tall against a
+      // one-space notehead, centred on the note's middle.
+      const rs = 0.44;
+      out.push(`<path class="rest" transform="translate(${cx - 135 * rs} ${HEAD_Y - 140}) scale(${rs} ${-rs})" d="M78 -38C94 -58 108 -77 121 -98C123 -102 127 -110 127 -112C127 -113 127 -115 126 -116C124 -120 120 -121 115 -121C111 -121 103 -119 99 -118C94 -118 88 -115 83 -115C40 -115 1 -158 1 -211C1 -261 44 -310 117 -366C125 -372 135 -375 143 -375C150 -375 157 -373 158 -369C159 -366 160 -364 160 -362C160 -353 152 -345 144 -338C131 -338 120 -311 118 -302C115 -294 114 -285 114 -276C114 -245 129 -210 161 -204C166 -203 171 -203 177 -203C206 -203 239 -214 255 -220C256 -220 257 -221 258 -221C261 -222 263 -222 265 -222C268 -222 270 -221 270 -218C270 -206 244 -173 233 -161C195 -115 164 -78 164 -22C164 -18 165 -13 165 -9C169 49 205 97 231 138C234 143 235 148 235 153C235 163 231 172 231 172C231 172 83 348 66 365C61 370 54 373 48 373C38 373 28 366 28 352C28 347 29 342 32 336C36 325 93 274 93 202C93 165 78 122 33 75C23 65 19 54 19 46C19 32 29 22 29 22Z"/>`);
+      beat += 1; i += 1;
+    } else if (ch === 'E') {
+      // Beam this eighth with the next one.
+      const x1 = cx - 112, x2 = cx + 112;
+      const sx1 = x1 + RX - 11, sx2 = x2 + RX - 11, top = HEAD_Y - STEM;
+      // Beam runs flush from the first stem's outer edge to the last one's,
+      // its top level with the flat stem tops, so the three read as one shape.
+      heads.push(x1, x2);
+      out.push(stem(x1, true), head(x1), stem(x2, true), head(x2),
+        `<rect class="beam" x="${sx1 - 10.5}" y="${top}" width="${sx2 - sx1 + 21}" height="50"/>`,
+        text(x1, nextSyl()), text(x2, nextSyl()));
+      beat += 1; i += 2;
+    } else if (ch === '_') {
+      // Tie the last note to the next one.
+      ties.push(heads.length - 1); tied = true; i += 1;
+    } else { i += 1; }
+  }
+  // Ties: a tapered arc under the two heads (stems are up), lens-shaped so
+  // it is thin at the ends and fuller in the middle, like an engraved tie.
+  for (const k of ties) {
+    const xa = heads[k] + 22, xb = heads[k + 1] - 22, y = HEAD_Y + RY + 12;
+    out.push(`<path class="tie" d="M${xa} ${y} Q ${(xa + xb) / 2} ${y + 136}, ${xb} ${y} Q ${(xa + xb) / 2} ${y + 60}, ${xa} ${y} Z"/>`);
+  }
+  document.getElementById('rhythm').innerHTML = `<svg viewBox="0 0 ${W} 600">${out.join('')}</svg>`;
+
+  // ---- back ----
+  if (q.get('back')) {
+    card.classList.add('back');
+    art.innerHTML = '';
+    document.getElementById('rhythm').innerHTML = '';
+    span.textContent = cat;
+    word.style.fontSize = '';
+    document.getElementById('cat').textContent = 'Rhythm Phrase Builders';
+  }
+})();
+</script>
+</body>
+</html>

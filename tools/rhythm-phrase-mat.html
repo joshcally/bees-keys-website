@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Worksheet source: Rhythm Phrase Builders mat</title>
+<!--
+  Source for the Rhythm Phrase Builders phrase mat, US Letter LANDSCAPE, one
+  page (1584x1224 px at 144 px/in). Four tinted slots across the top, sized a
+  little under the 2.5x3.5 in cards so a placed card covers its slot, then
+  two rows of write-out boxes tinted to match the column above, with a bar
+  line between the second and third box (two cards make a bar) and a double
+  bar at the end. A short line under each box takes the word.
+
+  Render with:
+
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1584,1224 \
+      --force-device-scale-factor=2 --virtual-time-budget=5000 \
+      --screenshot=tmp/rhythm-phrase/mat.png \
+      "file://$PWD/tools/rhythm-phrase-mat.html"
+
+  ?bw=1 is the printer-friendly version: no tints, gray outlines, black
+  labels. Combine with rows: ?rows=4&bw=1.
+
+  ?rows=4 drops the slots and prints that many write-out rows instead
+  (the all-boxes page), with a colored category header above the first row.
+
+  Category colors match the deck (tools/card-rhythm-phrase.html).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #2b2b2b;
+    --pink: #e8528c;   --pink-ink: #d63b78;   --pink-tint: #fdeef4;   --pink-soft: rgba(232,82,140,.35);
+    --orange: #f0862e; --orange-ink: #e0701a; --orange-tint: #fff2e6; --orange-soft: rgba(240,134,46,.4);
+    --yellow: #f5b81f; --yellow-ink: #d2960a; --yellow-tint: #fff8e4; --yellow-soft: rgba(245,184,31,.45);
+    --green: #6cb33f;  --green-ink: #4f9a2a;  --green-tint: #eff8e6;  --green-soft: rgba(108,179,63,.4);
+  }
+  body { width: 1584px; height: 1224px; background: #fff; font-family: 'Nunito', sans-serif; color: var(--ink); }
+  .page { width: 1584px; height: 1224px; padding: 56px 60px 44px; display: flex; flex-direction: column; }
+
+  .top { display: flex; align-items: center; gap: 28px; }
+  .brand-row { display: flex; align-items: center; gap: 12px; }
+  .brand-row img { width: 40px; }
+  .brand-row span { font-weight: 800; font-size: 26px; letter-spacing: -.02em; }
+  .title { font-weight: 900; font-size: 34px; letter-spacing: -.02em; text-transform: uppercase; }
+  .title .c1 { color: var(--pink-ink); } .title .c2 { color: var(--orange-ink); } .title .c3 { color: var(--green-ink); }
+  .name { margin-left: auto; display: flex; gap: 40px; font-size: 22px; font-weight: 700; color: rgba(43,43,43,.6); }
+  .name span { display: inline-block; border-bottom: 2px solid rgba(43,43,43,.35); min-width: 300px; padding-left: 6px; }
+  .name span.d { min-width: 170px; }
+
+  /* columns: four slots 331px (2.3 in) wide with 46px gaps = 1464 */
+  .cols { display: grid; grid-template-columns: repeat(4, 331px); column-gap: 46px; }
+
+  .slots { margin-top: 26px; }
+  .slot {
+    height: 461px;             /* 3.2 in */
+    border-radius: 22px;
+    border: 4px dashed var(--soft);
+    background: var(--tint);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  }
+  .slot b { font-size: 40px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--accent-ink); }
+  .slot small { font-size: 20px; font-weight: 700; color: rgba(43,43,43,.4); letter-spacing: .04em; text-transform: uppercase; }
+
+  .c-pink   { --accent-ink: var(--pink-ink);   --tint: var(--pink-tint);   --soft: var(--pink-soft); }
+  .c-orange { --accent-ink: var(--orange-ink); --tint: var(--orange-tint); --soft: var(--orange-soft); }
+  .c-yellow { --accent-ink: var(--yellow-ink); --tint: var(--yellow-tint); --soft: var(--yellow-soft); }
+  .c-green  { --accent-ink: var(--green-ink);  --tint: var(--green-tint);  --soft: var(--green-soft); }
+
+  .row { margin-top: 38px; position: relative; }
+  .row .label {
+    position: absolute; left: 0; top: -24px;
+    font-size: 17px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: rgba(43,43,43,.4);
+  }
+  .box {
+    height: 172px;
+    border-radius: 16px;
+    border: 3px solid var(--soft);
+    background: var(--tint);
+  }
+  .word {
+    margin-top: 12px; height: 30px;
+    border-bottom: 2px solid rgba(43,43,43,.3);
+  }
+  /* bar line in the gap between box 2 and 3; double bar after box 4 */
+  .bar { position: absolute; top: 0; height: 172px; width: 5px; background: var(--ink); border-radius: 2px; left: calc(2 * 331px + 46px + 23px - 2px); }
+  .dbar { position: absolute; top: 0; height: 172px; right: -26px; width: 16px; }
+  .dbar::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--ink); }
+  .dbar::after  { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 9px; background: var(--ink); border-radius: 2px; }
+
+  .heads { margin-top: 30px; }
+  .heads div { text-align: center; font-size: 26px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); }
+  /* rows-only page: a little shorter so four rows clear the footer */
+  .rows .box, .rows .bar, .rows .dbar { height: 152px; }
+  .rows .row { margin-top: 34px; }
+  .rows .heads { margin-top: 22px; }
+  /* printer-friendly */
+  .bw .title span, .bw .slot b, .bw .heads div { color: var(--ink); }
+  .bw .slot { background: #fff; border-color: #9a9a9a; }
+  .bw .box { background: #fff; border-color: #9a9a9a; }
+
+  .footer { margin-top: auto; text-align: center; font-size: 19px; font-weight: 700; color: rgba(43,43,43,.5); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <div class="brand-row"><img src="../images/bee_icon.png" alt="" /><span>Bees Keys</span></div>
+    <div class="title"><span class="c1">Rhythm</span> <span class="c2">Phrase</span> <span class="c3">Builders</span></div>
+    <div class="name">Name <span></span> Date <span class="d"></span></div>
+  </div>
+
+  <div class="cols slots">
+    <div class="slot c-pink"><b>Creature</b><small>place card here</small></div>
+    <div class="slot c-orange"><b>Action</b><small>place card here</small></div>
+    <div class="slot c-yellow"><b>Path</b><small>place card here</small></div>
+    <div class="slot c-green"><b>Place</b><small>place card here</small></div>
+  </div>
+
+  <div class="cols row">
+    <span class="label">Write the rhythm</span>
+    <div><div class="box c-pink"></div><div class="word"></div></div>
+    <div><div class="box c-orange"></div><div class="word"></div></div>
+    <div><div class="box c-yellow"></div><div class="word"></div></div>
+    <div><div class="box c-green"></div><div class="word"></div></div>
+    <div class="bar"></div><div class="dbar"></div>
+  </div>
+
+  <div class="cols row">
+    <span class="label">Write the rhythm</span>
+    <div><div class="box c-pink"></div><div class="word"></div></div>
+    <div><div class="box c-orange"></div><div class="word"></div></div>
+    <div><div class="box c-yellow"></div><div class="word"></div></div>
+    <div><div class="box c-green"></div><div class="word"></div></div>
+    <div class="bar"></div><div class="dbar"></div>
+  </div>
+
+  <p class="footer">Bees Keys &middot; beeskeysapp.com</p>
+</div>
+<script>
+(function () {
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('bw') === '1') document.querySelector('.page').classList.add('bw');
+  const rows = parseInt(qs.get('rows') || '0', 10);
+  if (!rows) return;
+  const page = document.querySelector('.page');
+  page.classList.add('rows');
+  const slots = document.querySelector('.slots');
+  const heads = document.createElement('div');
+  heads.className = 'cols heads';
+  heads.innerHTML = '<div class="c-pink">Creature</div><div class="c-orange">Action</div><div class="c-yellow">Path</div><div class="c-green">Place</div>';
+  slots.replaceWith(heads);
+  const row = document.querySelector('.row');
+  document.querySelectorAll('.row').forEach(r => r.remove());
+  const footer = document.querySelector('.footer');
+  for (let i = 0; i < rows; i++) page.insertBefore(row.cloneNode(true), footer);
+})();
+</script>
+</body>
+</html>

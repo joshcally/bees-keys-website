@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Instructions sheet source: Rhythm Phrase Builders</title>
+<!--
+  Source for the Rhythm Phrase Builders ideas sheet, US Letter portrait, one
+  page. Built from tools/sound-garden-instructions.html. The example strip
+  uses four card renders from the deck build (tmp/rhythm-phrase/), so run
+  tools/make-rhythm-phrase-cards.py first. Render with:
+
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless=new --disable-gpu --hide-scrollbars --window-size=1224,1584 \
+      --force-device-scale-factor=2 --virtual-time-budget=5000 \
+      --screenshot=tmp/rhythm-phrase/instructions.png \
+      "file://$PWD/tools/rhythm-phrase-instructions.html"
+
+  ?bw=1 is the printer-friendly version: black title and labels, outlined
+  number badges, and the line-art example cards (bw-*.png from the --bw deck
+  build).
+
+  The twelve ideas are Kristianna's own words (Oct 14, 2026). Category
+  colors match the deck (tools/card-rhythm-phrase.html): Creature pink,
+  Action orange, Path yellow, Place green.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #2b2b2b;
+    --pink: #d63b78;
+    --orange: #e0701a;
+    --yellow: #d2960a;
+    --green: #4f9a2a;
+  }
+
+  body {
+    width: 1224px; height: 1584px;
+    background: #ffffff;
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+  }
+  .page { width: 1224px; height: 1584px; padding: 80px 100px 70px; display: flex; flex-direction: column; }
+
+  .brand-row { display: flex; align-items: center; gap: 14px; }
+  .brand-row img { width: 44px; }
+  .brand-row span { font-weight: 800; font-size: 28px; letter-spacing: -.02em; }
+
+  .title {
+    margin-top: 18px;
+    font-weight: 900; font-size: 60px; line-height: 1; letter-spacing: -.02em; white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .title .c1 { color: var(--pink); } .title .c2 { color: var(--orange); } .title .c3 { color: var(--green); }
+
+  .how {
+    margin-top: 14px;
+    font-size: 23px; line-height: 1.4; font-weight: 400;
+    color: rgba(43,43,43,.8);
+    max-width: 1000px;
+  }
+  .how b { font-weight: 800; }
+  .how .k1 { color: var(--pink); } .how .k2 { color: var(--orange); } .how .k3 { color: var(--yellow); } .how .k4 { color: var(--green); }
+
+  /* ---- example strip: four cards, one sentence ---- */
+  .example {
+    margin-top: 18px;
+    display: grid; grid-template-columns: repeat(4, 218px); gap: 18px;
+    justify-content: center; align-items: end;
+  }
+  .example img {
+    width: 100%; display: block;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.14), 0 0 0 1px rgba(0,0,0,.06);
+  }
+  .sentence {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 27px; font-weight: 900; letter-spacing: -.01em;
+  }
+  .sentence .k1 { color: var(--pink); } .sentence .k2 { color: var(--orange); } .sentence .k3 { color: var(--yellow); } .sentence .k4 { color: var(--green); }
+  .sentence small { display: block; margin-top: 2px; font-size: 19px; font-weight: 700; color: rgba(43,43,43,.55); letter-spacing: .04em; text-transform: uppercase; }
+
+  h2.section {
+    margin-top: 22px;
+    font-size: 25px; font-weight: 900; letter-spacing: .07em; text-transform: uppercase;
+    color: rgba(43,43,43,.5);
+  }
+
+  ol.steps {
+    margin-top: 10px;
+    list-style: none;
+    display: flex; flex-direction: column; gap: 9px;
+  }
+  ol.steps.two {
+    display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; row-gap: 9px;
+  }
+  ol.steps li {
+    display: flex; gap: 14px; align-items: flex-start;
+    font-size: 21px; line-height: 1.36;
+  }
+  ol.steps li strong { font-weight: 800; }
+  .step-num {
+    flex: 0 0 auto;
+    width: 36px; height: 36px; border-radius: 999px;
+    background: linear-gradient(180deg, #fde08a 0%, #f5c842 46%, #eda92a 100%);
+    border: 1px solid rgba(180,120,20,.35);
+    color: #2a2208; font-weight: 900; font-size: 19px;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+
+  /* printer-friendly */
+  .bw .title span, .bw .how b, .bw .sentence small { color: var(--ink); }
+  .bw .step-num { background: #fff; border: 2px solid var(--ink); color: var(--ink); }
+  .bw .example img { box-shadow: none; border: 2px solid #9a9a9a; }
+  .bw h2.section { color: var(--ink); }
+
+  .footer {
+    margin-top: auto;
+    text-align: center;
+    font-size: 21px; font-weight: 700; color: rgba(43,43,43,.55);
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="brand-row">
+    <img src="../images/bee_icon.png" alt="" />
+    <span>Bees Keys</span>
+  </div>
+
+  <h1 class="title"><span class="c1">Rhythm</span> <span class="c2">Phrase</span> <span class="c3">Builders</span></h1>
+  <p class="how">
+    Lay one card from each pile in order, <b class="k1">Creature</b>, <b class="k2">Action</b>,
+    <b class="k3">Path</b>, <b class="k4">Place</b>. Read the sentence, then chant and clap the rhythm underneath.
+  </p>
+
+  <div class="example">
+    <img src="../tmp/rhythm-phrase/creature-08.png" alt="Butterflies" />
+    <img src="../tmp/rhythm-phrase/action-01.png" alt="flutter" />
+    <img src="../tmp/rhythm-phrase/path-01.png" alt="over the" />
+    <img src="../tmp/rhythm-phrase/place-01.png" alt="meadow" />
+  </div>
+  <p class="sentence">
+    <small>Creature &middot; Action &middot; Path &middot; Place</small>
+  </p>
+
+  <h2 class="section">Ideas for use</h2>
+  <ol class="steps">
+    <li><span class="step-num">1</span><span>Mix and match cards to build rhythmic phrases!</span></li>
+    <li><span class="step-num">2</span><span>Clap along to the rhythm as you chant the words.</span></li>
+    <li><span class="step-num">3</span><span>Choose a 5-finger scale, and make up a melody to go with your new Rhythm Phrase!</span></li>
+    <li><span class="step-num">4</span><span>For more advanced students, try to improvise a melody over a I&ndash;IV&ndash;V&ndash;I chord progression, with one chord per card.</span></li>
+  </ol>
+
+  <h2 class="section">More ideas</h2>
+  <ol class="steps two">
+    <li><span class="step-num">5</span><span><strong>Build a silly sentence:</strong> Mix the cards randomly, then chant and clap whatever funny phrase you create.</span></li>
+    <li><span class="step-num">6</span><span><strong>Echo game:</strong> Teacher claps or plays a phrase, and the student finds the cards that match what they heard.</span></li>
+    <li><span class="step-num">7</span><span><strong>Rhythm dictation:</strong> Build a phrase, hide the cards, then have the student notate the rhythm from memory.</span></li>
+    <li><span class="step-num">8</span><span><strong>Make it move:</strong> March, tap, stomp, bounce, or jump the rhythm while chanting the words.</span></li>
+    <li><span class="step-num">9</span><span><strong>One-note improv:</strong> Play the whole rhythm on one piano key first, then gradually add more notes.</span></li>
+    <li><span class="step-num">10</span><span><strong>Question and answer:</strong> Build two phrases. Play the first as a musical question and the second as the answer.</span></li>
+    <li><span class="step-num">11</span><span><strong>Rhythm matching:</strong> Find two different cards that use the same rhythm.</span></li>
+    <li><span class="step-num">12</span><span><strong>Make a longer piece:</strong> Build 2, 4, or 8 phrases, then arrange them into a larger composition.</span></li>
+  </ol>
+
+  <p class="footer">Bees Keys &middot; beeskeysapp.com</p>
+</div>
+<script>
+(function () {
+  if (new URLSearchParams(location.search).get('bw') !== '1') return;
+  document.querySelector('.page').classList.add('bw');
+  document.querySelectorAll('.example img').forEach(img => {
+    img.src = img.src.replace(/\/([a-z]+-\d\d\.png)$/, '/bw-$1');
+  });
+})();
+</script>
+
+</body>
+</html>
