@@ -189,13 +189,6 @@ def cork(y, hw=15, h=22):
             f'<path d="M{-hw * 0.6} {y - h * 0.6} l4 0 M{hw * 0.2} {y - h * 0.35} l5 0" fill="none" stroke-width="1.6"/>')
 
 
-def tag(x, y, rot, inner):
-    """A little parcel tag hanging from a neck, with a doodle on it."""
-    return (f'<g transform="translate({x} {y}) rotate({rot})">'
-            f'<path d="M-14 -16 h28 l6 7 v30 h-40 v-30 Z"/>'
-            f'<circle cx="0" cy="-11" r="2.4"/>{inner}</g>')
-
-
 def P_round_flask():
     body = ("M-14 -150 L-14 -128 C-55 -118 -70 -92 -70 -62 C-70 -22 -40 0 0 0 "
             "C40 0 70 -22 70 -62 C70 -92 55 -118 14 -128 L14 -150 Z")
@@ -222,7 +215,7 @@ def P_apple():
 def P_teardrop():
     body = ("M-18 -172 L-18 -150 C-18 -122 -78 -108 -78 -52 C-78 -8 -42 0 0 0 "
             "C42 0 78 -8 78 -52 C78 -108 18 -122 18 -150 L18 -172 Z")
-    top = cork(-172, 19) + tag(46, -150, 18, star(0, 6, 9))
+    top = cork(-172, 19)
     inside = liquid(-120, 70, 4, 2) + bubble(-54, -22, 4.5) + bubble(44, -18, 3.6) + bubble(-32, -130, 2.6) + bubble(30, -136, 3)
     return body, top, inside, -72
 
