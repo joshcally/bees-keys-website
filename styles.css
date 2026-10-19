@@ -1426,6 +1426,21 @@ main:has(#topic-studio-tools:checked) .res-list > li:not([data-topics~="studio-t
   box-shadow: 0 3px 10px var(--shadow);
 }
 
+/* The previews are there to look at, not to keep: the PDF is the download.
+   With no pointer or touch events on the image itself, a long press or
+   right-click lands on the figure/link around it, so phones and desktops
+   stop offering "Save image" (Kristianna, Oct 2026). A screenshot is still
+   a screenshot, so this is a nudge, not a lock. */
+.version img,
+.post-hero img,
+.res-shot img {
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
 .version figcaption {
   font-size: 0.85rem;
   color: var(--ink-soft);
