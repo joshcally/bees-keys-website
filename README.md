@@ -161,6 +161,16 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
+## Analytics
+
+Every published page carries the Google Analytics 4 tag, inserted by
+`tools/add-analytics.py <measurement-id>`. Re-run it after adding a new
+page (it skips pages that already have the tag, and updates the ID on
+all of them if you pass a new one). GA4's built-in "File downloads"
+enhanced measurement turns clicks on the .pdf links into `file_download`
+events, which is how printable popularity is tracked. The privacy page
+has a "This Website" section describing this.
+
 ## Deploying
 
 Push to the default branch. In **Settings → Pages**, set the source to that branch
