@@ -81,10 +81,7 @@
     top: 50%;
     left: 50%;
     border-radius: 12px;
-    /* A fat white mat, so the autumn sheet doesn't melt into the autumn
-       ground behind it (Kristianna, Nov 2). */
-    border: 18px solid #fff;
-    outline: 1px solid rgba(0,0,0,.14);
+    border: 1px solid rgba(0,0,0,.12);
     background: #fff;
     box-shadow: 0 18px 40px rgba(31,33,28,.32);
   }
@@ -92,6 +89,13 @@
   /* Spread wider than Which Key Is Mine's fan so the back sheet reads too. */
   .sheet-back  { transform: translate(-64%, -82%) rotate(-5deg); }
   .sheet-front { transform: translate(-36%, -20%) rotate(4deg); }
+
+  /* A fat white mat on the autumn sheet only, so it doesn't melt into the
+     autumn ground behind it; the white sheet is its own mat (Kristianna, Nov 2). */
+  .stack .sheet-front {
+    border: 18px solid #fff;
+    outline: 1px solid rgba(0,0,0,.14);
+  }
 
   .foot {
     display: flex;
