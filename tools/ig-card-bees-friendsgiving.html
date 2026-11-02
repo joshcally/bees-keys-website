@@ -32,9 +32,18 @@
     position: relative;
     font-family: 'Nunito', sans-serif;
     color: #232323;
-    /* Kristianna's autumn hillside (the sheets' own studio background),
-       cover-fit: it is 3:2, the card 4:5, so the sides crop. */
+  }
+
+  /* Kristianna's autumn hillside (the sheets' own studio background),
+     cover-fit: it is 3:2, the card 4:5, so the sides crop. Softened like
+     the painted meadow on the other cards, so the sheets lead; oversized
+     so the blur doesn't fade the edges. */
+  body::before {
+    content: "";
+    position: absolute;
+    inset: -30px;
     background: url("friendsgiving-art/fall-meadow.png") center / cover no-repeat;
+    filter: blur(8px);
   }
 
   .inner {
