@@ -9,7 +9,7 @@
 A copy of tools/build-higher-or-lower-cover.py. Landscape, like the sheets.
 Page one is the house cover grid with a fan of two sheets, one of each
 version: the autumn studio Bee's Friendsgiving sheet in front, the white
-Bee's Fall Friends (holiday-neutral) sheet behind it.
+Bee's Friends (holiday-neutral) sheet behind it.
 
 Page two is the shared Bees Keys page: the app on the left, more free
 printables and the mailing list on the right. This puzzle is key naming
@@ -221,7 +221,7 @@ def page_one(c, front, back):
     c.drawCentredString(W / 2, 100, "A key-name puzzle: six bug guests to spell from the 2 and 3 black-key groups")
     c.setFillColor(GREEN)
     c.setFont("Nunito", 8.3)
-    c.drawCentredString(W / 2, 82, "Includes a holiday-neutral Bee's Fall Friends copy. White and autumn studio pages of each.")
+    c.drawCentredString(W / 2, 82, "Includes a holiday-neutral Bee's Friends copy. White and autumn studio pages of each.")
 
     footer(c)
     c.showPage()
@@ -347,7 +347,7 @@ def write_art(path, front, back, dpi=150):
 
 def main():
     front = sheet("bees-keys-friendsgiving-studio")
-    back = sheet("bees-keys-bees-fall-friends")
+    back = sheet("bees-keys-bees-friends")
 
     if "--art" in sys.argv:
         write_art(sys.argv[sys.argv.index("--art") + 1], front, back)

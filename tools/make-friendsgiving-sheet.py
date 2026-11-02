@@ -1,4 +1,4 @@
-"""Bee's Friendsgiving / Bee's Fall Friends worksheet (Bees Keys).
+"""Bee's Friendsgiving / Bee's Friends worksheet (Bees Keys).
 
 Kristianna's puzzle: six bug guests, each name spelled with letters and
 small piano-key tiles. A tile is the app's 2-black-key group (C D E) or
@@ -57,7 +57,7 @@ STUDIO = False
 VARIANTS = [
     ("bees-keys-friendsgiving", "Bee's Friendsgiving",
      ("Use the piano keys to fill in the missing letters and discover who's coming to Friendsgiving!",)),
-    ("bees-keys-bees-fall-friends", "Bee's Fall Friends",
+    ("bees-keys-bees-friends", "Bee's Friends",
      ("Use the piano keys to fill in the missing letters and discover Bee's friends!",)),
 ]
 BUG_BAND = 66        # open space at the bottom for the guests (later)
