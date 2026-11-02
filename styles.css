@@ -1467,6 +1467,11 @@ main:has(#topic-studio-tools:checked) .res-list > li:not([data-topics~="studio-t
   box-shadow: 0 3px 10px var(--shadow);
 }
 
+/* The figure can be a link to the PDF, like the hero. The image itself takes
+   no pointer events (see below), so the click lands on this. */
+.post-figure-link { display: block; border-radius: 14px; }
+.post-figure-link:hover img { box-shadow: 0 14px 30px rgba(31, 33, 28, 0.2); }
+
 .post-figure figcaption {
   font-size: 0.85rem;
   color: var(--ink-soft);
