@@ -1433,6 +1433,7 @@ main:has(#topic-studio-tools:checked) .res-list > li:not([data-topics~="studio-t
    a screenshot, so this is a nudge, not a lock. */
 .version img,
 .post-hero img,
+.post-figure img,
 .res-shot img {
   pointer-events: none;
   -webkit-touch-callout: none;
