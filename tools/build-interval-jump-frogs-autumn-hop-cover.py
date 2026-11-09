@@ -3,6 +3,7 @@
     pip install reportlab pymupdf qrcode
     python3 tools/build-interval-jump-frogs-autumn-hop-cover.py <cover.pdf>          # color PDF's cover
     python3 tools/build-interval-jump-frogs-autumn-hop-cover.py --bw <cover.pdf>     # printer-friendly PDF's cover
+    python3 tools/build-interval-jump-frogs-autumn-hop-cover.py --mixed <cover.pdf>  # combined PDF: color front, B&W behind
     python3 tools/build-interval-jump-frogs-autumn-hop-cover.py --art <fan.png>      # transparent fan (OG card)
 
 A copy of `build-interval-jump-frogs-secret-ingredient-cover.py` with a
@@ -13,8 +14,10 @@ sheet: eleven stepping stones wind down an autumn stream, the first stone
 gives a note, the arrows between stones say the move, and the student draws
 the missing notes. Two labelings, each in full color (Kristianna's painted
 river scene) and in black-and-white line art; the site offers the color
-pair and the printer-friendly pair as two PDFs, so this builder makes a
-cover for each (--bw swaps in the line-art sheets).
+pair and the printer-friendly pair as two PDFs plus a combined one with all
+four sheets, so this builder makes a cover for each (--bw swaps in the
+line-art sheets; --mixed fans the color beginner sheet over the line-art
+intermediate one, for the combined PDF the page's cover click downloads).
 
 Sheets come from `tools/make-fall-stream-sheet.py` in `output/fall-stream/`.
 
@@ -50,6 +53,7 @@ FROG = f"{IJ}/printables/art/frog-happy.png"
 SHOT = f"{IJ}/printables/art/game-screenshot.png"
 SHEETS = f"{SITE}/output/fall-stream"
 BW = "--bw" in sys.argv
+MIXED = "--mixed" in sys.argv
 
 _pos = [a for a in sys.argv[1:] if not a.startswith("-")]
 OUT = _pos[0] if _pos and "--art" not in sys.argv else "/tmp/interval-jump-frogs-autumn-hop-cover.pdf"
@@ -234,7 +238,7 @@ def page_one(c, beginner, intermediate):
     c.drawString(42, H - 92, "Frog’s Autumn Hop")
     c.setFillColor(AZUL)
     c.setFont("Nunito", 9.5)
-    c.drawString(43, H - 111, "INTERVAL WRITING ACTIVITY" + ("  ·  PRINTER-FRIENDLY" if BW else ""))
+    c.drawString(43, H - 111, "INTERVAL WRITING ACTIVITY" + ("  ·  PRINTER-FRIENDLY" if BW else "  ·  COLOR AND PRINTER-FRIENDLY" if MIXED else ""))
 
     # The frog takes the masthead slot the bee holds on the Bees Keys covers.
     draw(c, Image.open(FROG), W - 116, H - 116, 62)
@@ -339,7 +343,7 @@ def write_art(path, beginner, intermediate, dpi=150):
 def main():
     suffix = "-bw" if BW else ""
     beginner = sheet_page(f"interval-jump-frogs-fall-stream{suffix}.pdf")
-    intermediate = sheet_page(f"interval-jump-frogs-fall-stream-intervals{suffix}.pdf")
+    intermediate = sheet_page(f"interval-jump-frogs-fall-stream-intervals{'-bw' if MIXED else suffix}.pdf")
 
     if "--art" in sys.argv:
         write_art(sys.argv[sys.argv.index("--art") + 1], beginner, intermediate)
