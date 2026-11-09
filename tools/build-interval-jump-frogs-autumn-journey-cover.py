@@ -1,15 +1,15 @@
-"""Build the two-page cover that leads the Frog's Autumn Hop printable.
+"""Build the two-page cover that leads the Frog's Autumn Journey printable.
 
     pip install reportlab pymupdf qrcode
-    python3 tools/build-interval-jump-frogs-autumn-hop-cover.py <cover.pdf>          # color PDF's cover
-    python3 tools/build-interval-jump-frogs-autumn-hop-cover.py --bw <cover.pdf>     # printer-friendly PDF's cover
-    python3 tools/build-interval-jump-frogs-autumn-hop-cover.py --mixed <cover.pdf>  # combined PDF: color front, B&W behind
-    python3 tools/build-interval-jump-frogs-autumn-hop-cover.py --art <fan.png>      # transparent fan (OG card)
+    python3 tools/build-interval-jump-frogs-autumn-journey-cover.py <cover.pdf>          # color PDF's cover
+    python3 tools/build-interval-jump-frogs-autumn-journey-cover.py --bw <cover.pdf>     # printer-friendly PDF's cover
+    python3 tools/build-interval-jump-frogs-autumn-journey-cover.py --mixed <cover.pdf>  # combined PDF: color front, B&W behind
+    python3 tools/build-interval-jump-frogs-autumn-journey-cover.py --art <fan.png>      # transparent fan (OG card)
 
 A copy of `build-interval-jump-frogs-secret-ingredient-cover.py` with a
 two-sheet fan: the beginner sheet (repeat / step / skip) in front, the
 intermediate sheet (2nd-5th) behind and to the right, like Mushroom Hop.
-Frog's Autumn Hop (Nov 9, 2026) is a cross-the-stream interval WRITING
+Frog's Autumn Journey (Nov 9, 2026) is a cross-the-stream interval WRITING
 sheet: eleven stepping stones wind down an autumn stream, the first stone
 gives a note, the arrows between stones say the move, and the student draws
 the missing notes. Two labelings, each in full color (Kristianna's painted
@@ -56,7 +56,7 @@ BW = "--bw" in sys.argv
 MIXED = "--mixed" in sys.argv
 
 _pos = [a for a in sys.argv[1:] if not a.startswith("-")]
-OUT = _pos[0] if _pos and "--art" not in sys.argv else "/tmp/interval-jump-frogs-autumn-hop-cover.pdf"
+OUT = _pos[0] if _pos and "--art" not in sys.argv else "/tmp/interval-jump-frogs-autumn-journey-cover.pdf"
 
 APP_STORE = "https://apps.apple.com/us/app/interval-jump-read-music-fast/id6736377103"
 PLAY_STORE = "https://play.google.com/store/apps/details?id=com.joshuacallahan.intervaljump"
@@ -235,7 +235,7 @@ def page_one(c, beginner, intermediate):
 
     c.setFillColor(INK)
     c.setFont("Nunito", 28)
-    c.drawString(42, H - 92, "Frog’s Autumn Hop")
+    c.drawString(42, H - 92, "Frog’s Autumn Journey")
     c.setFillColor(AZUL)
     c.setFont("Nunito", 9.5)
     c.drawString(43, H - 111, "INTERVAL WRITING ACTIVITY" + ("  ·  PRINTER-FRIENDLY" if BW else "  ·  COLOR AND PRINTER-FRIENDLY" if MIXED else ""))
@@ -350,7 +350,7 @@ def main():
         return
 
     c = canvas.Canvas(OUT, pagesize=(W, H))
-    c.setTitle("Frog's Autumn Hop - Interval Jump")
+    c.setTitle("Frog's Autumn Journey - Interval Jump")
     c.setAuthor("Bees Keys")
     page_one(c, beginner, intermediate)
     page_two(c, qr_image(APP_STORE), qr_image(PLAY_STORE))

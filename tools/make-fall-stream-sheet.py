@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Frog's Autumn Hop (first called Frog's Fall Adventure): a cross-the-stream interval worksheet for Interval
+"""Frog's Autumn Journey (first called Frog's Fall Adventure, then Frog's Autumn Hop): a cross-the-stream interval worksheet for Interval
 Jump, by Kristianna Callahan.
 
 Eleven stepping stones wind down an autumn stream in an S. Stone 1
@@ -51,7 +51,7 @@ ARROW = "#000" if BW else "#6b3f1d"
 ARROW_HALO = "#fff" if BW else "#fdf3d6"
 PANEL = "#fff" if BW else "#fdf0d0"
 
-TITLE = "Frog&#8217;s Autumn Hop"
+TITLE = "Frog&#8217;s Autumn Journey"
 SUBTITLE = "Help Frog cross the stream! Follow each arrow and draw the missing notes."
 
 # Page units are 1/100 in: 1100 x 850.
