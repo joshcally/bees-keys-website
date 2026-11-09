@@ -4,8 +4,9 @@
 <meta charset="UTF-8" />
 <title>Instagram card source (square): Frog’s Autumn Journey</title>
 <!--
-  Square (1080x1080) version of the Instagram post, without the zoomed
-  stones strip (no height for it). Render it with:
+  Square (1080x1080) version of the Instagram post: the zoomed stones strip
+  sits right under the title and the two sheets, smaller, spread out below
+  it (Kristianna, Nov 9). Render it with:
 
     python3 -m http.server 8000
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
@@ -15,8 +16,9 @@
       http://localhost:8000/tools/ig-card-interval-jump-frogs-autumn-journey-square.html
 
   The Bee's Friendsgiving card restacked for Interval Jump: the river-sky
-  ground and bank from the Interval Jump OG cards, the headline, then the
-  two sheets, fanned wider than the cover fans them (Kristianna: "spread out the fan a bit"): the color
+  ground and bank from the Interval Jump OG cards, the headline, the zoomed
+  crop of the first two stones (fall-stream-art/stones-crop.png, 450 dpi),
+  then the two sheets, fanned wider than the cover fans them (Kristianna: "spread out the fan a bit"): the color
   beginner sheet in front, the black-and-white intermediate sheet behind
   and to the right, each placed on its own here rather than using the
   cover builder's fan PNG. Site address alone on the gold pill.
@@ -83,33 +85,38 @@
     letter-spacing: -.028em;
     text-shadow: 0 1px 0 rgba(255,255,255,.4);
   }
-  /* The deep red of the painting's background trees (sampled, Nov 9). */
+  /* "Autumn" in the deep red of the painting's background trees (sampled),
+     "Journey" in the orange of its foreground trees (Kristianna, Nov 9). */
   h1 em { font-style: normal; color: #cd4722; }
+  h1 em b { font-weight: inherit; color: #f08808; }
 
+  /* Right under the title: the first two stones, blown up, on a white mat. */
+  .zoom {
+    display: block;
+    width: 640px;
+    margin-top: 18px;
+    border: 12px solid #fff;
+    border-radius: 12px;
+    outline: 1px solid rgba(0,0,0,.14);
+    box-shadow: 0 14px 32px rgba(31,33,28,.3);
+    transform: rotate(-2deg);
+  }
+
+  /* Below it, the two sheets spread wide, smaller. */
   .stack { position: relative; flex: 1; width: 100%; margin-top: 6px; }
 
   .stack img {
     position: absolute;
     top: 50%;
     left: 50%;
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 10px;
+    border: 10px solid #fff;
+    outline: 1px solid rgba(0,0,0,.12);
     background: #fff;
-    box-shadow: 0 18px 40px rgba(31,33,28,.32);
+    box-shadow: 0 16px 36px rgba(31,33,28,.3);
   }
-
-  /* The two sheets, spread wider than the cover's fan, both fully in frame.
-     No zoomed strip on the square: there isn't the height for three layers. */
-  .stack .sheet-back {
-    width: 560px;
-    border: 12px solid #fff;
-    transform: translate(-22%, -70%) rotate(5deg);
-  }
-  .stack .sheet-front {
-    width: 600px;
-    border: 12px solid #fff;
-    transform: translate(-78%, -32%) rotate(-4deg);
-  }
+  .stack .sheet-back  { width: 460px; transform: translate(-4%, -62%) rotate(5deg); }
+  .stack .sheet-front { width: 490px; transform: translate(-96%, -54%) rotate(-4deg); }
 
   .foot { display: flex; justify-content: center; }
 
@@ -146,7 +153,9 @@
     </div>
 
     <p class="eyebrow">Free printable</p>
-    <h1>Frog&rsquo;s <em>Autumn Journey</em></h1>
+    <h1>Frog&rsquo;s <em>Autumn <b>Journey</b></em></h1>
+
+    <img class="zoom" src="fall-stream-art/stones-crop.png" alt="" />
 
     <div class="stack">
       <img class="sheet-back"  src="../images/resources/interval-jump-frogs-autumn-journey-intervals-bw.jpg" alt="" />
