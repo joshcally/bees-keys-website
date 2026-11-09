@@ -111,7 +111,8 @@
     background: #fff;
     box-shadow: 0 16px 36px rgba(31,33,28,.3);
   }
-  .stack .sheet-back  { width: 420px; transform: translate(0%, -56%) rotate(5deg); }
+  /* The white sheet is its own mat, so no extra border on it (like the Friendsgiving card). */
+  .stack .sheet-back  { width: 420px; border: 0; transform: translate(0%, -56%) rotate(5deg); }
   .stack .sheet-front { width: 450px; transform: translate(-100%, -48%) rotate(-4deg); }
 
   .foot { display: flex; justify-content: center; }
