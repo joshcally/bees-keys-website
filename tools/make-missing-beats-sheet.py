@@ -317,11 +317,11 @@ def stump(c, cx, base, w, h):
     # bark grooves
     c.setLineWidth(1.2 if STUDIO else 0.8)
     c.setLineCap(1)
-    for fx, a, b in ((-0.7, 0.2, 0.62), (-0.42, 0.34, 0.74), (-0.12, 0.12, 0.5),
-                     (0.2, 0.3, 0.72), (0.5, 0.16, 0.56), (0.76, 0.36, 0.7)):
+    for fx, a, b in ((-0.7, 0.2, 0.62), (-0.42, 0.26, 0.74), (-0.12, 0.12, 0.5),
+                     (0.2, 0.24, 0.72), (0.5, 0.16, 0.56), (0.76, 0.28, 0.7)):
         gx = cx + hw * fx
         drop = top_ry * math.sqrt(max(0, 1 - fx * fx))
-        y0, y1 = top_y - drop - h * a, top_y - drop - h * b
+        y0, y1 = top_y - drop - h * a, max(top_y - drop - h * b, base + 14)   # stay inside the bark
         c.bezier(gx, y0, gx - 2.5, y0 - (y0 - y1) / 3, gx + 2.5, y1 + (y0 - y1) / 3, gx, y1)
     # top face
     c.setLineWidth(1.8 if STUDIO else 1.3)

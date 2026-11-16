@@ -25,6 +25,7 @@ BEE_LEGS = (152, 592, 512, 770)    # x0, y0, x1, y1 in the padded bee art
 # each leg in the color bee, body end first then foot (unpadded art px)
 BEE_LEG_LINES = [((286, 610), (240, 630)), ((304, 640), (274, 662)), ((356, 680), (333, 712)),
                  ((381, 676), (360, 724)), ((421, 705), (426, 744)), ((445, 692), (454, 750))]
+GRASSHOPPER_FLECK = (1024, 274, 1064, 320)   # x0, y0, x1, y1 (unpadded art px)
 WING_SMOOTH = 111                  # px: wing-edge wiggles narrower than this are ironed out
 BUGS = {"bee": (RP, 96), "butterfly": (SG, 84), "ladybug": (SG, 86),
         "grasshopper-drawn": (SG, 112), "cricket-drawn": (SG, 110), "caterpillar": (SG, 108)}
@@ -79,6 +80,10 @@ def trace(name, folder, width_pt):
         if white[around > 0].mean() > 0.35:                    # sits in an eye white: a pupil
             continue
         ink[comp > 0] = 0
+
+    if name == "grasshopper-drawn":   # a stray dark fleck beside its right eye in the color art
+        x0, y0, x1, y1 = GRASSHOPPER_FLECK
+        ink[y0 + 12:y1 + 12, x0 + 12:x1 + 12] = 0     # the eye ring and outline are redrawn below
 
     def rings(mask, lo, hi):
         n, lab, st, _ = cv2.connectedComponentsWithStats(mask.astype(np.uint8))
