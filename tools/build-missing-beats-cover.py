@@ -218,7 +218,7 @@ def page_one(c, front, back):
 
     c.setFillColor(INK)
     c.setFont("Nunito", 12)
-    c.drawCentredString(W / 2, 100, "A rhythm worksheet: eight plates, each one a measure with beats to fill in")
+    c.drawCentredString(W / 2, 100, "A rhythm worksheet: Fill in the missing beats")
     c.setFillColor(GREEN)
     c.setFont("Nunito", 8.3)
     c.drawCentredString(W / 2, 82, "In 4/4 and 3/4, in color and printer-friendly. Includes a holiday-neutral Bee's Dinner copy.")
