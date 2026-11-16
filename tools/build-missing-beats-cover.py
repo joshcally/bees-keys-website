@@ -213,7 +213,7 @@ def page_one(c, front, back):
     c.drawString(42, H - 92, "Bee's Friendsgiving: Missing Beats")
     c.setFillColor(GREEN)
     c.setFont("Nunito", 9.5)
-    c.drawString(43, H - 111, "COUNT THE BEATS  •  FIND THE GAP  •  DRAW THE NOTE")
+    c.drawString(43, H - 111, "COUNT THE BEATS  •  DRAW THE NOTES")
     c.drawImage(str(BEE), W - 104, H - 118, 58, 58, preserveAspectRatio=True, mask="auto")
 
     c.setFillColor(INK)
