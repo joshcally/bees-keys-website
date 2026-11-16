@@ -98,8 +98,8 @@ GUESTS_BACK = [
     ("bee", STUMP_CX + 58, 146, 96, False),
 ]
 GUESTS_SIDE = [
-    ("grasshopper-drawn", STUMP_CX - 231, 26, 112, False),
-    ("ladybug", STUMP_CX - 132, 80, 86, False),
+    ("grasshopper-drawn", STUMP_CX - 210, 26, 112, False),
+    ("ladybug", STUMP_CX - 140, 93, 86, False),
     ("caterpillar", STUMP_CX + 206, 27, 108, True),
     ("cricket-drawn", STUMP_CX + 146, 84, 110, True),
 ]
