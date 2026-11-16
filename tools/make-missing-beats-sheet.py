@@ -66,7 +66,7 @@ SUBTITLE = "Each plate is missing one or more beats. Draw the missing notes or r
 # R quarter rest, a digit = that many beats missing.
 METERS = {
     "44": (4, ["HQ1", "Q3", "D1", "2H", "QRQ1", "4", "Q2Q", "3Q"]),
-    "34": (3, ["H1", "Q2", "QQ1", "1H", "QR1", "3", "Q1Q", "2Q"]),
+    "34": (3, ["H1", "Q2", "QQ1", "3", "QR1", "3", "Q1Q", "2Q"]),
 }
 BEATS = {"Q": 1, "R": 1, "H": 2, "D": 3, "W": 4}
 
