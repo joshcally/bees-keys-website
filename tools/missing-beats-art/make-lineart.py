@@ -26,7 +26,7 @@ BEE_LEGS = (152, 592, 512, 770)    # x0, y0, x1, y1 in the padded bee art
 BEE_LEG_LINES = [((286, 610), (240, 630)), ((304, 640), (274, 662)), ((356, 680), (333, 712)),
                  ((381, 676), (360, 724)), ((421, 705), (426, 744)), ((445, 692), (454, 750))]
 WING_SMOOTH = 111                  # px: wing-edge wiggles narrower than this are ironed out
-BUGS = {"bee": (RP, 96), "butterfly": (SG, 84), "ladybug": (SG, 104),
+BUGS = {"bee": (RP, 96), "butterfly": (SG, 84), "ladybug": (SG, 86),
         "grasshopper-drawn": (SG, 112), "cricket-drawn": (SG, 110), "caterpillar": (SG, 108)}
 
 
