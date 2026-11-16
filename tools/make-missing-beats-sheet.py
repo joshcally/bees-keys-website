@@ -6,7 +6,7 @@ needs). Bee and friends gather round a tree-stump table underneath.
 
 Only quarters, halves, dotted halves, whole notes and quarter rests. Two
 meters (4/4 and 3/4), two titles (Friendsgiving and the holiday-neutral
-Bee's Friends), each as a white printer copy and a "studio" copy on the
+Bee's Dinner), each as a white printer copy and a "studio" copy on the
 autumn hillside from tools/make-friendsgiving-sheet.py.
 
 Bugs are the Sound Garden / Rhythm Phrase Builders set; the printer copy
@@ -58,7 +58,7 @@ STUDIO = False
 # (file slug, title, what the plates are "for" in the subtitle)
 TITLES = [
     ("bees-keys-friendsgiving-missing-beats", "Bee's Friendsgiving: Missing Beats"),
-    ("bees-keys-bees-friends-missing-beats", "Bee's Friends: Missing Beats"),
+    ("bees-keys-bees-dinner-missing-beats", "Bee's Dinner: Missing Beats"),
 ]
 SUBTITLE = "Each plate is missing one or more beats. Draw the missing notes or rests to complete each measure."
 

@@ -8,7 +8,7 @@
 
 A copy of tools/build-bees-friendsgiving-cover.py. Landscape, like the sheets.
 Page one is the house cover grid with a fan of two sheets: the color 4/4
-Bee's Friendsgiving sheet in front, the printer-friendly 3/4 Bee's Friends
+Bee's Friendsgiving sheet in front, the printer-friendly 3/4 Bee's Dinner
 (holiday-neutral) sheet behind it, so both meters, titles and styles show.
 
 Page two is the shared Bees Keys page: the app on the left, more free
@@ -221,7 +221,7 @@ def page_one(c, front, back):
     c.drawCentredString(W / 2, 100, "A rhythm worksheet: eight plates, each one a measure with beats to fill in")
     c.setFillColor(GREEN)
     c.setFont("Nunito", 8.3)
-    c.drawCentredString(W / 2, 82, "In 4/4 and 3/4, in color and printer-friendly. Includes a holiday-neutral Bee's Friends copy.")
+    c.drawCentredString(W / 2, 82, "In 4/4 and 3/4, in color and printer-friendly. Includes a holiday-neutral Bee's Dinner copy.")
 
     footer(c)
     c.showPage()
@@ -347,7 +347,7 @@ def write_art(path, front, back, dpi=150):
 
 def main():
     front = sheet("bees-keys-friendsgiving-missing-beats-44-studio")
-    back = sheet("bees-keys-bees-friends-missing-beats-34")
+    back = sheet("bees-keys-bees-dinner-missing-beats-34")
 
     if "--art" in sys.argv:
         write_art(sys.argv[sys.argv.index("--art") + 1], front, back)
